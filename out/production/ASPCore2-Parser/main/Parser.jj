@@ -1,0 +1,217 @@
+options {
+  LOOKAHEAD = 4;
+  FORCE_LA_CHECK = true;
+ }
+PARSER_BEGIN(Parser)
+public class Parser
+{
+    public static void main(String args[]) throws ParseException
+        {
+            Parser parser = new Parser(System.in);
+            parser.rule();
+        }
+}
+PARSER_END(Parser)
+SKIP :
+{
+    " "
+|   "\r"
+|   "\t"
+}
+TOKEN:
+{
+    < ID: <LETTER>(<LETTER>| <NUMBER> | "_")*>
+|   < SYMBOLIC_COSTANT: ["a"-"z"](<LETTER> | <NUMBER> | "_")*>
+|   < VARIABLE: ["A"-"Z"](<LETTER> | <NUMBER> | "_")*>
+|   < STRING: "\"([ˆ\"]|\\\")*\"">
+|   < NUMBER: (["0"-"9"])+ >
+|   < DOT: ".">
+|   < BODY_TERM_SEPARATOR: ",">
+//|   < TERM_SEPARATOR: ",">
+|   < QUERY_MARK: "?">
+|   < COLON: ":">
+|   < SEMICOLON: ";">
+|   < HEAD_SEPARATOR: "|">
+|   < NAF: "not">
+|   < CONS: ":-">
+|   < WCONS: ":~">
+|   < PLUS: "+">
+|   < MINUS: "-">
+|   < TIMES: "*">
+|   < DIV: "/">
+|   < PARAM_OPEN: "(">
+|   < PARAM_CLOSE: ")">
+|   < SQUARE_OPEN: "[">
+|   < SQUARE_CLOSE: "]">
+|   < CURLY_OPEN: "{">
+|   < CURLY_CLOSE: "}">
+|   < EQUAL: "=">
+|   < UNEQUAL: "<>" | "!=">
+|   < LESS: "<">
+|   < GREATER: ">">
+|   < LESS_OR_EQ: "<=">
+|   < GREATER_OR_EQ: ">=">
+|   < AGGR_COUNT: "#count">
+|   < AGGR_SUM: "#sum">
+|   < AGGR_MAX: "#max">
+|   < AGGR_MIN: "#min">
+|   < COMMENT: "%.*$">
+|   < MULTI_LINE_COMMENT: "/%.*%/">
+//|   < BLANK: (" " | "\t"| "\n")+>
+|   < LETTER: ["A"-"Z","a"-"z"]>
+|   < AT: "@">
+|   < EOL: "\n" >
+|   < ANON_VAR:"_">
+}
+
+void parseOneLine():{}
+{
+   program()  { System.out.println("OK"); }
+  | <EOL>
+  | <EOF>               { System.exit(-1); }
+}
+
+void program():{}
+{
+    rules()
+}
+
+void rules():{}
+{
+    [rule() rules()]
+}
+
+void rule():{}
+{
+    <CONS> body() <DOT> {System.out.println("Regola ok");}
+|    head() [<CONS> body()] <DOT>  {System.out.println("Regola ok");}
+|   <WCONS> body() <DOT> {System.out.println("Regola ok");}
+}
+
+void head():{}
+{
+    disjunction() {System.out.println("OKOK");}
+}
+
+void body():{}
+{
+    conjunction()
+}
+
+void disjunction():{}
+{
+     classic_literal() [<HEAD_SEPARATOR> disjunction()]
+}
+
+void conjunction():{}
+{   //(naf_literal() | [<NAF>] aggregate_atom())
+     (naf_literal())
+     [<BODY_TERM_SEPARATOR> conjunction()]
+}
+
+void binop():{}
+{
+    <EQUAL>
+    |   <UNEQUAL>
+    |   <LESS>
+    |   <GREATER>
+    |   <LESS_OR_EQ>
+    |   <GREATER_OR_EQ>
+}
+
+void arithop():{}
+{
+    <PLUS>
+    |   <MINUS>
+    |   <TIMES>
+    |   <DIV>
+}
+
+void aggregate_elements():{}
+{
+     aggregate_element() [<SEMICOLON> aggregate_elements() ]
+}
+
+void aggregate_element():{}
+{
+    basic_terms() <COLON> naf_literals()
+}
+
+void aggregate_function():{}
+{
+    <AGGR_COUNT>
+    |   <AGGR_MAX>
+    |   <AGGR_MIN>
+    |   <AGGR_SUM>
+}
+
+void atom():{}
+{
+    predicate_name() [<PARAM_OPEN> terms() <PARAM_CLOSE>]{System.out.println("OK atomo");}
+}
+
+void builtin_atom():{}
+{
+    term() binop() term()
+}
+
+void classic_literal():{}
+{
+    [<MINUS>] atom() {System.out.println("OK classic_literal()");}
+}
+
+void terms():{}
+{
+     term() [<BODY_TERM_SEPARATOR> terms() ]
+}
+
+void basic_terms():{}
+{
+     basic_term() [<BODY_TERM_SEPARATOR> basic_terms() ]
+}
+
+void term():{}
+{
+    basic_term()
+    |   expressions_term()
+    |   function_term()
+}
+
+void basic_term():{}
+{
+    ground_term() | variable_term()
+}
+
+void ground_term():{}
+{
+    <SYMBOLIC_COSTANT>
+    |   <STRING>
+    |   [<MINUS>] <NUMBER>
+}
+
+void variable_term():{}
+{
+    <VARIABLE> {System.out.println("ok variable_term()");}
+    |   <ANON_VAR>
+}
+
+void function_term():{}
+{
+    predicate_name() <PARAM_OPEN> terms() <PARAM_CLOSE>
+}
+
+void expressions_term():{}
+{
+    expression_term() [arithop() expressions_term()]
+}
+void expression_term():{}
+{
+       <PARAM_OPEN> expression_term() <PARAM_CLOSE>
+    | ground_term()
+    | [<MINUS>] <VARIABLE>
+}
+void predicate_name():{}
+{
+    <ID> | <STRING>
+}
+
