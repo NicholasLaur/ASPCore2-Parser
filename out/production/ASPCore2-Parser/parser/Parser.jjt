@@ -1,0 +1,267 @@
+
+PARSER_BEGIN(Parser)
+
+public class Parser
+{
+    public static void main(String args[]) throws ParseException
+        {
+            Parser parser = new Parser(System.in);
+            SimpleNode root = parser.program();
+            root.dump("");
+            //parser.rule();
+        }
+}
+PARSER_END(Parser)
+SKIP :
+{
+    " "
+|   "\r"
+|   "\t"
+}
+TOKEN:{
+    < NAF: "not">
+}
+TOKEN:
+{
+    < ID: ["a"-"z"](<LETTER>| <NUMBER> | "_")*>
+|   < SYMBOLIC_COSTANT: ["a"-"z"](<LETTER> | <NUMBER> | "_")*>
+|   < VARIABLE: ["A"-"Z"](<LETTER> | <NUMBER> | "_")*>
+|   < STRING: "\"([ˆ\"]|\\\")*\"">
+|   < NUMBER: (["0"-"9"])+ >
+|   < DOT: ".">
+|   < BODY_TERM_SEPARATOR: ",">
+//|   < TERM_SEPARATOR: ",">
+|   < QUERY_MARK: "?">
+|   < COLON: ":">
+|   < SEMICOLON: ";">
+|   < HEAD_SEPARATOR: "|">
+|   < CONS: ":-">
+|   < WCONS: ":~">
+|   < PLUS: "+">
+|   < MINUS: "-">
+|   < TIMES: "*">
+|   < DIV: "/">
+|   < PARAM_OPEN: "(">
+|   < PARAM_CLOSE: ")">
+|   < SQUARE_OPEN: "[">
+|   < SQUARE_CLOSE: "]">
+|   < CURLY_OPEN: "{">
+|   < CURLY_CLOSE: "}">
+|   < EQUAL: "=">
+|   < UNEQUAL: "<>" | "!=">
+|   < LESS: "<">
+|   < GREATER: ">">
+|   < LESS_OR_EQ: "<=">
+|   < GREATER_OR_EQ: ">=">
+|   < AGGR_COUNT: "#count">
+|   < AGGR_SUM: "#sum">
+|   < AGGR_MAX: "#max">
+|   < AGGR_MIN: "#min">
+|   < COMMENT: "%.*$">
+|   < MULTI_LINE_COMMENT: "/%.*%/">
+//|   < BLANK: (" " | "\t"| "\n")+>
+|   < LETTER: ["A"-"Z","a"-"z"]>
+|   < AT: "@">
+|   < EOL: "\n" >
+|   < ANON_VAR:"_">
+}
+
+void parseOneLine():{}
+{
+   program()
+  | <EOL>
+  | <EOF>               { System.exit(-1); }
+}
+
+SimpleNode program():{}
+{
+    rules() {return jjtThis;}
+}
+
+void rules():{}
+{
+    [rule() rules()]
+}
+
+boolean rule() #RULE:{}
+{
+    <CONS> body() <DOT> {return true;}
+|    head() [<CONS> body()] <DOT>  {return true;}
+|   <WCONS> body() <DOT> {return true;}
+
+}
+
+void head() #HEAD:{}
+{
+    disjunction() |
+     choice_atom()
+}
+
+void body() #BODY:{}
+{
+    conjunction()
+}
+
+void disjunction() #DISJUNCTION:{}
+{
+     classic_literal() [<HEAD_SEPARATOR> disjunction()]
+}
+
+void conjunction() #CONJUNCTION:{}
+{
+
+        (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
+        [<BODY_TERM_SEPARATOR> conjunction()]
+
+}
+
+void choice_atom() #CHOICE_ATOM:{}
+{
+    [binop() term()] <CURLY_OPEN> choice_elements() <CURLY_CLOSE> [binop() term()]
+}
+
+void choice_elements() #CHOICE_ELEMENTS:{}
+{
+     choice_element() [<SEMICOLON> choice_elements()]
+}
+
+void choice_element() #CHOICE_ELEMENT:{}
+{
+   atom() [<COLON> naf_literals()]
+}
+
+void binop() #BINOP:
+{
+
+}
+{
+    <EQUAL>
+    |   <UNEQUAL>
+    |   <LESS>
+    |   <GREATER>
+    |   <LESS_OR_EQ>
+    |   <GREATER_OR_EQ>
+}
+
+void arithop() #ARITHOP:{}
+{
+    <PLUS>
+    |   <MINUS>
+    |   <TIMES>
+    |   <DIV>
+}
+
+void aggregate_atom() #AGGREGATE_ATOM:{}
+{
+    LOOKAHEAD(5)
+    [term() binop()] aggregate_function()
+            <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> binop() term()
+    |   term() binop() aggregate_function()
+                <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> [binop() term()]
+}
+
+void aggregate_elements() #AGGREGATE_ELEMENTS:{}
+{
+     aggregate_element() [<SEMICOLON> aggregate_elements() ]
+}
+
+void aggregate_element() #AGGREGATE_ELEMENT:{}
+{
+    basic_terms() <COLON> naf_literals()
+}
+
+void aggregate_function() #AGGREGATE_FUNCTION:{}
+{
+    <AGGR_COUNT>
+    |   <AGGR_MAX>
+    |   <AGGR_MIN>
+    |   <AGGR_SUM>
+}
+
+void atom() #ATOM:{}
+{
+    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]
+}
+
+void builtin_atom() #BUILTIN_ATOM:{}
+{
+    term() binop() term()
+}
+
+void classic_literal() #CLASSIC_LITERAL:{}
+{
+    [<MINUS>] atom()
+}
+
+void naf_literals() #NAF_LITERALS:{}
+{
+     naf_literal() [<BODY_TERM_SEPARATOR> naf_literals() ]
+}
+
+void naf_literal() #NAF_LITERAL:{}
+{
+    LOOKAHEAD(3)
+    [<NAF>] classic_literal() | builtin_atom()
+}
+
+void terms() #TERMS:{}
+{
+     term() [<BODY_TERM_SEPARATOR> terms() ]
+}
+
+void basic_terms() #BASIC_TERMS:{}
+{
+      basic_term() [<BODY_TERM_SEPARATOR> basic_terms() ]
+}
+
+void term() #TERM:{}
+{
+    (LOOKAHEAD(3)
+    basic_term()
+    |   expressions_term()
+    |   function_term()
+    )
+}
+
+void basic_term() #BASIC_TERM:{}
+{
+    ground_term() | variable_term()
+}
+
+void ground_term() #GROUND_TERM:{ Token ground_term;}
+{
+    <SYMBOLIC_COSTANT>
+    |   <STRING>
+    |    [<MINUS>] ground_term = <NUMBER>
+    {jjtThis.value = String.valueOf(ground_term.image);}
+}
+
+void variable_term() #VARIABLE_TERM:{}
+{
+    <VARIABLE>
+    |   <ANON_VAR>
+}
+
+void function_term() #FUNCTION_TERM:{}
+{
+    predicate_name() <PARAM_OPEN> terms() <PARAM_CLOSE>
+}
+
+void expressions_term() #EXPRESSIONS_TERM:{}
+{
+    expression_term() [arithop() expressions_term()]
+}
+void expression_term() #EXPRESSION_TERM:{}
+{
+
+       <PARAM_OPEN> expression_term() <PARAM_CLOSE>
+    |(   LOOKAHEAD(2)
+     ground_term()
+    | [<MINUS>] <VARIABLE>
+    )
+}
+void predicate_name() #PREDICATE_NAME:{}
+{
+    <ID> | <STRING>
+}
+

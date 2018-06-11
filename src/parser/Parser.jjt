@@ -1,10 +1,14 @@
+
 PARSER_BEGIN(Parser)
+
 public class Parser
 {
     public static void main(String args[]) throws ParseException
         {
             Parser parser = new Parser(System.in);
-            parser.rule();
+            SimpleNode root = parser.program();
+            root.dump("");
+            //parser.rule();
         }
 }
 PARSER_END(Parser)
@@ -31,7 +35,6 @@ TOKEN:
 |   < COLON: ":">
 |   < SEMICOLON: ";">
 |   < HEAD_SEPARATOR: "|">
-
 |   < CONS: ":-">
 |   < WCONS: ":~">
 |   < PLUS: "+">
@@ -65,14 +68,14 @@ TOKEN:
 
 void parseOneLine():{}
 {
-   program()  { System.out.println("OK"); }
+   program()
   | <EOL>
   | <EOF>               { System.exit(-1); }
 }
 
-void program():{}
+SimpleNode program():{}
 {
-    rules()
+    rules() {return jjtThis;}
 }
 
 void rules():{}
@@ -80,7 +83,7 @@ void rules():{}
     [rule() rules()]
 }
 
-boolean rule():{}
+boolean rule() #RULE:{}
 {
     <CONS> body() <DOT> {return true;}
 |    head() [<CONS> body()] <DOT>  {return true;}
@@ -88,23 +91,23 @@ boolean rule():{}
 
 }
 
-void head():{}
+void head() #HEAD:{}
 {
-    disjunction() {System.out.println("OKOK");} |
+    disjunction() |
      choice_atom()
 }
 
-void body():{}
+void body() #BODY:{}
 {
     conjunction()
 }
 
-void disjunction():{}
+void disjunction() #DISJUNCTION:{}
 {
      classic_literal() [<HEAD_SEPARATOR> disjunction()]
 }
 
-void conjunction():{}
+void conjunction() #CONJUNCTION:{}
 {
 
         (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
@@ -112,22 +115,25 @@ void conjunction():{}
 
 }
 
-void choice_atom():{}
+void choice_atom() #CHOICE_ATOM:{}
 {
     [binop() term()] <CURLY_OPEN> choice_elements() <CURLY_CLOSE> [binop() term()]
 }
 
-void choice_elements():{}
+void choice_elements() #CHOICE_ELEMENTS:{}
 {
      choice_element() [<SEMICOLON> choice_elements()]
 }
 
-void choice_element():{}
+void choice_element() #CHOICE_ELEMENT:{}
 {
    atom() [<COLON> naf_literals()]
 }
 
-void binop():{}
+void binop() #BINOP:
+{
+
+}
 {
     <EQUAL>
     |   <UNEQUAL>
@@ -137,7 +143,7 @@ void binop():{}
     |   <GREATER_OR_EQ>
 }
 
-void arithop():{}
+void arithop() #ARITHOP:{}
 {
     <PLUS>
     |   <MINUS>
@@ -145,7 +151,7 @@ void arithop():{}
     |   <DIV>
 }
 
-void aggregate_atom():{}
+void aggregate_atom() #AGGREGATE_ATOM:{}
 {
     LOOKAHEAD(5)
     [term() binop()] aggregate_function()
@@ -154,17 +160,17 @@ void aggregate_atom():{}
                 <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> [binop() term()]
 }
 
-void aggregate_elements():{}
+void aggregate_elements() #AGGREGATE_ELEMENTS:{}
 {
      aggregate_element() [<SEMICOLON> aggregate_elements() ]
 }
 
-void aggregate_element():{}
+void aggregate_element() #AGGREGATE_ELEMENT:{}
 {
     basic_terms() <COLON> naf_literals()
 }
 
-void aggregate_function():{}
+void aggregate_function() #AGGREGATE_FUNCTION:{}
 {
     <AGGR_COUNT>
     |   <AGGR_MAX>
@@ -172,43 +178,43 @@ void aggregate_function():{}
     |   <AGGR_SUM>
 }
 
-void atom():{}
+void atom() #ATOM:{}
 {
-    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]{System.out.println("OK atomo");}
+    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]
 }
 
-void builtin_atom():{}
+void builtin_atom() #BUILTIN_ATOM:{}
 {
     term() binop() term()
 }
 
-void classic_literal():{}
+void classic_literal() #CLASSIC_LITERAL:{}
 {
-    [<MINUS>] atom() {System.out.println("OK classic_literal()");}
+    [<MINUS>] atom()
 }
 
-void naf_literals():{}
+void naf_literals() #NAF_LITERALS:{}
 {
      naf_literal() [<BODY_TERM_SEPARATOR> naf_literals() ]
 }
 
-void naf_literal():{}
+void naf_literal() #NAF_LITERAL:{}
 {
     LOOKAHEAD(3)
-    [<NAF>] classic_literal() {System.out.println("Ok naf_literal()");} | builtin_atom()
+    [<NAF>] classic_literal() | builtin_atom()
 }
 
-void terms():{}
+void terms() #TERMS:{}
 {
      term() [<BODY_TERM_SEPARATOR> terms() ]
 }
 
-void basic_terms():{}
+void basic_terms() #BASIC_TERMS:{}
 {
       basic_term() [<BODY_TERM_SEPARATOR> basic_terms() ]
 }
 
-void term():{}
+void term() #TERM:{}
 {
     (LOOKAHEAD(3)
     basic_term()
@@ -217,34 +223,35 @@ void term():{}
     )
 }
 
-void basic_term():{}
+void basic_term() #BASIC_TERM:{}
 {
     ground_term() | variable_term()
 }
 
-void ground_term():{}
+void ground_term() #GROUND_TERM:{ Token ground_term;}
 {
     <SYMBOLIC_COSTANT>
     |   <STRING>
-    |   [<MINUS>] <NUMBER>
+    |    [<MINUS>] ground_term = <NUMBER>
+    {jjtThis.value = String.valueOf(ground_term.image);}
 }
 
-void variable_term():{}
+void variable_term() #VARIABLE_TERM:{}
 {
-    <VARIABLE> {System.out.println("ok variable_term()");}
+    <VARIABLE>
     |   <ANON_VAR>
 }
 
-void function_term():{}
+void function_term() #FUNCTION_TERM:{}
 {
-    predicate_name() <PARAM_OPEN> terms() <PARAM_CLOSE> {System.out.println("Ok function_term()");}
+    predicate_name() <PARAM_OPEN> terms() <PARAM_CLOSE>
 }
 
-void expressions_term():{}
+void expressions_term() #EXPRESSIONS_TERM:{}
 {
     expression_term() [arithop() expressions_term()]
 }
-void expression_term():{}
+void expression_term() #EXPRESSION_TERM:{}
 {
 
        <PARAM_OPEN> expression_term() <PARAM_CLOSE>
@@ -253,7 +260,7 @@ void expression_term():{}
     | [<MINUS>] <VARIABLE>
     )
 }
-void predicate_name():{}
+void predicate_name() #PREDICATE_NAME:{}
 {
     <ID> | <STRING>
 }
