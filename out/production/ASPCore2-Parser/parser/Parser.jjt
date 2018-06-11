@@ -1,3 +1,11 @@
+options{
+    ERROR_REPORTING = true;
+    MULTI = true;
+    VISITOR = true;
+    NODE_DEFAULT_VOID=true;
+    NODE_PREFIX = "ASPCore2";
+
+}
 
 PARSER_BEGIN(Parser)
 
@@ -6,8 +14,16 @@ public class Parser
     public static void main(String args[]) throws ParseException
         {
             Parser parser = new Parser(System.in);
-            SimpleNode root = parser.program();
-            root.dump("");
+            try{
+                ASPCore2Program start = parser.program();
+                start.dump("");
+                //start.jjtAccept(visitor,null);
+            }catch(Exception e){
+                System.out.println("Oops.");
+                System.out.println(e.getMessage());
+            }
+           // SimpleNode root = parser.program();
+           // root.dump("");
             //parser.rule();
         }
 }
@@ -66,24 +82,24 @@ TOKEN:
 |   < ANON_VAR:"_">
 }
 
-void parseOneLine():{}
+void parseOneLine() #Parse_one_line:{}
 {
    program()
   | <EOL>
   | <EOF>               { System.exit(-1); }
 }
 
-SimpleNode program():{}
+ASPCore2Program program() #Program:{}
 {
     rules() {return jjtThis;}
 }
 
-void rules():{}
+void rules() #Rules:{}
 {
     [rule() rules()]
 }
 
-boolean rule() #RULE:{}
+boolean rule() #Rule:{}
 {
     <CONS> body() <DOT> {return true;}
 |    head() [<CONS> body()] <DOT>  {return true;}
@@ -91,49 +107,44 @@ boolean rule() #RULE:{}
 
 }
 
-void head() #HEAD:{}
+void head() #Head:{}
 {
     disjunction() |
      choice_atom()
 }
 
-void body() #BODY:{}
+void body() #Body:{}
 {
     conjunction()
 }
 
-void disjunction() #DISJUNCTION:{}
+void disjunction() #Disjunction:{}
 {
      classic_literal() [<HEAD_SEPARATOR> disjunction()]
 }
 
-void conjunction() #CONJUNCTION:{}
+void conjunction() #Conjunction:{}
 {
-
-        (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
-        [<BODY_TERM_SEPARATOR> conjunction()]
-
+    (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
+    [<BODY_TERM_SEPARATOR> conjunction()]
 }
 
-void choice_atom() #CHOICE_ATOM:{}
+void choice_atom() #Choice_atom:{}
 {
     [binop() term()] <CURLY_OPEN> choice_elements() <CURLY_CLOSE> [binop() term()]
 }
 
-void choice_elements() #CHOICE_ELEMENTS:{}
+void choice_elements() #Choice_elements:{}
 {
      choice_element() [<SEMICOLON> choice_elements()]
 }
 
-void choice_element() #CHOICE_ELEMENT:{}
+void choice_element() #Choice_element:{}
 {
    atom() [<COLON> naf_literals()]
 }
 
-void binop() #BINOP:
-{
-
-}
+void binop() #Binop:{}
 {
     <EQUAL>
     |   <UNEQUAL>
@@ -143,7 +154,7 @@ void binop() #BINOP:
     |   <GREATER_OR_EQ>
 }
 
-void arithop() #ARITHOP:{}
+void arithop() #Arithop:{}
 {
     <PLUS>
     |   <MINUS>
@@ -151,7 +162,7 @@ void arithop() #ARITHOP:{}
     |   <DIV>
 }
 
-void aggregate_atom() #AGGREGATE_ATOM:{}
+void aggregate_atom() #Aggregate_atom:{}
 {
     LOOKAHEAD(5)
     [term() binop()] aggregate_function()
@@ -160,17 +171,17 @@ void aggregate_atom() #AGGREGATE_ATOM:{}
                 <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> [binop() term()]
 }
 
-void aggregate_elements() #AGGREGATE_ELEMENTS:{}
+void aggregate_elements() #Aggregate_elements:{}
 {
      aggregate_element() [<SEMICOLON> aggregate_elements() ]
 }
 
-void aggregate_element() #AGGREGATE_ELEMENT:{}
+void aggregate_element() #Aggregate_element:{}
 {
     basic_terms() <COLON> naf_literals()
 }
 
-void aggregate_function() #AGGREGATE_FUNCTION:{}
+void aggregate_function() #Aggregate_function:{}
 {
     <AGGR_COUNT>
     |   <AGGR_MAX>
@@ -178,43 +189,43 @@ void aggregate_function() #AGGREGATE_FUNCTION:{}
     |   <AGGR_SUM>
 }
 
-void atom() #ATOM:{}
+void atom() #Atom:{}
 {
     predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]
 }
 
-void builtin_atom() #BUILTIN_ATOM:{}
+void builtin_atom() #Builtin_atom:{}
 {
     term() binop() term()
 }
 
-void classic_literal() #CLASSIC_LITERAL:{}
+void classic_literal() #Classic_literal:{}
 {
     [<MINUS>] atom()
 }
 
-void naf_literals() #NAF_LITERALS:{}
+void naf_literals() #Naf_literals:{}
 {
      naf_literal() [<BODY_TERM_SEPARATOR> naf_literals() ]
 }
 
-void naf_literal() #NAF_LITERAL:{}
+void naf_literal() #Naf_literal:{}
 {
     LOOKAHEAD(3)
     [<NAF>] classic_literal() | builtin_atom()
 }
 
-void terms() #TERMS:{}
+void terms() #Terms:{}
 {
      term() [<BODY_TERM_SEPARATOR> terms() ]
 }
 
-void basic_terms() #BASIC_TERMS:{}
+void basic_terms() #Basic_terms:{}
 {
       basic_term() [<BODY_TERM_SEPARATOR> basic_terms() ]
 }
 
-void term() #TERM:{}
+void term() #Term:{}
 {
     (LOOKAHEAD(3)
     basic_term()
@@ -223,35 +234,34 @@ void term() #TERM:{}
     )
 }
 
-void basic_term() #BASIC_TERM:{}
+void basic_term() #Basic_term:{}
 {
     ground_term() | variable_term()
 }
 
-void ground_term() #GROUND_TERM:{ Token ground_term;}
+void ground_term() #Ground_term:{}
 {
     <SYMBOLIC_COSTANT>
     |   <STRING>
-    |    [<MINUS>] ground_term = <NUMBER>
-    {jjtThis.value = String.valueOf(ground_term.image);}
+    |    [<MINUS>] <NUMBER>
 }
 
-void variable_term() #VARIABLE_TERM:{}
+void variable_term() #Variable_term:{}
 {
     <VARIABLE>
     |   <ANON_VAR>
 }
 
-void function_term() #FUNCTION_TERM:{}
+void function_term() #Function_term:{}
 {
     predicate_name() <PARAM_OPEN> terms() <PARAM_CLOSE>
 }
 
-void expressions_term() #EXPRESSIONS_TERM:{}
+void expressions_term() #Expressions_term:{}
 {
     expression_term() [arithop() expressions_term()]
 }
-void expression_term() #EXPRESSION_TERM:{}
+void expression_term() #Expression_term:{}
 {
 
        <PARAM_OPEN> expression_term() <PARAM_CLOSE>
@@ -260,7 +270,7 @@ void expression_term() #EXPRESSION_TERM:{}
     | [<MINUS>] <VARIABLE>
     )
 }
-void predicate_name() #PREDICATE_NAME:{}
+void predicate_name() #Predicate_name:{}
 {
     <ID> | <STRING>
 }
