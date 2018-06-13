@@ -19,7 +19,7 @@ class ASPCore2Ground_term extends SimpleNode {
 
   /** Accept the visitor. **/
   public Object jjtAccept(ParserVisitor visitor, Object data) {
-
+    System.out.println(getClass().getName()+": "+this.value);
     return
     visitor.visit(this, data);
   }

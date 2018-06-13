@@ -16,8 +16,9 @@ public class Parser
             Parser parser = new Parser(System.in);
             try{
                 ASPCore2Program start = parser.program();
-                start.dump("");
-                //start.jjtAccept(visitor,null);
+                //start.dump("");
+                ParserVisitor visitor = new ParserDefaultVisitor();
+                start.jjtAccept(visitor,null);
             }catch(Exception e){
                 System.out.println("Oops.");
                 System.out.println(e.getMessage());
@@ -189,9 +190,12 @@ void aggregate_function() #Aggregate_function:{}
     |   <AGGR_SUM>
 }
 
-void atom() #Atom:{}
+void atom() #Atom:
 {
-    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]
+}
+{
+    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE> ]
+
 }
 
 void builtin_atom() #Builtin_atom:{}
@@ -217,7 +221,7 @@ void naf_literal() #Naf_literal:{}
 
 void terms() #Terms:{}
 {
-     term() [<BODY_TERM_SEPARATOR> terms() ]
+     term() [<BODY_TERM_SEPARATOR> terms()]
 }
 
 void basic_terms() #Basic_terms:{}
@@ -236,19 +240,20 @@ void term() #Term:{}
 
 void basic_term() #Basic_term:{}
 {
-    ground_term() | variable_term()
+    ground_term()
+    | variable_term()
 }
 
-void ground_term() #Ground_term:{}
+void ground_term() #Ground_term:{Token t;}
 {
-    <SYMBOLIC_COSTANT>
+    t = <SYMBOLIC_COSTANT> {jjtThis.value = String.valueOf(t.image);}
     |   <STRING>
-    |    [<MINUS>] <NUMBER>
+    |    [<MINUS>] t = <NUMBER> {jjtThis.value = t;}
 }
 
-void variable_term() #Variable_term:{}
+void variable_term() #Variable_term:{Token t;}
 {
-    <VARIABLE>
+    t = <VARIABLE> {jjtThis.value = t;}
     |   <ANON_VAR>
 }
 
@@ -265,13 +270,14 @@ void expression_term() #Expression_term:{}
 {
 
        <PARAM_OPEN> expression_term() <PARAM_CLOSE>
-    |(   LOOKAHEAD(2)
+    |( LOOKAHEAD(2)
      ground_term()
     | [<MINUS>] <VARIABLE>
     )
 }
-void predicate_name() #Predicate_name:{}
+ASPCore2Predicate_name predicate_name() #Predicate_name:{Token t;}
 {
-    <ID> | <STRING>
+    t = <ID>        {jjtThis.value = t;return jjtThis;}
+    | t = <STRING>  {jjtThis.value = t;return jjtThis;}
 }
 
