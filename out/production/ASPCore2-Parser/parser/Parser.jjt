@@ -4,7 +4,8 @@ options{
     VISITOR = true;
     NODE_DEFAULT_VOID=true;
     NODE_PREFIX = "ASPCore2";
-
+    CACHE_TOKENS = true;
+    STATIC = false;
 }
 
 PARSER_BEGIN(Parser)
@@ -13,16 +14,32 @@ public class Parser
 {
     public static void main(String args[]) throws ParseException
         {
-            Parser parser = new Parser(System.in);
-            try{
-                ASPCore2Program start = parser.program();
-                //start.dump("");
-                ParserVisitor visitor = new ParserDefaultVisitor();
-                start.jjtAccept(visitor,null);
-            }catch(Exception e){
-                System.out.println("Oops.");
-                System.out.println(e.getMessage());
-            }
+
+           Parser parser;
+                   try {
+                       File file = new File("C:/Users/nlaur/Desktop/ciao.txt");
+                        FileReader fileReader = new FileReader(file);
+                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/ciao.txt"));
+                        parser = new Parser(fileReader);
+                        String line;
+                        ParserVisitor visitor = new MyParserVisitor();
+                        ASPCore2Program start;
+                        while ((line = br.readLine()) != null) {
+                        try {
+                            System.out.println(line);
+                            start = parser.parseOneLine();
+                            start.jjtAccept(visitor, null);
+                        } catch (Exception e) {
+                            System.out.println("Errore nel file");
+                            System.out.println(e.getMessage());
+                            // parser.ReInit(fileReader);
+                        }
+                        }
+                        br.close();
+                   } catch (Exception e) {
+                       System.out.println("Oops.");
+                       System.out.println(e.getMessage());
+                   }
            // SimpleNode root = parser.program();
            // root.dump("");
             //parser.rule();
@@ -83,9 +100,12 @@ TOKEN:
 |   < ANON_VAR:"_">
 }
 
-void parseOneLine() #Parse_one_line:{}
+ASPCore2Program parseOneLine() #Parse_one_line:
 {
-   program()
+    ASPCore2Program aspProgram;
+}
+{
+   aspProgram = program() [<EOL>] {return aspProgram;}
   | <EOL>
   | <EOF>               { System.exit(-1); }
 }
@@ -246,15 +266,15 @@ void basic_term() #Basic_term:{}
 
 void ground_term() #Ground_term:{Token t;}
 {
-    t=<SYMBOLIC_COSTANT> {jjtThis.value = String.valueOf(t.image);}
-    |   <STRING>
-    |    [<MINUS>] t=<NUMBER> {jjtThis.value = t;}
+    t = <SYMBOLIC_COSTANT> {jjtThis.value = String.valueOf(t.image);}
+    |   t = <STRING> {jjtThis.value = String.valueOf(t.image);}
+    |    [<MINUS>] t = <NUMBER> {jjtThis.value = String.valueOf(t.image);}
 }
 
 void variable_term() #Variable_term:{Token t;}
 {
     t = <VARIABLE> {jjtThis.value = t;}
-    |   <ANON_VAR>
+    |  t= <ANON_VAR> {jjtThis.value = t;}
 }
 
 void function_term() #Function_term:{}
@@ -270,14 +290,14 @@ void expression_term() #Expression_term:{}
 {
 
        <PARAM_OPEN> expression_term() <PARAM_CLOSE>
-    |(   LOOKAHEAD(2)
+    |( LOOKAHEAD(2)
      ground_term()
     | [<MINUS>] <VARIABLE>
     )
 }
 ASPCore2Predicate_name predicate_name() #Predicate_name:{Token t;}
 {
-    t=<ID>        {jjtThis.value = t;return jjtThis;}
-    | t=<STRING>  {jjtThis.value = t;return jjtThis;}
+    t = <ID>        {jjtThis.value = t;return jjtThis;}
+    | t = <STRING>  {jjtThis.value = t;return jjtThis;}
 }
 

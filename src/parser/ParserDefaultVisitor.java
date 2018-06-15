@@ -107,5 +107,10 @@ public class ParserDefaultVisitor implements ParserVisitor{
   public Object visit(ASPCore2Predicate_name node, Object data){
     return defaultVisit(node, data);
   }
+
+  @Override
+  public void addPredicateName(ASPCore2Predicate_name aspCore2Predicate_name) {
+
+  }
 }
 /* JavaCC - OriginalChecksum=67766f02c92107fa5076cfb9f5d01c9c (do not edit this line) */

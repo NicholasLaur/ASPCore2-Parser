@@ -38,5 +38,7 @@ public interface ParserVisitor
   public Object visit(ASPCore2Expressions_term node, Object data);
   public Object visit(ASPCore2Expression_term node, Object data);
   public Object visit(ASPCore2Predicate_name node, Object data);
+
+  void addPredicateName(ASPCore2Predicate_name aspCore2Predicate_name);
 }
 /* JavaCC - OriginalChecksum=6fe60ea8bb637722f17b14b4efa668c2 (do not edit this line) */

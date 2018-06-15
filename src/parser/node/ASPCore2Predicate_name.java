@@ -15,15 +15,20 @@ public class ASPCore2Predicate_name extends SimpleNode {
         super(p, id);
     }
 
-
     /**
      * Accept the visitor.
      **/
     public Object jjtAccept(ParserVisitor visitor, Object data) {
-        System.out.println(getClass().getName() + ": " + this.value);
+       // System.out.println(getClass().getName() + ": " + this.value);
+        visitor.addPredicateName(this);
+        return visitor.visit(this, data);
+    }
 
-        return
-                visitor.visit(this, data);
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof ASPCore2Predicate_name))
+            return false;
+        return ((ASPCore2Predicate_name)obj).value.toString().equals(this.value.toString());
     }
 }
 /* JavaCC - OriginalChecksum=5d1e88d66692e921c036312419e27a8e (do not edit this line) */

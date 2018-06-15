@@ -5,7 +5,7 @@
                    
                            
                              
-
+    CACHE_TOKENS = true;
 }
 
 PARSER_BEGIN(Parser)
@@ -17,16 +17,27 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
 /*@egen*/
     public static void main(String args[]) throws ParseException
         {
-            Parser parser = new Parser(System.in);
-            try{
-                ASPCore2Program start = parser.program();
-                //start.dump("");
-                ParserVisitor visitor = new ParserDefaultVisitor();
-                start.jjtAccept(visitor,null);
-            }catch(Exception e){
-                System.out.println("Oops.");
-                System.out.println(e.getMessage());
-            }
+
+           Parser parser;
+                   try {
+                       File file = new File("C:/Users/nlaur/Desktop/ciao.txt");
+                       FileReader fileReader = new FileReader(file);
+                       Scanner scanner = new Scanner(new File("C:/Users/nlaur/Desktop/ciao.txt"));
+                       BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/ciao.txt"));
+                       parser = new Parser(fileReader);
+                       String line;
+                       ParserVisitor visitor = new MyParserVisitor();
+                       ASPCore2Program start;
+                       while ((line = br.readLine()) != null) {
+                           System.out.println("QUI");
+                           start = parser.parseOneLine();
+                           start.jjtAccept(visitor, null);
+                       }
+                       br.close();
+                   } catch (Exception e) {
+                       System.out.println("Oops.");
+                       System.out.println(e.getMessage());
+                   }
            // SimpleNode root = parser.program();
            // root.dump("");
             //parser.rule();
@@ -87,15 +98,23 @@ TOKEN:
 |   < ANON_VAR:"_">
 }
 
-void parseOneLine()                :{/*@bgen(jjtree) Parse_one_line */
-  ASPCore2Parse_one_line jjtn000 = new ASPCore2Parse_one_line(JJTPARSE_ONE_LINE);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
+ASPCore2Program parseOneLine()                :
+{/*@bgen(jjtree) Parse_one_line */
+    ASPCore2Parse_one_line jjtn000 = new ASPCore2Parse_one_line(JJTPARSE_ONE_LINE);
+    boolean jjtc000 = true;
+    jjtree.openNodeScope(jjtn000);
+/*@egen*/
+    ASPCore2Program aspProgram;
+}
 {/*@bgen(jjtree) Parse_one_line */
    try {
 /*@egen*/
-   program()
+   aspProgram = program() [<EOL>]/*@bgen(jjtree)*/
+                                  {
+                                    jjtree.closeNodeScope(jjtn000, true);
+                                    jjtc000 = false;
+                                  }
+/*@egen*/ {return aspProgram;}
   | <EOL>
   | <EOF>/*@bgen(jjtree)*/
                         {
@@ -921,13 +940,18 @@ void ground_term()             :{/*@bgen(jjtree) Ground_term */
                              jjtc000 = false;
                            }
 /*@egen*/ {jjtn000.value = String.valueOf(t.image);}
-    |   <STRING>
+    |   t = <STRING>/*@bgen(jjtree)*/
+                     {
+                       jjtree.closeNodeScope(jjtn000, true);
+                       jjtc000 = false;
+                     }
+/*@egen*/ {jjtn000.value = String.valueOf(t.image);}
     |    [<MINUS>] t = <NUMBER>/*@bgen(jjtree)*/
                                 {
                                   jjtree.closeNodeScope(jjtn000, true);
                                   jjtc000 = false;
                                 }
-/*@egen*/ {jjtn000.value = t;}/*@bgen(jjtree)*/
+/*@egen*/ {jjtn000.value = String.valueOf(t.image);}/*@bgen(jjtree)*/
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
@@ -950,7 +974,12 @@ void variable_term()               :{/*@bgen(jjtree) Variable_term */
                      jjtc000 = false;
                    }
 /*@egen*/ {jjtn000.value = t;}
-    |   <ANON_VAR>/*@bgen(jjtree)*/
+    |  t= <ANON_VAR>/*@bgen(jjtree)*/
+                     {
+                       jjtree.closeNodeScope(jjtn000, true);
+                       jjtc000 = false;
+                     }
+/*@egen*/ {jjtn000.value = t;}/*@bgen(jjtree)*/
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
