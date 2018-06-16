@@ -3,6 +3,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import parser.ParseException;
 import parser.Parser;
+import parser.ASPCore2Program;
 
 import java.io.ByteArrayInputStream;
 
@@ -76,7 +77,7 @@ public class FirstTest {
 
     @Test
     public void ninethTest() throws ParseException {
-        test = "f(X) | g(X):-ok(X).";
+        test = "f(X) | g(X) :-ok(X).";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         Assert.assertTrue(parser.rule());
     }
@@ -90,9 +91,11 @@ public class FirstTest {
 
     @Test
     public void eleventhTest() throws ParseException {
-        test = ":-f(1), not a.";
+        test = ":-f(1), not a(X).";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
-        Assert.assertTrue(parser.rule());
+        //Assert.assertTrue(parser.rule());
+        ASPCore2Program program = parser.program();
+        program.dump("");
     }
 
     @Test(expected = ParseException.class)

@@ -6,10 +6,11 @@
                            
                              
     CACHE_TOKENS = true;
+    OUTPUT_DIRECTORY = "parser/";
 }
 
 PARSER_BEGIN(Parser)
-
+package parser;
 public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
 {/*@bgen(jjtree)*/
   protected static JJTParserState jjtree = new JJTParserState();
@@ -21,19 +22,25 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
            Parser parser;
                    try {
                        File file = new File("C:/Users/nlaur/Desktop/ciao.txt");
-                       FileReader fileReader = new FileReader(file);
-                       Scanner scanner = new Scanner(new File("C:/Users/nlaur/Desktop/ciao.txt"));
-                       BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/ciao.txt"));
-                       parser = new Parser(fileReader);
-                       String line;
-                       ParserVisitor visitor = new MyParserVisitor();
-                       ASPCore2Program start;
-                       while ((line = br.readLine()) != null) {
-                           System.out.println("QUI");
-                           start = parser.parseOneLine();
-                           start.jjtAccept(visitor, null);
-                       }
-                       br.close();
+                        FileReader fileReader = new FileReader(file);
+                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/ciao.txt"));
+                        parser = new Parser(fileReader);
+                        String line;
+                        ParserVisitor visitor = new MyParserVisitor();
+                        ASPCore2Program start;
+                        while ((line = br.readLine()) != null) {
+                        try {
+                            System.out.println(line);
+                            start = parser.parseOneLine();
+                            start.jjtAccept(visitor, null);
+                        } catch (Exception e) {
+                            System.out.println("Errore nel file");
+                            System.out.println(e.getMessage());
+
+                            // parser.ReInit(fileReader);
+                        }
+                        }
+                        br.close();
                    } catch (Exception e) {
                        System.out.println("Oops.");
                        System.out.println(e.getMessage());
@@ -362,7 +369,7 @@ void conjunction()             :{/*@bgen(jjtree) Conjunction */
 {/*@bgen(jjtree) Conjunction */
     try {
 /*@egen*/
-    (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
+    (LOOKAHEAD(3) naf_literal() | aggregate_atom() | naf_aggregate_atom())
     [<BODY_TERM_SEPARATOR> conjunction()]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -521,6 +528,36 @@ void arithop()         :{/*@bgen(jjtree) Arithop */
 /*@egen*/
 }
 
+void naf_aggregate_atom()                      :{/*@bgen(jjtree) #Naf_Aggregate_atom(true) */
+  ASPCore2Naf_Aggregate_atom jjtn000 = new ASPCore2Naf_Aggregate_atom(JJTNAF_AGGREGATE_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) #Naf_Aggregate_atom(true) */
+    try {
+/*@egen*/
+    <NAF> aggregate_atom()/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
 void aggregate_atom()                :{/*@bgen(jjtree) Aggregate_atom */
   ASPCore2Aggregate_atom jjtn000 = new ASPCore2Aggregate_atom(JJTAGGREGATE_ATOM);
   boolean jjtc000 = true;
@@ -703,6 +740,37 @@ void builtin_atom()              :{/*@bgen(jjtree) Builtin_atom */
 /*@egen*/
 }
 
+void naf_classic_literal()                     :{/*@bgen(jjtree) Naf_Classic_literal */
+  ASPCore2Naf_Classic_literal jjtn000 = new ASPCore2Naf_Classic_literal(JJTNAF_CLASSIC_LITERAL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Naf_Classic_literal */
+    try {
+/*@egen*/
+    <NAF> classic_literal()/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
+
 void classic_literal()                 :{/*@bgen(jjtree) Classic_literal */
   ASPCore2Classic_literal jjtn000 = new ASPCore2Classic_literal(JJTCLASSIC_LITERAL);
   boolean jjtc000 = true;
@@ -773,8 +841,7 @@ void naf_literal()             :{/*@bgen(jjtree) Naf_literal */
 {/*@bgen(jjtree) Naf_literal */
     try {
 /*@egen*/
-    LOOKAHEAD(3)
-    [<NAF>] classic_literal() | builtin_atom()/*@bgen(jjtree)*/
+    naf_classic_literal() | LOOKAHEAD(3) classic_literal() | builtin_atom()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -1084,6 +1151,7 @@ void expression_term()                 :{/*@bgen(jjtree) Expression_term */
        }
 /*@egen*/
 }
+
 ASPCore2Predicate_name predicate_name()                :{/*@bgen(jjtree) Predicate_name */
                                                          ASPCore2Predicate_name jjtn000 = new ASPCore2Predicate_name(JJTPREDICATE_NAME);
                                                          boolean jjtc000 = true;

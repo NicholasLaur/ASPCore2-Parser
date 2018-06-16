@@ -5,11 +5,11 @@ options{
     NODE_DEFAULT_VOID=true;
     NODE_PREFIX = "ASPCore2";
     CACHE_TOKENS = true;
-    STATIC = false;
+    OUTPUT_DIRECTORY = "parser/";
 }
 
 PARSER_BEGIN(Parser)
-
+package parser;
 public class Parser
 {
     public static void main(String args[]) throws ParseException
@@ -17,9 +17,9 @@ public class Parser
 
            Parser parser;
                    try {
-                       File file = new File("C:/Users/nlaur/Desktop/ciao.txt");
+                       File file = new File("C:/Users/nlaur/Desktop/prova.txt");
                         FileReader fileReader = new FileReader(file);
-                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/ciao.txt"));
+                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
                         parser = new Parser(fileReader);
                         String line;
                         ParserVisitor visitor = new MyParserVisitor();
@@ -32,7 +32,7 @@ public class Parser
                         } catch (Exception e) {
                             System.out.println("Errore nel file");
                             System.out.println(e.getMessage());
-                            // parser.ReInit(fileReader);
+                            start = parser.parseOneLine();
                         }
                         }
                         br.close();
@@ -146,7 +146,7 @@ void disjunction() #Disjunction:{}
 
 void conjunction() #Conjunction:{}
 {
-    (LOOKAHEAD(3) naf_literal() | [<NAF>] aggregate_atom())
+    (LOOKAHEAD(3) naf_literal() | aggregate_atom() | naf_aggregate_atom())
     [<BODY_TERM_SEPARATOR> conjunction()]
 }
 
@@ -183,6 +183,10 @@ void arithop() #Arithop:{}
     |   <DIV>
 }
 
+void naf_aggregate_atom() #Naf_Aggregate_atom():{}
+{
+    <NAF> aggregate_atom()
+}
 void aggregate_atom() #Aggregate_atom:{}
 {
     LOOKAHEAD(5)
@@ -223,6 +227,11 @@ void builtin_atom() #Builtin_atom:{}
     term() binop() term()
 }
 
+void naf_classic_literal() #Naf_Classic_literal:{}
+{
+    <NAF> classic_literal()
+}
+
 void classic_literal() #Classic_literal:{}
 {
     [<MINUS>] atom()
@@ -235,8 +244,7 @@ void naf_literals() #Naf_literals:{}
 
 void naf_literal() #Naf_literal:{}
 {
-    LOOKAHEAD(3)
-    [<NAF>] classic_literal() | builtin_atom()
+    naf_classic_literal() | LOOKAHEAD(3) classic_literal() | builtin_atom()
 }
 
 void terms() #Terms:{}
@@ -295,6 +303,7 @@ void expression_term() #Expression_term:{}
     | [<MINUS>] <VARIABLE>
     )
 }
+
 ASPCore2Predicate_name predicate_name() #Predicate_name:{Token t;}
 {
     t = <ID>        {jjtThis.value = t;return jjtThis;}
