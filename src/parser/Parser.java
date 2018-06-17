@@ -3,6 +3,7 @@
 package parser;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 
@@ -11,28 +12,32 @@ public class Parser/*@bgen(jjtree)*/ implements ParserTreeConstants, ParserConst
 
     public static void main(String args[]) throws ParseException {
 
-        Parser parser;
+        Parser parser = null;
         try {
             File file = new File("C:/Users/nlaur/Desktop/prova.txt");
             FileReader fileReader = new FileReader(file);
-            BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
-            parser = new Parser(fileReader);
-            String line;
+            BufferedReader br = new BufferedReader(fileReader);
+            String line = "";
             ParserVisitor visitor = new MyParserVisitor();
             ASPCore2Program start;
-            while ((line = br.readLine()) != null) {
+            do {
+
+                line = br.readLine();
+                if (parser == null) {
+                    parser = new Parser(new ByteArrayInputStream(line.getBytes()));
+                } else
+                    parser.ReInit(new ByteArrayInputStream(line.getBytes()));
+
                 try {
-                    //System.out.println(line);
                     start = parser.parseOneLine();
-                    start.dump("");
+                    //start.dump("");
                     start.jjtAccept(visitor, null);
-                    ((MyParserVisitor)visitor).checkSafety();
+                    ((MyParserVisitor) visitor).checkSafety();
                 } catch (Exception e) {
                     System.out.println("Errore nel file");
                     System.out.println(e.getMessage());
-                    start = parser.parseOneLine();
                 }
-            }
+            } while (line != null);
             br.close();
         } catch (Exception e) {
             System.out.println("Oops.");

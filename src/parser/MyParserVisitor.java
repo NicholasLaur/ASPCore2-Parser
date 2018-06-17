@@ -165,10 +165,10 @@ public class MyParserVisitor implements ParserVisitor {
         SimpleNode node = (SimpleNode) aspCore2Variable_term.parent;
         String parent = node.getClass().getName();
         boolean positive = true;
-        while (!parent.equals("parser.ASPCore2Conjunction") && !parent.equals("parser.ASPCore2Disjunction") && positive) {
-            if(parent.equals("parser.ASPCore2Aggregate_element"))
+        while (!parent.equals("parser.ASPCore2Conjunction") && positive) {
+            if (parent.equals("parser.ASPCore2Aggregate_element"))
                 break;
-            if (parent.equals("parser.ASPCore2Naf_Classic_literal") || parent.equals("parser.ASPCore2Naf_Aggregate_atom"))
+            if (parent.equals("parser.ASPCore2Naf_Classic_literal") || parent.equals("parser.ASPCore2Naf_Aggregate_atom") || parent.equals("parser.ASPCore2Disjunction"))
                 positive = false;
             if (positive && node.parent != null) {
                 SimpleNode newNode = (SimpleNode) node.parent;
@@ -187,8 +187,8 @@ public class MyParserVisitor implements ParserVisitor {
     }
 
     public void checkSafety() throws SafetyException {
-        for(int i = 0; i<negativeVariable.size(); i++)
-            if(!positiveVariable.contains(negativeVariable.get(i)))
+        for (int i = 0; i < negativeVariable.size(); i++)
+            if (!positiveVariable.contains(negativeVariable.get(i)))
                 throw new SafetyException(negativeVariable.get(i));
     }
 }
