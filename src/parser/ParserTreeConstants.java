@@ -22,21 +22,22 @@ public interface ParserTreeConstants
   public int JJTAGGREGATE_ELEMENT = 16;
   public int JJTAGGREGATE_FUNCTION = 17;
   public int JJTATOM = 18;
-  public int JJTBUILTIN_ATOM = 19;
-  public int JJTNAF_CLASSIC_LITERAL = 20;
-  public int JJTCLASSIC_LITERAL = 21;
-  public int JJTNAF_LITERALS = 22;
-  public int JJTNAF_LITERAL = 23;
-  public int JJTTERMS = 24;
-  public int JJTBASIC_TERMS = 25;
-  public int JJTTERM = 26;
-  public int JJTBASIC_TERM = 27;
-  public int JJTGROUND_TERM = 28;
-  public int JJTVARIABLE_TERM = 29;
-  public int JJTFUNCTION_TERM = 30;
-  public int JJTEXPRESSIONS_TERM = 31;
-  public int JJTEXPRESSION_TERM = 32;
-  public int JJTPREDICATE_NAME = 33;
+  public int JJTUNEQUALBUILTIN_ATOM = 19;
+  public int JJTBUILTIN_ATOM = 20;
+  public int JJTNAF_CLASSIC_LITERAL = 21;
+  public int JJTCLASSIC_LITERAL = 22;
+  public int JJTNAF_LITERALS = 23;
+  public int JJTNAF_LITERAL = 24;
+  public int JJTTERMS = 25;
+  public int JJTBASIC_TERMS = 26;
+  public int JJTTERM = 27;
+  public int JJTBASIC_TERM = 28;
+  public int JJTGROUND_TERM = 29;
+  public int JJTVARIABLE_TERM = 30;
+  public int JJTFUNCTION_TERM = 31;
+  public int JJTEXPRESSIONS_TERM = 32;
+  public int JJTEXPRESSION_TERM = 33;
+  public int JJTPREDICATE_NAME = 34;
 
 
   public String[] jjtNodeName = {
@@ -59,6 +60,7 @@ public interface ParserTreeConstants
     "Aggregate_element",
     "Aggregate_function",
     "Atom",
+    "UnequalBuiltin_atom",
     "Builtin_atom",
     "Naf_Classic_literal",
     "Classic_literal",
@@ -76,4 +78,4 @@ public interface ParserTreeConstants
     "Predicate_name",
   };
 }
-/* JavaCC - OriginalChecksum=2c4b709a53fc8ffddf0f1ec030f15c28 (do not edit this line) */
+/* JavaCC - OriginalChecksum=2988566b0b74bf9bcf92b617b72bd5d4 (do not edit this line) */

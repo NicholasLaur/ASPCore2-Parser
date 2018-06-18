@@ -90,6 +90,8 @@ public interface ParserConstants {
   int EOL = 42;
   /** RegularExpression Id. */
   int ANON_VAR = 43;
+  /** RegularExpression Id. */
+  int ALTRO = 44;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -104,7 +106,7 @@ public interface ParserConstants {
     "<ID>",
     "<SYMBOLIC_COSTANT>",
     "<VARIABLE>",
-    "\"\\\"([\\u00cb\\u2020\\\"]|\\\\\\\")*\\\"\"",
+    "<STRING>",
     "<NUMBER>",
     "\".\"",
     "\",\"",
@@ -140,6 +142,7 @@ public interface ParserConstants {
     "\"@\"",
     "\"\\n\"",
     "\"_\"",
+    "<ALTRO>",
   };
 
 }

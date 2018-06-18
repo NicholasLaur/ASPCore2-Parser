@@ -66,6 +66,9 @@ public class ParserDefaultVisitor implements ParserVisitor{
   public Object visit(ASPCore2Atom node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASPCore2UnequalBuiltin_atom node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASPCore2Builtin_atom node, Object data){
     return defaultVisit(node, data);
   }
@@ -112,4 +115,4 @@ public class ParserDefaultVisitor implements ParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=3a62c6132d9b8056c100a44225716133 (do not edit this line) */
+/* JavaCC - OriginalChecksum=c1afef77bb94c89d3561ca9f864d868d (do not edit this line) */

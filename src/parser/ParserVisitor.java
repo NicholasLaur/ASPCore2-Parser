@@ -23,6 +23,7 @@ public interface ParserVisitor
   public Object visit(ASPCore2Aggregate_element node, Object data);
   public Object visit(ASPCore2Aggregate_function node, Object data);
   public Object visit(ASPCore2Atom node, Object data);
+  public Object visit(ASPCore2UnequalBuiltin_atom node, Object data);
   public Object visit(ASPCore2Builtin_atom node, Object data);
   public Object visit(ASPCore2Naf_Classic_literal node, Object data);
   public Object visit(ASPCore2Classic_literal node, Object data);
@@ -38,6 +39,5 @@ public interface ParserVisitor
   public Object visit(ASPCore2Expressions_term node, Object data);
   public Object visit(ASPCore2Expression_term node, Object data);
   public Object visit(ASPCore2Predicate_name node, Object data);
-
 }
-/* JavaCC - OriginalChecksum=700cd072d2d4bdceab5f0a390d47a6eb (do not edit this line) */
+/* JavaCC - OriginalChecksum=aaf2cfef135a88d5ad2c26ebc4877df6 (do not edit this line) */

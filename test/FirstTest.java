@@ -28,7 +28,7 @@ public class FirstTest {
 
     @Test
     public void secondTest() throws ParseException {
-        test = "f(X):-ok(X).";
+        test = "ciAo:-ok(X),X!=10.";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         Assert.assertTrue(parser.rule());
     }
@@ -72,7 +72,8 @@ public class FirstTest {
     public void eighthTest() throws ParseException {
         test = "f(X):-g(f(1,2).";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
-        Assert.assertTrue(parser.rule());
+        ASPCore2Program program = parser.program();
+        program.dump("");
     }
 
     @Test
@@ -91,7 +92,8 @@ public class FirstTest {
 
     @Test
     public void eleventhTest() throws ParseException {
-        test = ":-f(1), not a(X).";
+        test = ":-f(1), not a(\"ciao\").";
+        System.out.println(test);
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         //Assert.assertTrue(parser.rule());
         ASPCore2Program program = parser.program();
@@ -102,7 +104,9 @@ public class FirstTest {
     public void twelfthTest() throws ParseException {
         test = ":~f(1), a(X,).";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
-        Assert.assertTrue(parser.rule());
+        ASPCore2Program program = parser.program();
+        program.dump("");
+
     }
 
     @Test

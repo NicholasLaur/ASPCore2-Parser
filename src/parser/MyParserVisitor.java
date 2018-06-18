@@ -95,6 +95,11 @@ public class MyParserVisitor implements ParserVisitor {
         return defaultVisit(node, data);
     }
 
+    @Override
+    public Object visit(ASPCore2UnequalBuiltin_atom node, Object data) {
+        return defaultVisit(node, data);
+    }
+
     public Object visit(ASPCore2Builtin_atom node, Object data) {
         return defaultVisit(node, data);
     }
@@ -168,7 +173,9 @@ public class MyParserVisitor implements ParserVisitor {
         while (!parent.equals("parser.ASPCore2Conjunction") && positive) {
             if (parent.equals("parser.ASPCore2Aggregate_element"))
                 break;
-            if (parent.equals("parser.ASPCore2Naf_Classic_literal") || parent.equals("parser.ASPCore2Naf_Aggregate_atom") || parent.equals("parser.ASPCore2Disjunction"))
+            if (parent.equals("parser.ASPCore2Naf_Classic_literal") ||
+                    parent.equals("parser.ASPCore2Naf_Aggregate_atom") || parent.equals("parser.ASPCore2Disjunction")
+                    || parent.equals("parser.ASPCore2UnequalBuiltin_atom"))
                 positive = false;
             if (positive && node.parent != null) {
                 SimpleNode newNode = (SimpleNode) node.parent;
@@ -179,10 +186,10 @@ public class MyParserVisitor implements ParserVisitor {
         }
         if (positive) {
             positiveVariable.add(aspCore2Variable_term);
-            //System.out.println("positiva "+aspCore2Variable_term.value.toString());
+            System.out.println("positiva "+aspCore2Variable_term.value.toString());
         } else {
             negativeVariable.add(aspCore2Variable_term);
-            //System.out.println("negativa "+aspCore2Variable_term.value.toString());
+            System.out.println("negativa "+aspCore2Variable_term.value.toString());
         }
     }
 
