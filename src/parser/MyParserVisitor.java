@@ -6,8 +6,10 @@ import java.util.HashMap;
 public class MyParserVisitor implements ParserVisitor {
     public ArrayList<ASPCore2Variable_term> positiveVariable = new ArrayList<>();
     public ArrayList<ASPCore2Variable_term> negativeVariable = new ArrayList<>();
-
+    public ArrayList<ASPCore2Atom> atoms = new ArrayList<>();
+    public ArrayList<ASPCore2Atom> atomsInHead = new ArrayList<>();
     public HashMap<String, ASPCore2Predicate_name> predicateNames = new HashMap<>();
+    public boolean checkWarning = false;
 
     public Object defaultVisit(SimpleNode node, Object data) {
         node.childrenAccept(this, data);
@@ -166,6 +168,30 @@ public class MyParserVisitor implements ParserVisitor {
             predicateNames.put(aspCore2Predicate_name.value.toString(), aspCore2Predicate_name);
     }
 
+    public void addAtom(ASPCore2Atom atom) {
+        boolean head = false;
+
+        SimpleNode node = (SimpleNode) atom.parent;
+        String parent = node.getClass().getName();
+        while (!parent.equals(ASPCore2Conjunction.class.getName()) && !head) {
+            if (parent.equals(ASPCore2Disjunction.class.getName()))
+                head = true;
+            else if (!head && node.parent != null) {
+                SimpleNode newNode = (SimpleNode) node.parent;
+                node = newNode;
+                parent = node.getClass().getName();
+            }
+        }
+        if (!head && checkWarning){
+            //System.out.println("Corpo"+((ASPCore2Predicate_name)atom.children[0]).value+""+atom.childrenTerm);
+            atoms.add(atom);
+        }
+        else if (head && !checkWarning){
+            //System.out.println("Testa"+((ASPCore2Predicate_name)atom.children[0]).value+""+atom.childrenTerm);
+            atomsInHead.add(atom);
+        }
+    }
+
     public void addVariable(ASPCore2Variable_term aspCore2Variable_term) {
         SimpleNode node = (SimpleNode) aspCore2Variable_term.parent;
         String parent = node.getClass().getName();
@@ -186,10 +212,10 @@ public class MyParserVisitor implements ParserVisitor {
         }
         if (positive) {
             positiveVariable.add(aspCore2Variable_term);
-            System.out.println("positiva "+aspCore2Variable_term.value.toString());
+            //System.out.println("positiva " + aspCore2Variable_term.value.toString());
         } else {
             negativeVariable.add(aspCore2Variable_term);
-            System.out.println("negativa "+aspCore2Variable_term.value.toString());
+            //System.out.println("negativa " + aspCore2Variable_term.value.toString());
         }
     }
 
@@ -197,5 +223,13 @@ public class MyParserVisitor implements ParserVisitor {
         for (int i = 0; i < negativeVariable.size(); i++)
             if (!positiveVariable.contains(negativeVariable.get(i)))
                 throw new SafetyException(negativeVariable.get(i));
+    }
+
+    public void checkWarningForAtomNotInHead() throws WarningException {
+        //System.out.println(atoms.size()+" "+atomsInHead.size());
+        for(ASPCore2Atom atom: atoms){
+            if(!atomsInHead.contains(atom))
+                throw new WarningException(atom);
+        }
     }
 }

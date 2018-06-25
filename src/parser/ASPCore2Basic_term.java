@@ -19,9 +19,7 @@ class ASPCore2Basic_term extends SimpleNode {
 
   /** Accept the visitor. **/
   public Object jjtAccept(ParserVisitor visitor, Object data) {
-
-    return
-    visitor.visit(this, data);
+    return visitor.visit(this, data);
   }
 }
 /* JavaCC - OriginalChecksum=98d9dd0ae5c17277e55ad2f906ead46c (do not edit this line) */
