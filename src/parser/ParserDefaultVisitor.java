@@ -45,10 +45,13 @@ public class ParserDefaultVisitor implements ParserVisitor{
   public Object visit(ASPCore2Binop node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASPCore2NegativeBinop node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASPCore2Arithop node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASPCore2Naf_Aggregate_atom node, Object data){
+  public Object visit(ASPCore2NegativeAggregate_atom node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASPCore2Aggregate_atom node, Object data){
@@ -66,7 +69,7 @@ public class ParserDefaultVisitor implements ParserVisitor{
   public Object visit(ASPCore2Atom node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASPCore2UnequalBuiltin_atom node, Object data){
+  public Object visit(ASPCore2NegativeBuiltin_atom node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASPCore2Builtin_atom node, Object data){
@@ -115,4 +118,4 @@ public class ParserDefaultVisitor implements ParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=c1afef77bb94c89d3561ca9f864d868d (do not edit this line) */
+/* JavaCC - OriginalChecksum=b46f032bb543c3890ffa2600038cf708 (do not edit this line) */

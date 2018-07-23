@@ -64,7 +64,13 @@ public class MyParserVisitor implements ParserVisitor {
         return defaultVisit(node, data);
     }
 
+
     public Object visit(ASPCore2Binop node, Object data) {
+        return defaultVisit(node, data);
+    }
+
+    @Override
+    public Object visit(ASPCore2NegativeBinop node, Object data) {
         return defaultVisit(node, data);
     }
 
@@ -73,7 +79,7 @@ public class MyParserVisitor implements ParserVisitor {
     }
 
     @Override
-    public Object visit(ASPCore2Naf_Aggregate_atom node, Object data) {
+    public Object visit(ASPCore2NegativeAggregate_atom node, Object data) {
         return defaultVisit(node, data);
     }
 
@@ -98,7 +104,7 @@ public class MyParserVisitor implements ParserVisitor {
     }
 
     @Override
-    public Object visit(ASPCore2UnequalBuiltin_atom node, Object data) {
+    public Object visit(ASPCore2NegativeBuiltin_atom node, Object data) {
         return defaultVisit(node, data);
     }
 
@@ -147,6 +153,7 @@ public class MyParserVisitor implements ParserVisitor {
         return defaultVisit(node, data);
     }
 
+
     public Object visit(ASPCore2Function_term node, Object data) {
         return defaultVisit(node, data);
     }
@@ -182,11 +189,10 @@ public class MyParserVisitor implements ParserVisitor {
                 parent = node.getClass().getName();
             }
         }
-        if (!head && checkWarning){
+        if (!head && checkWarning) {
             //System.out.println("Corpo"+((ASPCore2Predicate_name)atom.children[0]).value+""+atom.childrenTerm);
             atoms.add(atom);
-        }
-        else if (head && !checkWarning){
+        } else if (head && !checkWarning) {
             //System.out.println("Testa"+((ASPCore2Predicate_name)atom.children[0]).value+""+atom.childrenTerm);
             atomsInHead.add(atom);
         }
@@ -196,12 +202,13 @@ public class MyParserVisitor implements ParserVisitor {
         SimpleNode node = (SimpleNode) aspCore2Variable_term.parent;
         String parent = node.getClass().getName();
         boolean positive = true;
-        while (!parent.equals("parser.ASPCore2Conjunction") && positive) {
-            if (parent.equals("parser.ASPCore2Aggregate_element"))
+
+        while (!parent.equals(ASPCore2Conjunction.class.getName()) && positive) {
+            if (parent.equals(ASPCore2Aggregate_element.class.getName()))
                 break;
-            if (parent.equals("parser.ASPCore2Naf_Classic_literal") ||
-                    parent.equals("parser.ASPCore2Naf_Aggregate_atom") || parent.equals("parser.ASPCore2Disjunction")
-                    || parent.equals("parser.ASPCore2UnequalBuiltin_atom"))
+            if (parent.equals(ASPCore2Naf_Classic_literal.class.getName()) ||
+                    parent.equals(ASPCore2NegativeAggregate_atom.class.getName()) || parent.equals(ASPCore2Disjunction.class.getName())
+                    || parent.equals(ASPCore2NegativeBuiltin_atom.class.getName()) || parent.equals(ASPCore2Basic_terms.class.getName()))
                 positive = false;
             if (positive && node.parent != null) {
                 SimpleNode newNode = (SimpleNode) node.parent;
@@ -209,6 +216,12 @@ public class MyParserVisitor implements ParserVisitor {
                 parent = node.getClass().getName();
                 //System.out.println(parent);
             }
+        }
+        SimpleNode parentThirdLevel = (SimpleNode) ((SimpleNode) ((SimpleNode) aspCore2Variable_term.parent).parent).parent;
+        if (parentThirdLevel != null) {
+            System.out.println("okok");
+            if (parentThirdLevel.getClass().getName().equals(ASPCore2Aggregate_element.class.getName()))
+                System.out.println("KOKOKO");
         }
         if (positive) {
             positiveVariable.add(aspCore2Variable_term);
@@ -220,15 +233,17 @@ public class MyParserVisitor implements ParserVisitor {
     }
 
     public void checkSafety() throws SafetyException {
+        ArrayList<String> variables = new ArrayList<>();
         for (int i = 0; i < negativeVariable.size(); i++)
             if (!positiveVariable.contains(negativeVariable.get(i)))
+                //variables.add(negativeVariable.get(i));
                 throw new SafetyException(negativeVariable.get(i));
     }
 
     public void checkWarningForAtomNotInHead() throws WarningException {
         //System.out.println(atoms.size()+" "+atomsInHead.size());
-        for(ASPCore2Atom atom: atoms){
-            if(!atomsInHead.contains(atom))
+        for (ASPCore2Atom atom : atoms) {
+            if (!atomsInHead.contains(atom))
                 throw new WarningException(atom);
         }
     }

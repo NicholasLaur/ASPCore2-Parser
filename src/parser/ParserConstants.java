@@ -13,77 +13,77 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int NAF = 4;
   /** RegularExpression Id. */
-  int ID = 5;
+  int IDLOWER = 5;
   /** RegularExpression Id. */
-  int SYMBOLIC_COSTANT = 6;
+  int IDUPPER = 6;
   /** RegularExpression Id. */
-  int VARIABLE = 7;
+  int STRING = 7;
   /** RegularExpression Id. */
-  int STRING = 8;
+  int NUMBER = 8;
   /** RegularExpression Id. */
-  int NUMBER = 9;
+  int DOT = 9;
   /** RegularExpression Id. */
-  int DOT = 10;
+  int BODY_TERM_SEPARATOR = 10;
   /** RegularExpression Id. */
-  int BODY_TERM_SEPARATOR = 11;
+  int QUERY_MARK = 11;
   /** RegularExpression Id. */
-  int QUERY_MARK = 12;
+  int COLON = 12;
   /** RegularExpression Id. */
-  int COLON = 13;
+  int SEMICOLON = 13;
   /** RegularExpression Id. */
-  int SEMICOLON = 14;
+  int HEAD_SEPARATOR = 14;
   /** RegularExpression Id. */
-  int HEAD_SEPARATOR = 15;
+  int CONS = 15;
   /** RegularExpression Id. */
-  int CONS = 16;
+  int WCONS = 16;
   /** RegularExpression Id. */
-  int WCONS = 17;
+  int PLUS = 17;
   /** RegularExpression Id. */
-  int PLUS = 18;
+  int MINUS = 18;
   /** RegularExpression Id. */
-  int MINUS = 19;
+  int TIMES = 19;
   /** RegularExpression Id. */
-  int TIMES = 20;
+  int DIV = 20;
   /** RegularExpression Id. */
-  int DIV = 21;
+  int PARAM_OPEN = 21;
   /** RegularExpression Id. */
-  int PARAM_OPEN = 22;
+  int PARAM_CLOSE = 22;
   /** RegularExpression Id. */
-  int PARAM_CLOSE = 23;
+  int SQUARE_OPEN = 23;
   /** RegularExpression Id. */
-  int SQUARE_OPEN = 24;
+  int SQUARE_CLOSE = 24;
   /** RegularExpression Id. */
-  int SQUARE_CLOSE = 25;
+  int CURLY_OPEN = 25;
   /** RegularExpression Id. */
-  int CURLY_OPEN = 26;
+  int CURLY_CLOSE = 26;
   /** RegularExpression Id. */
-  int CURLY_CLOSE = 27;
+  int EQUAL = 27;
   /** RegularExpression Id. */
-  int EQUAL = 28;
+  int UNEQUAL = 28;
   /** RegularExpression Id. */
-  int UNEQUAL = 29;
+  int LESS = 29;
   /** RegularExpression Id. */
-  int LESS = 30;
+  int GREATER = 30;
   /** RegularExpression Id. */
-  int GREATER = 31;
+  int LESS_OR_EQ = 31;
   /** RegularExpression Id. */
-  int LESS_OR_EQ = 32;
+  int GREATER_OR_EQ = 32;
   /** RegularExpression Id. */
-  int GREATER_OR_EQ = 33;
+  int AGGR_COUNT = 33;
   /** RegularExpression Id. */
-  int AGGR_COUNT = 34;
+  int AGGR_SUM = 34;
   /** RegularExpression Id. */
-  int AGGR_SUM = 35;
+  int AGGR_MAX = 35;
   /** RegularExpression Id. */
-  int AGGR_MAX = 36;
+  int AGGR_MIN = 36;
   /** RegularExpression Id. */
-  int AGGR_MIN = 37;
+  int COMMENT = 37;
   /** RegularExpression Id. */
-  int COMMENT = 38;
+  int MULTI_LINE_COMMENT = 38;
   /** RegularExpression Id. */
-  int MULTI_LINE_COMMENT = 39;
+  int UPPERLETTER = 39;
   /** RegularExpression Id. */
-  int LETTER = 40;
+  int LOWERLETTER = 40;
   /** RegularExpression Id. */
   int AT = 41;
   /** RegularExpression Id. */
@@ -91,7 +91,7 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int ANON_VAR = 43;
   /** RegularExpression Id. */
-  int ALTRO = 44;
+  int ERROR_LEXICAL = 44;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -103,9 +103,8 @@ public interface ParserConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"not\"",
-    "<ID>",
-    "<SYMBOLIC_COSTANT>",
-    "<VARIABLE>",
+    "<IDLOWER>",
+    "<IDUPPER>",
     "<STRING>",
     "<NUMBER>",
     "\".\"",
@@ -138,11 +137,12 @@ public interface ParserConstants {
     "\"#min\"",
     "\"%.*$\"",
     "\"/%.*%/\"",
-    "<LETTER>",
+    "<UPPERLETTER>",
+    "<LOWERLETTER>",
     "\"@\"",
     "\"\\n\"",
     "\"_\"",
-    "<ALTRO>",
+    "<ERROR_LEXICAL>",
   };
 
 }

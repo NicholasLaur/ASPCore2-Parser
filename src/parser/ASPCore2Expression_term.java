@@ -19,7 +19,7 @@ class ASPCore2Expression_term extends SimpleNode {
 
   /** Accept the visitor. **/
   public Object jjtAccept(ParserVisitor visitor, Object data) {
-
+      System.out.println(value);
     return
     visitor.visit(this, data);
   }

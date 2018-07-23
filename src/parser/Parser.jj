@@ -3,9 +3,9 @@
     ERROR_REPORTING = true;
                  
                    
-                           
                              
-    CACHE_TOKENS = true;
+                             
+    //CACHE_TOKENS = true;
     OUTPUT_DIRECTORY = "parser/";
 }
 
@@ -19,36 +19,52 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
   protected static JJTParserState jjtree = new JJTParserState();
 
 /*@egen*/
-    public static void main(String args[]) throws ParseException
-        {
+     public static void main(String args[]) throws ParseException {
 
-           Parser parser;
-                   try {
-                       File file = new File("C:/Users/nlaur/Desktop/prova.txt");
-                        FileReader fileReader = new FileReader(file);
-                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
-                        parser = new Parser(fileReader);
-                        String line;
-                        ParserVisitor visitor = new MyParserVisitor();
-                        ASPCore2Program start;
-                        while ((line = br.readLine()) != null) {
-                        try {
-                            System.out.println(line);
-                            start = parser.parseOneLine();
-                            start.jjtAccept(visitor, null);
-                        } catch (Exception e) {
-                            System.out.println("Errore nel file");
-                            System.out.println(e.getMessage());
-                            start = parser.parseOneLine();
-                        }
-                        }
-                        br.close();
-                   } catch (Exception e) {
-                       System.out.println("Oops.");
-                       System.out.println(e.getMessage());
-                   }
-           // SimpleNode root = parser.program();
-           // root.dump("");
+            Parser parser;
+            try {
+                File file = new File("C:/Users/nlaur/Desktop/prova.txt");
+                FileReader fileReader = new FileReader(file);
+                BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
+                parser = new Parser(fileReader);
+                String line;
+                ParserVisitor visitor = new MyParserVisitor();
+                ASPCore2Program start;
+                while ((line = br.readLine()) != null) {
+                    try {
+                        System.out.println(line);
+                        ((MyParserVisitor) visitor).negativeVariable.clear();
+                        ((MyParserVisitor) visitor).positiveVariable.clear();
+                        start = parser.parseOneLine();
+                        visitor.visit(start, null);
+                        //start.dump("");
+                        //((MyParserVisitor) visitor).checkSafety();
+                    } catch (Exception e) {
+                        System.out.println("Errore nel file");
+                        System.out.println(e.getMessage());
+                        start = parser.parseOneLine();
+                    }
+                }
+                fileReader = new FileReader(file);
+                parser.ReInit(fileReader);
+                br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
+                while ((line = br.readLine())!=null){
+                    System.out.println(line);
+                    start = parser.parseOneLine();
+                    ((MyParserVisitor) visitor).checkWarning = true;
+                    ((MyParserVisitor) visitor).atoms.clear();
+                    visitor.visit(start, null);
+                    //start.dump("");
+                    ((MyParserVisitor) visitor).checkWarningForAtomNotInHead();
+                }
+                br.close();
+            } catch (Exception e) {
+                System.out.println("Oops.");
+                System.out.println(e.getMessage());
+            }
+
+            // SimpleNode root = parser.program();
+            // root.dump("");
             //parser.rule();
         }
 }
@@ -61,12 +77,13 @@ SKIP :
 }
 TOKEN:{
     < NAF: "not">
+    //| < VARIABLE: ["A"-"Z"](["A"-"Z","a"-"z"] | ["0"-"9"] | "_")*>
 }
+
 TOKEN:
 {
-    < ID: ["a"-"z"](<LETTER>| <NUMBER> | "_")*>
-|   < SYMBOLIC_COSTANT: ["a"-"z"](<LETTER> | <NUMBER> | "_")*>
-|   < VARIABLE: ["A"-"Z"](<LETTER> | <NUMBER> | "_")*>
+    < IDLOWER:<LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
+|   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < STRING: "\""(["\\","a"-"z","A"-"Z","_","0"-"9"])*"\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
@@ -101,11 +118,11 @@ TOKEN:
 |   < COMMENT: "%.*$">
 |   < MULTI_LINE_COMMENT: "/%.*%/">
 //|   < BLANK: (" " | "\t"| "\n")+>
-|   < LETTER: ["A"-"Z","a"-"z"]>
+|   <UPPERLETTER : ["A"-"Z"]>
+|   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
 |   < EOL: "\n" >
 |   < ANON_VAR:"_">
-|   <ALTRO: ~[ ]>
 }
 
 ASPCore2Program parseOneLine()                :
@@ -119,19 +136,24 @@ ASPCore2Program parseOneLine()                :
 {/*@bgen(jjtree) Parse_one_line */
    try {
 /*@egen*/
-   LOOKAHEAD(2)aspProgram = program() [<EOL>]/*@bgen(jjtree)*/
-                                              {
-                                                jjtree.closeNodeScope(jjtn000, true);
-                                                jjtc000 = false;
-                                              }
+   LOOKAHEAD(2) aspProgram = program() [<EOL>]/*@bgen(jjtree)*/
+                                               {
+                                                 jjtree.closeNodeScope(jjtn000, true);
+                                                 jjtc000 = false;
+                                               }
 /*@egen*/ {return aspProgram;}
-  | <EOL>
+  | <EOL>/*@bgen(jjtree)*/
+                        {
+                          jjtree.closeNodeScope(jjtn000, true);
+                          jjtc000 = false;
+                        }
+/*@egen*/               { return null; }
   | <EOF>/*@bgen(jjtree)*/
                         {
                           jjtree.closeNodeScope(jjtn000, true);
                           jjtc000 = false;
                         }
-/*@egen*/               { System.exit(-1); }/*@bgen(jjtree)*/
+/*@egen*/               { return null; }/*@bgen(jjtree)*/
    } catch (Throwable jjte000) {
      if (jjtc000) {
        jjtree.clearNodeScope(jjtn000);
@@ -198,7 +220,7 @@ void rules()       :{/*@bgen(jjtree) Rules */
 {/*@bgen(jjtree) Rules */
     try {
 /*@egen*/
-    [rule() rules()]/*@bgen(jjtree)*/
+    rule()[rules()]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -221,7 +243,7 @@ void rules()       :{/*@bgen(jjtree) Rules */
 /*@egen*/
 }
 
-boolean rule()      :{/*@bgen(jjtree) Rule */
+void rule()      :{/*@bgen(jjtree) Rule */
   ASPCore2Rule jjtn000 = new ASPCore2Rule(JJTRULE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
@@ -229,24 +251,9 @@ boolean rule()      :{/*@bgen(jjtree) Rule */
 {/*@bgen(jjtree) Rule */
     try {
 /*@egen*/
-    <CONS> body() <DOT>/*@bgen(jjtree)*/
-                        {
-                          jjtree.closeNodeScope(jjtn000, true);
-                          jjtc000 = false;
-                        }
-/*@egen*/ {return true;}
-|    head() [<CONS> body()] <DOT>/*@bgen(jjtree)*/
-                                   {
-                                     jjtree.closeNodeScope(jjtn000, true);
-                                     jjtc000 = false;
-                                   }
-/*@egen*/  {return true;}
+    <CONS> body() <DOT>
+|    head() [<CONS> body()] <DOT>
 |   <WCONS> body() <DOT>/*@bgen(jjtree)*/
-                         {
-                           jjtree.closeNodeScope(jjtn000, true);
-                           jjtc000 = false;
-                         }
-/*@egen*/ {return true;}/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -372,7 +379,7 @@ void conjunction()             :{/*@bgen(jjtree) Conjunction */
 {/*@bgen(jjtree) Conjunction */
     try {
 /*@egen*/
-    (LOOKAHEAD(3) naf_literal() |LOOKAHEAD(3) naf_aggregate_atom() | aggregate_atom())
+    (LOOKAHEAD(3) naf_literal() | LOOKAHEAD(300) negative_aggregate_atom() | aggregate_atom())
     [<BODY_TERM_SEPARATOR> conjunction()]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -511,6 +518,27 @@ void binop()       :{/*@bgen(jjtree) Binop */
 /*@egen*/
 }
 
+void negativeBinop()               :{/*@bgen(jjtree) NegativeBinop */
+  ASPCore2NegativeBinop jjtn000 = new ASPCore2NegativeBinop(JJTNEGATIVEBINOP);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) NegativeBinop */
+    try {
+/*@egen*/
+    <UNEQUAL>
+    |   <LESS>
+    |   <GREATER>
+    |   <LESS_OR_EQ>
+    |   <GREATER_OR_EQ>/*@bgen(jjtree)*/
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
+
 void arithop()         :{/*@bgen(jjtree) Arithop */
   ASPCore2Arithop jjtn000 = new ASPCore2Arithop(JJTARITHOP);
   boolean jjtc000 = true;
@@ -531,20 +559,24 @@ void arithop()         :{/*@bgen(jjtree) Arithop */
 /*@egen*/
 }
 
-void naf_aggregate_atom()                      :{/*@bgen(jjtree) #Naf_Aggregate_atom(true) */
-  ASPCore2Naf_Aggregate_atom jjtn000 = new ASPCore2Naf_Aggregate_atom(JJTNAF_AGGREGATE_ATOM);
+void negative_aggregate_atom()                          :{/*@bgen(jjtree) #NegativeAggregate_atom(true) */
+  ASPCore2NegativeAggregate_atom jjtn000 = new ASPCore2NegativeAggregate_atom(JJTNEGATIVEAGGREGATE_ATOM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
-{/*@bgen(jjtree) #Naf_Aggregate_atom(true) */
+{/*@bgen(jjtree) #NegativeAggregate_atom(true) */
     try {
 /*@egen*/
+    LOOKAHEAD(5)
+    [<NAF>] term() negativeBinop() aggregate_function()
+                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
+    |
+    LOOKAHEAD(500)
+    [<NAF>] aggregate_function()
+                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> negativeBinop() term()
 
-    term() <UNEQUAL> aggregate_function() <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
     |
-    aggregate_function()<CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> <UNEQUAL> term()
-    |
-    <NAF> aggregate_atom()/*@bgen(jjtree)*/
+     <NAF> aggregate_atom()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -566,6 +598,7 @@ void naf_aggregate_atom()                      :{/*@bgen(jjtree) #Naf_Aggregate_
     }
 /*@egen*/
 }
+
 void aggregate_atom()                :{/*@bgen(jjtree) Aggregate_atom */
   ASPCore2Aggregate_atom jjtn000 = new ASPCore2Aggregate_atom(JJTAGGREGATE_ATOM);
   boolean jjtc000 = true;
@@ -574,12 +607,12 @@ void aggregate_atom()                :{/*@bgen(jjtree) Aggregate_atom */
 {/*@bgen(jjtree) Aggregate_atom */
     try {
 /*@egen*/
-    LOOKAHEAD(3)
-    term() binop() aggregate_function()
-                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> [binop() term()]
+    LOOKAHEAD(5)
+    term() <EQUAL> aggregate_function()
+                <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
     |
-    [term() binop()] aggregate_function()
-            <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> binop() term()/*@bgen(jjtree)*/
+    aggregate_function()
+                <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> <EQUAL> term()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -685,47 +718,15 @@ void aggregate_function()                    :{/*@bgen(jjtree) Aggregate_functio
 /*@egen*/
 }
 
-void atom()      :
-{/*@bgen(jjtree) Atom */
+void atom()      :{/*@bgen(jjtree) Atom */
   ASPCore2Atom jjtn000 = new ASPCore2Atom(JJTATOM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-/*@egen*/
-}
-{/*@bgen(jjtree) Atom */
-        try {
-/*@egen*/
-        predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE> ]/*@bgen(jjtree)*/
-        } catch (Throwable jjte000) {
-          if (jjtc000) {
-            jjtree.clearNodeScope(jjtn000);
-            jjtc000 = false;
-          } else {
-            jjtree.popNode();
-          }
-          if (jjte000 instanceof RuntimeException) {
-            throw (RuntimeException)jjte000;
-          }
-          if (jjte000 instanceof ParseException) {
-            throw (ParseException)jjte000;
-          }
-          throw (Error)jjte000;
-        } finally {
-          if (jjtc000) {
-            jjtree.closeNodeScope(jjtn000, true);
-          }
-        }
-/*@egen*/
-}
-void unequal_builtin_atom()                     :{/*@bgen(jjtree) UnequalBuiltin_atom */
-  ASPCore2UnequalBuiltin_atom jjtn000 = new ASPCore2UnequalBuiltin_atom(JJTUNEQUALBUILTIN_ATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
 /*@egen*/}
-{/*@bgen(jjtree) UnequalBuiltin_atom */
+{/*@bgen(jjtree) Atom */
     try {
 /*@egen*/
-    term() <UNEQUAL> term()/*@bgen(jjtree)*/
+    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -747,6 +748,38 @@ void unequal_builtin_atom()                     :{/*@bgen(jjtree) UnequalBuiltin
     }
 /*@egen*/
 }
+
+void negative_builtin_atom()                      :{/*@bgen(jjtree) NegativeBuiltin_atom */
+  ASPCore2NegativeBuiltin_atom jjtn000 = new ASPCore2NegativeBuiltin_atom(JJTNEGATIVEBUILTIN_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) NegativeBuiltin_atom */
+    try {
+/*@egen*/
+    term() negativeBinop() term()/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
+
 void builtin_atom()              :{/*@bgen(jjtree) Builtin_atom */
   ASPCore2Builtin_atom jjtn000 = new ASPCore2Builtin_atom(JJTBUILTIN_ATOM);
   boolean jjtc000 = true;
@@ -755,7 +788,7 @@ void builtin_atom()              :{/*@bgen(jjtree) Builtin_atom */
 {/*@bgen(jjtree) Builtin_atom */
     try {
 /*@egen*/
-    term() binop() term()/*@bgen(jjtree)*/
+    term() <EQUAL> term()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -879,7 +912,8 @@ void naf_literal()             :{/*@bgen(jjtree) Naf_literal */
 {/*@bgen(jjtree) Naf_literal */
     try {
 /*@egen*/
-    naf_classic_literal() | LOOKAHEAD(3) classic_literal() | LOOKAHEAD(3)unequal_builtin_atom() | builtin_atom()/*@bgen(jjtree)*/
+    (LOOKAHEAD(400)(LOOKAHEAD(400) negative_builtin_atom() | naf_classic_literal() )
+    |  (LOOKAHEAD(400) builtin_atom() | classic_literal() ))/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -901,7 +935,6 @@ void naf_literal()             :{/*@bgen(jjtree) Naf_literal */
     }
 /*@egen*/
 }
-
 void terms()       :{/*@bgen(jjtree) Terms */
   ASPCore2Terms jjtn000 = new ASPCore2Terms(JJTTERMS);
   boolean jjtc000 = true;
@@ -972,10 +1005,10 @@ void term()      :{/*@bgen(jjtree) Term */
 {/*@bgen(jjtree) Term */
     try {
 /*@egen*/
-    (LOOKAHEAD(3)
-    basic_term()
-    |  LOOKAHEAD(2) expressions_term()
-    |   function_term()
+    (
+        LOOKAHEAD(20) function_term()
+    |   LOOKAHEAD(3) expressions_term()
+    |   basic_term()
     )/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -1007,6 +1040,7 @@ void basic_term()            :{/*@bgen(jjtree) Basic_term */
 {/*@bgen(jjtree) Basic_term */
     try {
 /*@egen*/
+    LOOKAHEAD(2)
     ground_term()
     | variable_term()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
@@ -1039,11 +1073,11 @@ void ground_term()             :{/*@bgen(jjtree) Ground_term */
 {/*@bgen(jjtree) Ground_term */
     try {
 /*@egen*/
-    t = <SYMBOLIC_COSTANT>/*@bgen(jjtree)*/
-                           {
-                             jjtree.closeNodeScope(jjtn000, true);
-                             jjtc000 = false;
-                           }
+    t = <IDLOWER>/*@bgen(jjtree)*/
+                  {
+                    jjtree.closeNodeScope(jjtn000, true);
+                    jjtc000 = false;
+                  }
 /*@egen*/ {jjtn000.value = String.valueOf(t.image);}
     |   t = <STRING>/*@bgen(jjtree)*/
                      {
@@ -1073,11 +1107,12 @@ void variable_term()               :{/*@bgen(jjtree) Variable_term */
 {/*@bgen(jjtree) Variable_term */
     try {
 /*@egen*/
-    t = <VARIABLE>/*@bgen(jjtree)*/
-                   {
-                     jjtree.closeNodeScope(jjtn000, true);
-                     jjtc000 = false;
-                   }
+
+    t = <IDUPPER>/*@bgen(jjtree)*/
+                  {
+                    jjtree.closeNodeScope(jjtn000, true);
+                    jjtc000 = false;
+                  }
 /*@egen*/ {jjtn000.value = t;}
     |  t= <ANON_VAR>/*@bgen(jjtree)*/
                      {
@@ -1132,7 +1167,7 @@ void expressions_term()                  :{/*@bgen(jjtree) Expressions_term */
 {/*@bgen(jjtree) Expressions_term */
     try {
 /*@egen*/
-    expression_term() [arithop() expressions_term()]/*@bgen(jjtree)*/
+    expression_term() [arithop() expression_term()]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -1160,34 +1195,33 @@ void expression_term()                 :{/*@bgen(jjtree) Expression_term */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) Expression_term */
-       try {
+    try {
 /*@egen*/
 
-       <PARAM_OPEN> expression_term() <PARAM_CLOSE>
-    |( LOOKAHEAD(2)
-     ground_term()
-    | [<MINUS>] <VARIABLE>
-    )/*@bgen(jjtree)*/
-       } catch (Throwable jjte000) {
-         if (jjtc000) {
-           jjtree.clearNodeScope(jjtn000);
-           jjtc000 = false;
-         } else {
-           jjtree.popNode();
-         }
-         if (jjte000 instanceof RuntimeException) {
-           throw (RuntimeException)jjte000;
-         }
-         if (jjte000 instanceof ParseException) {
-           throw (ParseException)jjte000;
-         }
-         throw (Error)jjte000;
-       } finally {
-         if (jjtc000) {
-           jjtree.closeNodeScope(jjtn000, true);
-         }
-       }
+    <PARAM_OPEN> expression_term() <PARAM_CLOSE>
+    | LOOKAHEAD(20)[<MINUS>] <IDUPPER>
+    |  ground_term()/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
 /*@egen*/
+
 }
 
 ASPCore2Predicate_name predicate_name()                :{/*@bgen(jjtree) Predicate_name */
@@ -1198,12 +1232,18 @@ ASPCore2Predicate_name predicate_name()                :{/*@bgen(jjtree) Predica
 {/*@bgen(jjtree) Predicate_name */
     try {
 /*@egen*/
-    t = <ID>/*@bgen(jjtree)*/
-                    {
-                      jjtree.closeNodeScope(jjtn000, true);
-                      jjtc000 = false;
-                    }
-/*@egen*/        {jjtn000.value = t;return jjtn000;}
+    t= <IDLOWER>/*@bgen(jjtree)*/
+                       {
+                         jjtree.closeNodeScope(jjtn000, true);
+                         jjtc000 = false;
+                       }
+/*@egen*/       {jjtn000.value = t;return jjtn000;}
+   | t= <IDUPPER>/*@bgen(jjtree)*/
+                        {
+                          jjtree.closeNodeScope(jjtn000, true);
+                          jjtc000 = false;
+                        }
+/*@egen*/       {jjtn000.value = t;return jjtn000;}
     | t = <STRING>/*@bgen(jjtree)*/
                     {
                       jjtree.closeNodeScope(jjtn000, true);
@@ -1216,4 +1256,8 @@ ASPCore2Predicate_name predicate_name()                :{/*@bgen(jjtree) Predica
       }
     }
 /*@egen*/
+}
+
+TOKEN:{
+   <ERROR_LEXICAL: ~[ ]>
 }

@@ -16,14 +16,15 @@ public interface ParserVisitor
   public Object visit(ASPCore2Choice_elements node, Object data);
   public Object visit(ASPCore2Choice_element node, Object data);
   public Object visit(ASPCore2Binop node, Object data);
+  public Object visit(ASPCore2NegativeBinop node, Object data);
   public Object visit(ASPCore2Arithop node, Object data);
-  public Object visit(ASPCore2Naf_Aggregate_atom node, Object data);
+  public Object visit(ASPCore2NegativeAggregate_atom node, Object data);
   public Object visit(ASPCore2Aggregate_atom node, Object data);
   public Object visit(ASPCore2Aggregate_elements node, Object data);
   public Object visit(ASPCore2Aggregate_element node, Object data);
   public Object visit(ASPCore2Aggregate_function node, Object data);
   public Object visit(ASPCore2Atom node, Object data);
-  public Object visit(ASPCore2UnequalBuiltin_atom node, Object data);
+  public Object visit(ASPCore2NegativeBuiltin_atom node, Object data);
   public Object visit(ASPCore2Builtin_atom node, Object data);
   public Object visit(ASPCore2Naf_Classic_literal node, Object data);
   public Object visit(ASPCore2Classic_literal node, Object data);
@@ -40,4 +41,4 @@ public interface ParserVisitor
   public Object visit(ASPCore2Expression_term node, Object data);
   public Object visit(ASPCore2Predicate_name node, Object data);
 }
-/* JavaCC - OriginalChecksum=aaf2cfef135a88d5ad2c26ebc4877df6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=93ad7a0da60b5eb01154b56670fe95fa (do not edit this line) */

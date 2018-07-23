@@ -2,9 +2,9 @@ options{
     ERROR_REPORTING = true;
     MULTI = true;
     VISITOR = true;
-    NODE_DEFAULT_VOID=true;
+    //NODE_DEFAULT_VOID=true;
     NODE_PREFIX = "ASPCore2";
-    CACHE_TOKENS = true;
+    //CACHE_TOKENS = true;
     OUTPUT_DIRECTORY = "parser/";
 }
 
@@ -15,36 +15,52 @@ import java.io.File;
 import java.io.FileReader;
 public class Parser
 {
-    public static void main(String args[]) throws ParseException
-        {
+     public static void main(String args[]) throws ParseException {
 
-           Parser parser;
-                   try {
-                       File file = new File("C:/Users/nlaur/Desktop/prova.txt");
-                        FileReader fileReader = new FileReader(file);
-                        BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
-                        parser = new Parser(fileReader);
-                        String line;
-                        ParserVisitor visitor = new MyParserVisitor();
-                        ASPCore2Program start;
-                        while ((line = br.readLine()) != null) {
-                        try {
-                            System.out.println(line);
-                            start = parser.parseOneLine();
-                            start.jjtAccept(visitor, null);
-                        } catch (Exception e) {
-                            System.out.println("Errore nel file");
-                            System.out.println(e.getMessage());
-                            start = parser.parseOneLine();
-                        }
-                        }
-                        br.close();
-                   } catch (Exception e) {
-                       System.out.println("Oops.");
-                       System.out.println(e.getMessage());
-                   }
-           // SimpleNode root = parser.program();
-           // root.dump("");
+            Parser parser;
+            try {
+                File file = new File("C:/Users/nlaur/Desktop/prova.txt");
+                FileReader fileReader = new FileReader(file);
+                BufferedReader br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
+                parser = new Parser(fileReader);
+                String line;
+                ParserVisitor visitor = new MyParserVisitor();
+                ASPCore2Program start;
+                while ((line = br.readLine()) != null) {
+                    try {
+                        System.out.println(line);
+                        ((MyParserVisitor) visitor).negativeVariable.clear();
+                        ((MyParserVisitor) visitor).positiveVariable.clear();
+                        start = parser.parseOneLine();
+                        visitor.visit(start, null);
+                        //start.dump("");
+                        //((MyParserVisitor) visitor).checkSafety();
+                    } catch (Exception e) {
+                        System.out.println("Errore nel file");
+                        System.out.println(e.getMessage());
+                        start = parser.parseOneLine();
+                    }
+                }
+                fileReader = new FileReader(file);
+                parser.ReInit(fileReader);
+                br = new BufferedReader(new FileReader("C:/Users/nlaur/Desktop/prova.txt"));
+                while ((line = br.readLine())!=null){
+                    System.out.println(line);
+                    start = parser.parseOneLine();
+                    ((MyParserVisitor) visitor).checkWarning = true;
+                    ((MyParserVisitor) visitor).atoms.clear();
+                    visitor.visit(start, null);
+                    //start.dump("");
+                    ((MyParserVisitor) visitor).checkWarningForAtomNotInHead();
+                }
+                br.close();
+            } catch (Exception e) {
+                System.out.println("Oops.");
+                System.out.println(e.getMessage());
+            }
+
+            // SimpleNode root = parser.program();
+            // root.dump("");
             //parser.rule();
         }
 }
@@ -57,12 +73,13 @@ SKIP :
 }
 TOKEN:{
     < NAF: "not">
+    //| < VARIABLE: ["A"-"Z"](["A"-"Z","a"-"z"] | ["0"-"9"] | "_")*>
 }
+
 TOKEN:
 {
-    < ID: ["a"-"z"](<LETTER>| <NUMBER> | "_")*>
-|   < SYMBOLIC_COSTANT: ["a"-"z"](<LETTER> | <NUMBER> | "_")*>
-|   < VARIABLE: ["A"-"Z"](<LETTER> | <NUMBER> | "_")*>
+    < IDLOWER:<LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
+|   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < STRING: "\""(["\\","a"-"z","A"-"Z","_","0"-"9"])*"\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
@@ -97,11 +114,11 @@ TOKEN:
 |   < COMMENT: "%.*$">
 |   < MULTI_LINE_COMMENT: "/%.*%/">
 //|   < BLANK: (" " | "\t"| "\n")+>
-|   < LETTER: ["A"-"Z","a"-"z"]>
+|   <UPPERLETTER : ["A"-"Z"]>
+|   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
 |   < EOL: "\n" >
 |   < ANON_VAR:"_">
-|   <ALTRO: ~[ ]>
 }
 
 ASPCore2Program parseOneLine() #Parse_one_line:
@@ -109,9 +126,9 @@ ASPCore2Program parseOneLine() #Parse_one_line:
     ASPCore2Program aspProgram;
 }
 {
-   LOOKAHEAD(2)aspProgram = program() [<EOL>] {return aspProgram;}
-  | <EOL>
-  | <EOF>               { System.exit(-1); }
+   LOOKAHEAD(2) aspProgram = program() [<EOL>] {return aspProgram;}
+  | <EOL>               { return null; }
+  | <EOF>               { return null; }
 }
 
 ASPCore2Program program() #Program:{}
@@ -121,14 +138,14 @@ ASPCore2Program program() #Program:{}
 
 void rules() #Rules:{}
 {
-    [rule() rules()]
+    rule()[rules()]
 }
 
-boolean rule() #Rule:{}
+void rule() #Rule:{}
 {
-    <CONS> body() <DOT> {return true;}
-|    head() [<CONS> body()] <DOT>  {return true;}
-|   <WCONS> body() <DOT> {return true;}
+    <CONS> body() <DOT>
+|    head() [<CONS> body()] <DOT>
+|   <WCONS> body() <DOT>
 
 }
 
@@ -150,7 +167,7 @@ void disjunction() #Disjunction:{}
 
 void conjunction() #Conjunction:{}
 {
-    (LOOKAHEAD(3) naf_literal() |LOOKAHEAD(3) naf_aggregate_atom() | aggregate_atom())
+    (LOOKAHEAD(3) naf_literal() | LOOKAHEAD(300) negative_aggregate_atom() | aggregate_atom())
     [<BODY_TERM_SEPARATOR> conjunction()]
 }
 
@@ -179,6 +196,15 @@ void binop() #Binop:{}
     |   <GREATER_OR_EQ>
 }
 
+void negativeBinop() #NegativeBinop:{}
+{
+    <UNEQUAL>
+    |   <LESS>
+    |   <GREATER>
+    |   <LESS_OR_EQ>
+    |   <GREATER_OR_EQ>
+}
+
 void arithop() #Arithop:{}
 {
     <PLUS>
@@ -187,23 +213,28 @@ void arithop() #Arithop:{}
     |   <DIV>
 }
 
-void naf_aggregate_atom() #Naf_Aggregate_atom():{}
+void negative_aggregate_atom() #NegativeAggregate_atom():{}
 {
+    LOOKAHEAD(5)
+    [<NAF>] term() negativeBinop() aggregate_function()
+                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
+    |
+    LOOKAHEAD(500)
+    [<NAF>] aggregate_function()
+                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> negativeBinop() term()
 
-    term() <UNEQUAL> aggregate_function() <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
     |
-    aggregate_function()<CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> <UNEQUAL> term()
-    |
-    <NAF> aggregate_atom()
+     <NAF> aggregate_atom()
 }
+
 void aggregate_atom() #Aggregate_atom:{}
 {
-    LOOKAHEAD(3)
-    term() binop() aggregate_function()
-                    <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> [binop() term()]
+    LOOKAHEAD(5)
+    term() <EQUAL> aggregate_function()
+                <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE>
     |
-    [term() binop()] aggregate_function()
-            <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> binop() term()
+    aggregate_function()
+                <CURLY_OPEN> aggregate_elements() <CURLY_CLOSE> <EQUAL> term()
 
 }
 
@@ -225,19 +256,19 @@ void aggregate_function() #Aggregate_function:{}
     |   <AGGR_SUM>
 }
 
-void atom() #Atom:
+void atom() #Atom:{}
 {
+    predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE>]
 }
+
+void negative_builtin_atom() #NegativeBuiltin_atom:{}
 {
-        predicate_name() [<PARAM_OPEN> [terms()] <PARAM_CLOSE> ]
+    term() negativeBinop() term()
 }
-void unequal_builtin_atom() #UnequalBuiltin_atom:{}
-{
-    term() <UNEQUAL> term()
-}
+
 void builtin_atom() #Builtin_atom:{}
 {
-    term() binop() term()
+    term() <EQUAL> term()
 }
 
 void naf_classic_literal() #Naf_Classic_literal:{}
@@ -257,9 +288,9 @@ void naf_literals() #Naf_literals:{}
 
 void naf_literal() #Naf_literal:{}
 {
-    naf_classic_literal() | LOOKAHEAD(3) classic_literal() | LOOKAHEAD(3)unequal_builtin_atom() | builtin_atom()
+    (LOOKAHEAD(400)(LOOKAHEAD(400) negative_builtin_atom() | naf_classic_literal() )
+    |  (LOOKAHEAD(400) builtin_atom() | classic_literal() ))
 }
-
 void terms() #Terms:{}
 {
      term() [<BODY_TERM_SEPARATOR> terms()]
@@ -272,29 +303,31 @@ void basic_terms() #Basic_terms:{}
 
 void term() #Term:{}
 {
-    (LOOKAHEAD(3)
-    basic_term()
-    |  LOOKAHEAD(2) expressions_term()
-    |   function_term()
+    (
+        LOOKAHEAD(20) function_term()
+    |   LOOKAHEAD(3) expressions_term()
+    |   basic_term()
     )
 }
 
 void basic_term() #Basic_term:{}
 {
+    LOOKAHEAD(2)
     ground_term()
     | variable_term()
 }
 
 void ground_term() #Ground_term:{Token t;}
 {
-    t = <SYMBOLIC_COSTANT> {jjtThis.value = String.valueOf(t.image);}
+    t = <IDLOWER> {jjtThis.value = String.valueOf(t.image);}
     |   t = <STRING> {jjtThis.value = String.valueOf(t.image);}
     |    [<MINUS>] t = <NUMBER> {jjtThis.value = String.valueOf(t.image);}
 }
 
 void variable_term() #Variable_term:{Token t;}
 {
-    t = <VARIABLE> {jjtThis.value = t;}
+
+    t = <IDUPPER> {jjtThis.value = t;}
     |  t= <ANON_VAR> {jjtThis.value = t;}
 }
 
@@ -305,21 +338,24 @@ void function_term() #Function_term:{}
 
 void expressions_term() #Expressions_term:{}
 {
-    expression_term() [arithop() expressions_term()]
+    expression_term() [arithop() expression_term()]
 }
 void expression_term() #Expression_term:{}
 {
 
-       <PARAM_OPEN> expression_term() <PARAM_CLOSE>
-    |( LOOKAHEAD(2)
-     ground_term()
-    | [<MINUS>] <VARIABLE>
-    )
+    <PARAM_OPEN> expression_term() <PARAM_CLOSE>
+    | LOOKAHEAD(20)[<MINUS>] <IDUPPER>
+    |  ground_term()
+
 }
 
 ASPCore2Predicate_name predicate_name() #Predicate_name:{Token t;}
 {
-    t = <ID>        {jjtThis.value = t;return jjtThis;}
+    t= <IDLOWER>       {jjtThis.value = t;return jjtThis;}
+   | t= <IDUPPER>       {jjtThis.value = t;return jjtThis;}
     | t = <STRING>  {jjtThis.value = t;return jjtThis;}
 }
 
+TOKEN:{
+   <ERROR_LEXICAL: ~[ ]>
+}

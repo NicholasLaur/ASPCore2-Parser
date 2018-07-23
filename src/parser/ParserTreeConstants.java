@@ -15,29 +15,30 @@ public interface ParserTreeConstants
   public int JJTCHOICE_ELEMENTS = 9;
   public int JJTCHOICE_ELEMENT = 10;
   public int JJTBINOP = 11;
-  public int JJTARITHOP = 12;
-  public int JJTNAF_AGGREGATE_ATOM = 13;
-  public int JJTAGGREGATE_ATOM = 14;
-  public int JJTAGGREGATE_ELEMENTS = 15;
-  public int JJTAGGREGATE_ELEMENT = 16;
-  public int JJTAGGREGATE_FUNCTION = 17;
-  public int JJTATOM = 18;
-  public int JJTUNEQUALBUILTIN_ATOM = 19;
-  public int JJTBUILTIN_ATOM = 20;
-  public int JJTNAF_CLASSIC_LITERAL = 21;
-  public int JJTCLASSIC_LITERAL = 22;
-  public int JJTNAF_LITERALS = 23;
-  public int JJTNAF_LITERAL = 24;
-  public int JJTTERMS = 25;
-  public int JJTBASIC_TERMS = 26;
-  public int JJTTERM = 27;
-  public int JJTBASIC_TERM = 28;
-  public int JJTGROUND_TERM = 29;
-  public int JJTVARIABLE_TERM = 30;
-  public int JJTFUNCTION_TERM = 31;
-  public int JJTEXPRESSIONS_TERM = 32;
-  public int JJTEXPRESSION_TERM = 33;
-  public int JJTPREDICATE_NAME = 34;
+  public int JJTNEGATIVEBINOP = 12;
+  public int JJTARITHOP = 13;
+  public int JJTNEGATIVEAGGREGATE_ATOM = 14;
+  public int JJTAGGREGATE_ATOM = 15;
+  public int JJTAGGREGATE_ELEMENTS = 16;
+  public int JJTAGGREGATE_ELEMENT = 17;
+  public int JJTAGGREGATE_FUNCTION = 18;
+  public int JJTATOM = 19;
+  public int JJTNEGATIVEBUILTIN_ATOM = 20;
+  public int JJTBUILTIN_ATOM = 21;
+  public int JJTNAF_CLASSIC_LITERAL = 22;
+  public int JJTCLASSIC_LITERAL = 23;
+  public int JJTNAF_LITERALS = 24;
+  public int JJTNAF_LITERAL = 25;
+  public int JJTTERMS = 26;
+  public int JJTBASIC_TERMS = 27;
+  public int JJTTERM = 28;
+  public int JJTBASIC_TERM = 29;
+  public int JJTGROUND_TERM = 30;
+  public int JJTVARIABLE_TERM = 31;
+  public int JJTFUNCTION_TERM = 32;
+  public int JJTEXPRESSIONS_TERM = 33;
+  public int JJTEXPRESSION_TERM = 34;
+  public int JJTPREDICATE_NAME = 35;
 
 
   public String[] jjtNodeName = {
@@ -53,14 +54,15 @@ public interface ParserTreeConstants
     "Choice_elements",
     "Choice_element",
     "Binop",
+    "NegativeBinop",
     "Arithop",
-    "Naf_Aggregate_atom",
+    "NegativeAggregate_atom",
     "Aggregate_atom",
     "Aggregate_elements",
     "Aggregate_element",
     "Aggregate_function",
     "Atom",
-    "UnequalBuiltin_atom",
+    "NegativeBuiltin_atom",
     "Builtin_atom",
     "Naf_Classic_literal",
     "Classic_literal",
@@ -78,4 +80,4 @@ public interface ParserTreeConstants
     "Predicate_name",
   };
 }
-/* JavaCC - OriginalChecksum=2988566b0b74bf9bcf92b617b72bd5d4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=44eae8fda06bc00cf97ec41dc4f7d23b (do not edit this line) */
