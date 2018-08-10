@@ -5,7 +5,7 @@
                    
                              
                              
-    //CACHE_TOKENS = true;
+    CACHE_TOKENS = true;
     OUTPUT_DIRECTORY = "parser/";
 }
 
@@ -62,10 +62,6 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
                 System.out.println("Oops.");
                 System.out.println(e.getMessage());
             }
-
-            // SimpleNode root = parser.program();
-            // root.dump("");
-            //parser.rule();
         }
 }
 PARSER_END(Parser)
@@ -77,18 +73,16 @@ SKIP :
 }
 TOKEN:{
     < NAF: "not">
-    //| < VARIABLE: ["A"-"Z"](["A"-"Z","a"-"z"] | ["0"-"9"] | "_")*>
 }
 
 TOKEN:
 {
-    < IDLOWER:<LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
+    < IDLOWER: <LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < STRING: "\""(["\\","a"-"z","A"-"Z","_","0"-"9"])*"\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
 |   < BODY_TERM_SEPARATOR: ",">
-//|   < TERM_SEPARATOR: ",">
 |   < QUERY_MARK: "?">
 |   < COLON: ":">
 |   < SEMICOLON: ";">
@@ -117,8 +111,7 @@ TOKEN:
 |   < AGGR_MIN: "#min">
 |   < COMMENT: "%.*$">
 |   < MULTI_LINE_COMMENT: "/%.*%/">
-//|   < BLANK: (" " | "\t"| "\n")+>
-|   <UPPERLETTER : ["A"-"Z"]>
+|   < UPPERLETTER : ["A"-"Z"]>
 |   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
 |   < EOL: "\n" >
@@ -1167,7 +1160,7 @@ void expressions_term()                  :{/*@bgen(jjtree) Expressions_term */
 {/*@bgen(jjtree) Expressions_term */
     try {
 /*@egen*/
-    expression_term() [arithop() expression_term()]/*@bgen(jjtree)*/
+    expression_term() arithop() expression_term()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);

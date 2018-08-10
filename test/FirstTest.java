@@ -57,7 +57,7 @@ public class FirstTest {
 
     @Test
     public void sixthTest() throws ParseException {
-        test = "fi(a):-F(G(Ci)),ok(1,2,G(G(Z))),#sum{X,Y:ok(X,Y), ok(1,2,G(G(Z)))}=Z, ciao(X), no(Z), ok(N,).";
+        test = "fi(a):-F(G(Ci)),F=1.";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         ASPCore2Program program = parser.program();
         program.dump("");
