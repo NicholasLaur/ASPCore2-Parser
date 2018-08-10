@@ -21,6 +21,15 @@ public class ParserDefaultVisitor implements ParserVisitor{
   public Object visit(ASPCore2Rule node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASPCore2Weight_at_Levels node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASPCore2Weak_Terms node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASPCore2Weak_Term node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASPCore2Head node, Object data){
     return defaultVisit(node, data);
   }
@@ -118,4 +127,4 @@ public class ParserDefaultVisitor implements ParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=b46f032bb543c3890ffa2600038cf708 (do not edit this line) */
+/* JavaCC - OriginalChecksum=1860b2fb16f094ca62ebec63e7c964a6 (do not edit this line) */

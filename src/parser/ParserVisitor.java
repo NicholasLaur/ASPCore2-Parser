@@ -8,6 +8,9 @@ public interface ParserVisitor
   public Object visit(ASPCore2Program node, Object data);
   public Object visit(ASPCore2Rules node, Object data);
   public Object visit(ASPCore2Rule node, Object data);
+  public Object visit(ASPCore2Weight_at_Levels node, Object data);
+  public Object visit(ASPCore2Weak_Terms node, Object data);
+  public Object visit(ASPCore2Weak_Term node, Object data);
   public Object visit(ASPCore2Head node, Object data);
   public Object visit(ASPCore2Body node, Object data);
   public Object visit(ASPCore2Disjunction node, Object data);
@@ -41,4 +44,4 @@ public interface ParserVisitor
   public Object visit(ASPCore2Expression_term node, Object data);
   public Object visit(ASPCore2Predicate_name node, Object data);
 }
-/* JavaCC - OriginalChecksum=93ad7a0da60b5eb01154b56670fe95fa (do not edit this line) */
+/* JavaCC - OriginalChecksum=6caeb32f9e7d83491fada770a1d546c1 (do not edit this line) */

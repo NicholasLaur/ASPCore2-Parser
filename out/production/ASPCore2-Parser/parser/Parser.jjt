@@ -138,10 +138,24 @@ void rule() #Rule:{}
 {
     <CONS> body() <DOT>
 |    head() [<CONS> body()] <DOT>
-|   <WCONS> body() <DOT>
-
+|   <WCONS> body() <DOT> [weight_at_levels()]
 }
 
+void weight_at_levels() #Weight_at_Levels:{}
+{
+    <SQUARE_OPEN> weak_term() [<AT> weak_term()][<BODY_TERM_SEPARATOR> weak_terms()] <SQUARE_CLOSE>
+}
+
+void weak_terms() #Weak_Terms:{}
+{
+    weak_term() [<BODY_TERM_SEPARATOR> weak_terms()]
+}
+
+void weak_term() #Weak_Term:{}
+{
+    LOOKAHEAD(3) expressions_term()
+        |   basic_term()
+}
 void head() #Head:{}
 {
     disjunction() |

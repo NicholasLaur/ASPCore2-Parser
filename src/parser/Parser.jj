@@ -246,7 +246,7 @@ void rule()      :{/*@bgen(jjtree) Rule */
 /*@egen*/
     <CONS> body() <DOT>
 |    head() [<CONS> body()] <DOT>
-|   <WCONS> body() <DOT>/*@bgen(jjtree)*/
+|   <WCONS> body() <DOT> [weight_at_levels()]/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -267,9 +267,101 @@ void rule()      :{/*@bgen(jjtree) Rule */
       }
     }
 /*@egen*/
-
 }
 
+void weight_at_levels()                  :{/*@bgen(jjtree) Weight_at_Levels */
+  ASPCore2Weight_at_Levels jjtn000 = new ASPCore2Weight_at_Levels(JJTWEIGHT_AT_LEVELS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Weight_at_Levels */
+    try {
+/*@egen*/
+    <SQUARE_OPEN> weak_term() [<AT> weak_term()][<BODY_TERM_SEPARATOR> weak_terms()] <SQUARE_CLOSE>/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
+
+void weak_terms()            :{/*@bgen(jjtree) Weak_Terms */
+  ASPCore2Weak_Terms jjtn000 = new ASPCore2Weak_Terms(JJTWEAK_TERMS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Weak_Terms */
+    try {
+/*@egen*/
+    weak_term() [<BODY_TERM_SEPARATOR> weak_terms()]/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
+
+void weak_term()           :{/*@bgen(jjtree) Weak_Term */
+  ASPCore2Weak_Term jjtn000 = new ASPCore2Weak_Term(JJTWEAK_TERM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Weak_Term */
+    try {
+/*@egen*/
+    LOOKAHEAD(3) expressions_term()
+        |   basic_term()/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+/*@egen*/
+}
 void head()      :{/*@bgen(jjtree) Head */
   ASPCore2Head jjtn000 = new ASPCore2Head(JJTHEAD);
   boolean jjtc000 = true;

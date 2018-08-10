@@ -36,6 +36,21 @@ public class MyParserVisitor implements ParserVisitor {
         return defaultVisit(node, data);
     }
 
+    @Override
+    public Object visit(ASPCore2Weight_at_Levels node, Object data) {
+        return defaultVisit(node,data);
+    }
+
+    @Override
+    public Object visit(ASPCore2Weak_Terms node, Object data) {
+        return defaultVisit(node,data);
+    }
+
+    @Override
+    public Object visit(ASPCore2Weak_Term node, Object data) {
+        return defaultVisit(node,data);
+    }
+
     public Object visit(ASPCore2Head node, Object data) {
         return defaultVisit(node, data);
     }

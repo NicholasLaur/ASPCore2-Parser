@@ -7,38 +7,41 @@ public interface ParserTreeConstants
   public int JJTPROGRAM = 1;
   public int JJTRULES = 2;
   public int JJTRULE = 3;
-  public int JJTHEAD = 4;
-  public int JJTBODY = 5;
-  public int JJTDISJUNCTION = 6;
-  public int JJTCONJUNCTION = 7;
-  public int JJTCHOICE_ATOM = 8;
-  public int JJTCHOICE_ELEMENTS = 9;
-  public int JJTCHOICE_ELEMENT = 10;
-  public int JJTBINOP = 11;
-  public int JJTNEGATIVEBINOP = 12;
-  public int JJTARITHOP = 13;
-  public int JJTNEGATIVEAGGREGATE_ATOM = 14;
-  public int JJTAGGREGATE_ATOM = 15;
-  public int JJTAGGREGATE_ELEMENTS = 16;
-  public int JJTAGGREGATE_ELEMENT = 17;
-  public int JJTAGGREGATE_FUNCTION = 18;
-  public int JJTATOM = 19;
-  public int JJTNEGATIVEBUILTIN_ATOM = 20;
-  public int JJTBUILTIN_ATOM = 21;
-  public int JJTNAF_CLASSIC_LITERAL = 22;
-  public int JJTCLASSIC_LITERAL = 23;
-  public int JJTNAF_LITERALS = 24;
-  public int JJTNAF_LITERAL = 25;
-  public int JJTTERMS = 26;
-  public int JJTBASIC_TERMS = 27;
-  public int JJTTERM = 28;
-  public int JJTBASIC_TERM = 29;
-  public int JJTGROUND_TERM = 30;
-  public int JJTVARIABLE_TERM = 31;
-  public int JJTFUNCTION_TERM = 32;
-  public int JJTEXPRESSIONS_TERM = 33;
-  public int JJTEXPRESSION_TERM = 34;
-  public int JJTPREDICATE_NAME = 35;
+  public int JJTWEIGHT_AT_LEVELS = 4;
+  public int JJTWEAK_TERMS = 5;
+  public int JJTWEAK_TERM = 6;
+  public int JJTHEAD = 7;
+  public int JJTBODY = 8;
+  public int JJTDISJUNCTION = 9;
+  public int JJTCONJUNCTION = 10;
+  public int JJTCHOICE_ATOM = 11;
+  public int JJTCHOICE_ELEMENTS = 12;
+  public int JJTCHOICE_ELEMENT = 13;
+  public int JJTBINOP = 14;
+  public int JJTNEGATIVEBINOP = 15;
+  public int JJTARITHOP = 16;
+  public int JJTNEGATIVEAGGREGATE_ATOM = 17;
+  public int JJTAGGREGATE_ATOM = 18;
+  public int JJTAGGREGATE_ELEMENTS = 19;
+  public int JJTAGGREGATE_ELEMENT = 20;
+  public int JJTAGGREGATE_FUNCTION = 21;
+  public int JJTATOM = 22;
+  public int JJTNEGATIVEBUILTIN_ATOM = 23;
+  public int JJTBUILTIN_ATOM = 24;
+  public int JJTNAF_CLASSIC_LITERAL = 25;
+  public int JJTCLASSIC_LITERAL = 26;
+  public int JJTNAF_LITERALS = 27;
+  public int JJTNAF_LITERAL = 28;
+  public int JJTTERMS = 29;
+  public int JJTBASIC_TERMS = 30;
+  public int JJTTERM = 31;
+  public int JJTBASIC_TERM = 32;
+  public int JJTGROUND_TERM = 33;
+  public int JJTVARIABLE_TERM = 34;
+  public int JJTFUNCTION_TERM = 35;
+  public int JJTEXPRESSIONS_TERM = 36;
+  public int JJTEXPRESSION_TERM = 37;
+  public int JJTPREDICATE_NAME = 38;
 
 
   public String[] jjtNodeName = {
@@ -46,6 +49,9 @@ public interface ParserTreeConstants
     "Program",
     "Rules",
     "Rule",
+    "Weight_at_Levels",
+    "Weak_Terms",
+    "Weak_Term",
     "Head",
     "Body",
     "Disjunction",
@@ -80,4 +86,4 @@ public interface ParserTreeConstants
     "Predicate_name",
   };
 }
-/* JavaCC - OriginalChecksum=44eae8fda06bc00cf97ec41dc4f7d23b (do not edit this line) */
+/* JavaCC - OriginalChecksum=5e94d3fb294f99afcabc659b24ebd0e3 (do not edit this line) */
