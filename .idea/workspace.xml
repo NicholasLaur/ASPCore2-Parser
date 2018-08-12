@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5982f57d-0aba-4527-a64e-0c8970730741" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/command.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ASPCore2-Parser/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ASPCore2-Parser/parser/Parser.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ASPCore2-Parser/parser/Parser.jjt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ASPCore2-Parser/parser/Parser.jjt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/MyParserVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/MyParserVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Parser.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Parser.jjt" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Parser.jjt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/ParserDefaultVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/ParserDefaultVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/ParserTreeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/ParserTreeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/ParserVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/ParserVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/ParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/ParserConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/ParserTokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/ParserTokenManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/FirstTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/FirstTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,37 +23,50 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FirstTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/FirstTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Parser.jjt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/parser/Parser.jjt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="156" column="24" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
+            <state relative-caret-position="127">
+              <caret line="89" column="36" lean-forward="true" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyParserVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parser/MyParserVisitor.java">
+      <file leaf-file-name="FirstTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/FirstTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="50" column="38" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
+            <state relative-caret-position="54">
+              <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1986">
+              <caret line="1143" selection-start-line="1143" selection-end-line="1143" />
               <folding>
-                <element signature="e#1305#1306#0" expanded="true" />
-                <element signature="e#1332#1333#0" expanded="true" />
-                <element signature="e#1430#1431#0" expanded="true" />
-                <element signature="e#1457#1458#0" expanded="true" />
-                <element signature="e#1554#1555#0" expanded="true" />
-                <element signature="e#1600#1601#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#71377#71378#0" expanded="true" />
+                <element signature="e#71406#71407#0" expanded="true" />
+                <element signature="e#72398#72399#0" expanded="true" />
+                <element signature="e#72429#72430#0" expanded="true" />
+                <element signature="e#75830#75857#0" expanded="true" />
+                <element signature="e#79502#79503#0" expanded="true" />
+                <element signature="e#79532#79533#0" expanded="true" />
+                <element signature="e#79604#79605#0" expanded="true" />
+                <element signature="e#79635#79636#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="command.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/command.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -63,7 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>300</find>
       <find>atom</find>
       <find>Nega</find>
       <find>basic_terms()</find>
@@ -93,6 +104,7 @@
       <find>%</find>
       <find>term</find>
       <find>wea</find>
+      <find>TokenMgr</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -112,10 +124,11 @@
         <option value="$PROJECT_DIR$/src/parser/ASPCore2Prova.java" />
         <option value="$PROJECT_DIR$/src/parser/ParserVisitor.java" />
         <option value="$PROJECT_DIR$/src/parser/ParserDefaultVisitor.java" />
-        <option value="$PROJECT_DIR$/src/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/parser/ASPCore2Variable_term.java" />
-        <option value="$PROJECT_DIR$/src/parser/Parser.jjt" />
         <option value="$PROJECT_DIR$/src/parser/MyParserVisitor.java" />
+        <option value="$PROJECT_DIR$/src/command.txt" />
+        <option value="$PROJECT_DIR$/src/parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/parser/Parser.jjt" />
         <option value="$PROJECT_DIR$/test/FirstTest.java" />
       </list>
     </option>
@@ -139,7 +152,7 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -167,7 +180,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -298,44 +311,46 @@
       <workItem from="1532333946537" duration="15964000" />
       <workItem from="1532418580313" duration="1023000" />
       <workItem from="1532448956178" duration="251000" />
-      <workItem from="1533915022577" duration="2359000" />
+      <workItem from="1533915022577" duration="2399000" />
+      <workItem from="1533995535548" duration="3793000" />
+      <workItem from="1534051520139" duration="7045000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FirstTest - 2018.07.24 at 18h 19m 57s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 06m 33s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.07.24 at 18h 20m 06s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 07m 26s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 02m 38s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 07m 40s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 16m 29s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 11m 10s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 23m 16s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 14m 05s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 23m 42s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 15m 26s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 23m 58s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 15m 39s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 28m 45s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 15m 58s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 28m 58s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 16m 10s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTest - 2018.08.10 at 18h 32m 06s.xml">
+    <history-entry file="FirstTest - 2018.08.12 at 09h 23m 32s.xml">
       <configuration name="FirstTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75445000" />
+    <option name="totallyTimeSpent" value="86323000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -360,11 +375,11 @@
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32838285" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.6468647" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.5660066" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49924356" weight="0.32838285" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2579425" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2655068" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -391,12 +406,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/parser/Parser.java</url>
-          <line>142</line>
+          <line>927</line>
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/parser/Parser.java</url>
-          <line>197</line>
+          <line>1143</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -430,30 +445,6 @@
     <option name="serverIp" value="localhost" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/parser/WarningException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parser/ASPCore2Terms.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="35" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/parser/MyParserVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3961">
@@ -481,6 +472,15 @@
           <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#71377#71378#0" expanded="true" />
+            <element signature="e#71406#71407#0" expanded="true" />
+            <element signature="e#72398#72399#0" expanded="true" />
+            <element signature="e#72429#72430#0" expanded="true" />
+            <element signature="e#75830#75857#0" expanded="true" />
+            <element signature="e#79502#79503#0" expanded="true" />
+            <element signature="e#79532#79533#0" expanded="true" />
+            <element signature="e#79604#79605#0" expanded="true" />
+            <element signature="e#79635#79636#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -505,6 +505,15 @@
           <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#71377#71378#0" expanded="true" />
+            <element signature="e#71406#71407#0" expanded="true" />
+            <element signature="e#72398#72399#0" expanded="true" />
+            <element signature="e#72429#72430#0" expanded="true" />
+            <element signature="e#75830#75857#0" expanded="true" />
+            <element signature="e#79502#79503#0" expanded="true" />
+            <element signature="e#79532#79533#0" expanded="true" />
+            <element signature="e#79604#79605#0" expanded="true" />
+            <element signature="e#79635#79636#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -529,6 +538,15 @@
           <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#71377#71378#0" expanded="true" />
+            <element signature="e#71406#71407#0" expanded="true" />
+            <element signature="e#72398#72399#0" expanded="true" />
+            <element signature="e#72429#72430#0" expanded="true" />
+            <element signature="e#75830#75857#0" expanded="true" />
+            <element signature="e#79502#79503#0" expanded="true" />
+            <element signature="e#79532#79533#0" expanded="true" />
+            <element signature="e#79604#79605#0" expanded="true" />
+            <element signature="e#79635#79636#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -584,6 +602,15 @@
           <caret line="40" column="23" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#71377#71378#0" expanded="true" />
+            <element signature="e#71406#71407#0" expanded="true" />
+            <element signature="e#72398#72399#0" expanded="true" />
+            <element signature="e#72429#72430#0" expanded="true" />
+            <element signature="e#75830#75857#0" expanded="true" />
+            <element signature="e#79502#79503#0" expanded="true" />
+            <element signature="e#79532#79533#0" expanded="true" />
+            <element signature="e#79604#79605#0" expanded="true" />
+            <element signature="e#79635#79636#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -748,16 +775,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="202" column="9" lean-forward="true" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/parser/ParserVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
@@ -850,30 +867,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/parser/MyParserVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
+        <state relative-caret-position="17">
           <caret line="50" column="38" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
           <folding>
             <element signature="e#1305#1306#0" expanded="true" />
-            <element signature="e#1332#1333#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
             <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1457#1458#0" expanded="true" />
+            <element signature="e#1476#1477#0" expanded="true" />
             <element signature="e#1554#1555#0" expanded="true" />
             <element signature="e#1600#1601#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/parser/ASPCore2Aggregate_function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parser/ASPCore2Aggregate_elements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/command.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/parser/Parser.jjt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="156" column="24" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
+        <state relative-caret-position="127">
+          <caret line="89" column="36" lean-forward="true" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1986">
+          <caret line="1143" selection-start-line="1143" selection-end-line="1143" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#71377#71378#0" expanded="true" />
+            <element signature="e#71406#71407#0" expanded="true" />
+            <element signature="e#72398#72399#0" expanded="true" />
+            <element signature="e#72429#72430#0" expanded="true" />
+            <element signature="e#75830#75857#0" expanded="true" />
+            <element signature="e#79502#79503#0" expanded="true" />
+            <element signature="e#79532#79533#0" expanded="true" />
+            <element signature="e#79604#79605#0" expanded="true" />
+            <element signature="e#79635#79636#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/FirstTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
+        <state relative-caret-position="54">
+          <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
         </state>
       </provider>
     </entry>

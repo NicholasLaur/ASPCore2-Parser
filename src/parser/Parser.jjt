@@ -6,6 +6,7 @@ options{
     NODE_PREFIX = "ASPCore2";
     CACHE_TOKENS = true;
     OUTPUT_DIRECTORY = "parser/";
+    DEBUG_PARSER=true;
 }
 
 PARSER_BEGIN(Parser)
@@ -61,12 +62,22 @@ public class Parser
         }
 }
 PARSER_END(Parser)
+
 SKIP :
 {
     " "
 |   "\r"
 |   "\t"
+|   < "%" (~["\r", "\n"])* >
+|   < "/%" > : ML_COMMENT_STATE
 }
+
+<ML_COMMENT_STATE> SKIP :
+{
+  < "%/" > : DEFAULT
+| < ~[] >
+}
+
 TOKEN:{
     < NAF: "not">
 }
@@ -75,7 +86,8 @@ TOKEN:
 {
     < IDLOWER: <LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
-|   < STRING: "\""(["\\","a"-"z","A"-"Z","_","0"-"9"])*"\"">
+//|   < STRING: "\"" (["^\""]|"\"")* "\"">
+|   < STRING: "\""  (~["\n","\r"])*  "\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
 |   < BODY_TERM_SEPARATOR: ",">
@@ -105,8 +117,8 @@ TOKEN:
 |   < AGGR_SUM: "#sum">
 |   < AGGR_MAX: "#max">
 |   < AGGR_MIN: "#min">
-|   < COMMENT: "%.*$">
-|   < MULTI_LINE_COMMENT: "/%.*%/">
+//|   < COMMENT: "%.*$">
+//|   < MULTI_LINE_COMMENT: "/%.*%/">
 |   < UPPERLETTER : ["A"-"Z"]>
 |   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
@@ -127,9 +139,10 @@ ASPCore2Program parseOneLine() #Parse_one_line:
 ASPCore2Program program() #Program:{}
 {
     rules() {return jjtThis;}
+    | <EOF> {return jjtThis;}
 }
 
-void rules() #Rules:{}
+    void rules() #Rules:{}
 {
     rule()[rules()]
 }
@@ -138,7 +151,7 @@ void rule() #Rule:{}
 {
     <CONS> body() <DOT>
 |    head() [<CONS> body()] <DOT>
-|   <WCONS> body() <DOT> [weight_at_levels()]
+|   <WCONS> body() <DOT> weight_at_levels()
 }
 
 void weight_at_levels() #Weight_at_Levels:{}
@@ -361,8 +374,8 @@ ASPCore2Predicate_name predicate_name() #Predicate_name:{Token t;}
     t= <IDLOWER>       {jjtThis.value = t;return jjtThis;}
    | t= <IDUPPER>       {jjtThis.value = t;return jjtThis;}
     | t = <STRING>  {jjtThis.value = t;return jjtThis;}
-}
 
+}
 TOKEN:{
    <ERROR_LEXICAL: ~[ ]>
 }

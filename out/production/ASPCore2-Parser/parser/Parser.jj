@@ -7,6 +7,7 @@
                              
     CACHE_TOKENS = true;
     OUTPUT_DIRECTORY = "parser/";
+    DEBUG_PARSER=true;
 }
 
 PARSER_BEGIN(Parser)
@@ -65,12 +66,22 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants/*@egen*/
         }
 }
 PARSER_END(Parser)
+
 SKIP :
 {
     " "
 |   "\r"
 |   "\t"
+|   < "%" (~["\r", "\n"])* >
+|   < "/%" > : ML_COMMENT_STATE
 }
+
+<ML_COMMENT_STATE> SKIP :
+{
+  < "%/" > : DEFAULT
+| < ~[] >
+}
+
 TOKEN:{
     < NAF: "not">
 }
@@ -79,7 +90,8 @@ TOKEN:
 {
     < IDLOWER: <LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
-|   < STRING: "\""(["\\","a"-"z","A"-"Z","_","0"-"9"])*"\"">
+//|   < STRING: "\"" (["^\""]|"\"")* "\"">
+|   < STRING: "\""  (~["\n","\r"])*  "\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
 |   < BODY_TERM_SEPARATOR: ",">
@@ -109,8 +121,8 @@ TOKEN:
 |   < AGGR_SUM: "#sum">
 |   < AGGR_MAX: "#max">
 |   < AGGR_MIN: "#min">
-|   < COMMENT: "%.*$">
-|   < MULTI_LINE_COMMENT: "/%.*%/">
+//|   < COMMENT: "%.*$">
+//|   < MULTI_LINE_COMMENT: "/%.*%/">
 |   < UPPERLETTER : ["A"-"Z"]>
 |   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
@@ -182,6 +194,12 @@ ASPCore2Program program()         :{/*@bgen(jjtree) Program */
               jjtree.closeNodeScope(jjtn000, true);
               jjtc000 = false;
             }
+/*@egen*/ {return jjtn000;}
+    | <EOF>/*@bgen(jjtree)*/
+            {
+              jjtree.closeNodeScope(jjtn000, true);
+              jjtc000 = false;
+            }
 /*@egen*/ {return jjtn000;}/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -205,7 +223,7 @@ ASPCore2Program program()         :{/*@bgen(jjtree) Program */
 /*@egen*/
 }
 
-void rules()       :{/*@bgen(jjtree) Rules */
+    void rules()       :{/*@bgen(jjtree) Rules */
   ASPCore2Rules jjtn000 = new ASPCore2Rules(JJTRULES);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
@@ -246,7 +264,7 @@ void rule()      :{/*@bgen(jjtree) Rule */
 /*@egen*/
     <CONS> body() <DOT>
 |    head() [<CONS> body()] <DOT>
-|   <WCONS> body() <DOT> [weight_at_levels()]/*@bgen(jjtree)*/
+|   <WCONS> body() <DOT> weight_at_levels()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -1341,8 +1359,8 @@ ASPCore2Predicate_name predicate_name()                :{/*@bgen(jjtree) Predica
       }
     }
 /*@egen*/
-}
 
+}
 TOKEN:{
    <ERROR_LEXICAL: ~[ ]>
 }

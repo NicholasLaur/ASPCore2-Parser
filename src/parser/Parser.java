@@ -50,48 +50,50 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
             }
         }
 
-  static final public ASPCore2Program parseOneLine() throws ParseException {/*@bgen(jjtree) Parse_one_line */
+  static final public ASPCore2Program parseOneLine() throws ParseException {
+    trace_call("parseOneLine");
+    try {/*@bgen(jjtree) Parse_one_line */
     ASPCore2Parse_one_line jjtn000 = new ASPCore2Parse_one_line(JJTPARSE_ONE_LINE);
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);ASPCore2Program aspProgram;
-    try {
-      if (jj_2_1(2)) {
-        aspProgram = program();
-        switch (jj_nt.kind) {
-        case EOL:{
-          jj_consume_token(EOL);
-          break;
+      try {
+        if (jj_2_1(2)) {
+          aspProgram = program();
+          switch (jj_nt.kind) {
+          case EOL:{
+            jj_consume_token(EOL);
+            break;
+            }
+          default:
+            jj_la1[0] = jj_gen;
+            ;
           }
-        default:
-          jj_la1[0] = jj_gen;
-          ;
-        }
 jjtree.closeNodeScope(jjtn000, true);
                                                  jjtc000 = false;
 {if ("" != null) return aspProgram;}
-      } else {
-        switch (jj_nt.kind) {
-        case EOL:{
-          jj_consume_token(EOL);
+        } else {
+          switch (jj_nt.kind) {
+          case EOL:{
+            jj_consume_token(EOL);
 jjtree.closeNodeScope(jjtn000, true);
                           jjtc000 = false;
 {if ("" != null) return null;}
-          break;
-          }
-        case 0:{
-          jj_consume_token(0);
+            break;
+            }
+          case 0:{
+            jj_consume_token(0);
 jjtree.closeNodeScope(jjtn000, true);
                           jjtc000 = false;
 {if ("" != null) return null;}
-          break;
+            break;
+            }
+          default:
+            jj_la1[1] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
           }
-        default:
-          jj_la1[1] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
         }
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
        jjtree.clearNodeScope(jjtn000);
        jjtc000 = false;
@@ -105,24 +107,57 @@ if (jjtc000) {
        {if (true) throw (ParseException)jjte000;}
      }
      {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
        jjtree.closeNodeScope(jjtn000, true);
      }
-    }
+      }
     throw new Error("Missing return statement in function");
+    } finally {
+      trace_return("parseOneLine");
+    }
   }
 
-  static final public ASPCore2Program program() throws ParseException {/*@bgen(jjtree) Program */
+  static final public ASPCore2Program program() throws ParseException {
+    trace_call("program");
+    try {/*@bgen(jjtree) Program */
   ASPCore2Program jjtn000 = new ASPCore2Program(JJTPROGRAM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      rules();
+      try {
+        switch (jj_nt.kind) {
+        case IDLOWER:
+        case IDUPPER:
+        case STRING:
+        case CONS:
+        case WCONS:
+        case MINUS:
+        case CURLY_OPEN:
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          rules();
 jjtree.closeNodeScope(jjtn000, true);
               jjtc000 = false;
 {if ("" != null) return jjtn000;}
-    } catch (Throwable jjte000) {
+          break;
+          }
+        case 0:{
+          jj_consume_token(0);
+jjtree.closeNodeScope(jjtn000, true);
+              jjtc000 = false;
+{if ("" != null) return jjtn000;}
+          break;
+          }
+        default:
+          jj_la1[2] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -136,120 +171,122 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
-    }
+      }
     throw new Error("Missing return statement in function");
+    } finally {
+      trace_return("program");
+    }
   }
 
-  static final public void rules() throws ParseException {/*@bgen(jjtree) Rules */
+  static final public void rules() throws ParseException {
+    trace_call("rules");
+    try {/*@bgen(jjtree) Rules */
   ASPCore2Rules jjtn000 = new ASPCore2Rules(JJTRULES);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      rule();
-      switch (jj_nt.kind) {
-      case IDLOWER:
-      case IDUPPER:
-      case STRING:
-      case CONS:
-      case WCONS:
-      case MINUS:
-      case CURLY_OPEN:
-      case EQUAL:
-      case UNEQUAL:
-      case LESS:
-      case GREATER:
-      case LESS_OR_EQ:
-      case GREATER_OR_EQ:{
-        rules();
-        break;
-        }
-      default:
-        jj_la1[2] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void rule() throws ParseException {/*@bgen(jjtree) Rule */
-  ASPCore2Rule jjtn000 = new ASPCore2Rule(JJTRULE);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case CONS:{
-        jj_consume_token(CONS);
-        body();
-        jj_consume_token(DOT);
-        break;
-        }
-      case IDLOWER:
-      case IDUPPER:
-      case STRING:
-      case MINUS:
-      case CURLY_OPEN:
-      case EQUAL:
-      case UNEQUAL:
-      case LESS:
-      case GREATER:
-      case LESS_OR_EQ:
-      case GREATER_OR_EQ:{
-        head();
+      try {
+        rule();
         switch (jj_nt.kind) {
-        case CONS:{
-          jj_consume_token(CONS);
-          body();
+        case IDLOWER:
+        case IDUPPER:
+        case STRING:
+        case CONS:
+        case WCONS:
+        case MINUS:
+        case CURLY_OPEN:
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          rules();
           break;
           }
         default:
           jj_la1[3] = jj_gen;
           ;
         }
-        jj_consume_token(DOT);
-        break;
-        }
-      case WCONS:{
-        jj_consume_token(WCONS);
-        body();
-        jj_consume_token(DOT);
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("rules");
+    }
+  }
+
+  static final public void rule() throws ParseException {
+    trace_call("rule");
+    try {/*@bgen(jjtree) Rule */
+  ASPCore2Rule jjtn000 = new ASPCore2Rule(JJTRULE);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
         switch (jj_nt.kind) {
-        case SQUARE_OPEN:{
+        case CONS:{
+          jj_consume_token(CONS);
+          body();
+          jj_consume_token(DOT);
+          break;
+          }
+        case IDLOWER:
+        case IDUPPER:
+        case STRING:
+        case MINUS:
+        case CURLY_OPEN:
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          head();
+          switch (jj_nt.kind) {
+          case CONS:{
+            jj_consume_token(CONS);
+            body();
+            break;
+            }
+          default:
+            jj_la1[4] = jj_gen;
+            ;
+          }
+          jj_consume_token(DOT);
+          break;
+          }
+        case WCONS:{
+          jj_consume_token(WCONS);
+          body();
+          jj_consume_token(DOT);
           weight_at_levels();
           break;
           }
         default:
-          jj_la1[4] = jj_gen;
-          ;
+          jj_la1[5] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
         }
-        break;
-        }
-      default:
-        jj_la1[5] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -263,42 +300,47 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("rule");
     }
   }
 
-  static final public void weight_at_levels() throws ParseException {/*@bgen(jjtree) Weight_at_Levels */
+  static final public void weight_at_levels() throws ParseException {
+    trace_call("weight_at_levels");
+    try {/*@bgen(jjtree) Weight_at_Levels */
   ASPCore2Weight_at_Levels jjtn000 = new ASPCore2Weight_at_Levels(JJTWEIGHT_AT_LEVELS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      jj_consume_token(SQUARE_OPEN);
-      weak_term();
-      switch (jj_nt.kind) {
-      case AT:{
-        jj_consume_token(AT);
+      try {
+        jj_consume_token(SQUARE_OPEN);
         weak_term();
-        break;
+        switch (jj_nt.kind) {
+        case AT:{
+          jj_consume_token(AT);
+          weak_term();
+          break;
+          }
+        default:
+          jj_la1[6] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[6] = jj_gen;
-        ;
-      }
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
-        weak_terms();
-        break;
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          weak_terms();
+          break;
+          }
+        default:
+          jj_la1[7] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[7] = jj_gen;
-        ;
-      }
-      jj_consume_token(SQUARE_CLOSE);
-    } catch (Throwable jjte000) {
+        jj_consume_token(SQUARE_CLOSE);
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -312,30 +354,35 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("weight_at_levels");
     }
   }
 
-  static final public void weak_terms() throws ParseException {/*@bgen(jjtree) Weak_Terms */
+  static final public void weak_terms() throws ParseException {
+    trace_call("weak_terms");
+    try {/*@bgen(jjtree) Weak_Terms */
   ASPCore2Weak_Terms jjtn000 = new ASPCore2Weak_Terms(JJTWEAK_TERMS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      weak_term();
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
-        weak_terms();
-        break;
+      try {
+        weak_term();
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          weak_terms();
+          break;
+          }
+        default:
+          jj_la1[8] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[8] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -349,38 +396,43 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("weak_terms");
     }
   }
 
-  static final public void weak_term() throws ParseException {/*@bgen(jjtree) Weak_Term */
+  static final public void weak_term() throws ParseException {
+    trace_call("weak_term");
+    try {/*@bgen(jjtree) Weak_Term */
   ASPCore2Weak_Term jjtn000 = new ASPCore2Weak_Term(JJTWEAK_TERM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_2(3)) {
-        expressions_term();
-      } else {
-        switch (jj_nt.kind) {
-        case IDLOWER:
-        case IDUPPER:
-        case STRING:
-        case NUMBER:
-        case MINUS:
-        case ANON_VAR:{
-          basic_term();
-          break;
+      try {
+        if (jj_2_2(3)) {
+          expressions_term();
+        } else {
+          switch (jj_nt.kind) {
+          case IDLOWER:
+          case IDUPPER:
+          case STRING:
+          case NUMBER:
+          case MINUS:
+          case ANON_VAR:{
+            basic_term();
+            break;
+            }
+          default:
+            jj_la1[9] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
           }
-        default:
-          jj_la1[9] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
         }
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -394,168 +446,79 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("weak_term");
     }
   }
 
-  static final public void head() throws ParseException {/*@bgen(jjtree) Head */
+  static final public void head() throws ParseException {
+    trace_call("head");
+    try {/*@bgen(jjtree) Head */
   ASPCore2Head jjtn000 = new ASPCore2Head(JJTHEAD);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case IDLOWER:
-      case IDUPPER:
-      case STRING:
-      case MINUS:{
-        disjunction();
-        break;
-        }
-      case CURLY_OPEN:
-      case EQUAL:
-      case UNEQUAL:
-      case LESS:
-      case GREATER:
-      case LESS_OR_EQ:
-      case GREATER_OR_EQ:{
-        choice_atom();
-        break;
-        }
-      default:
-        jj_la1[10] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void body() throws ParseException {/*@bgen(jjtree) Body */
-  ASPCore2Body jjtn000 = new ASPCore2Body(JJTBODY);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      conjunction();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void disjunction() throws ParseException {/*@bgen(jjtree) Disjunction */
-  ASPCore2Disjunction jjtn000 = new ASPCore2Disjunction(JJTDISJUNCTION);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      classic_literal();
-      switch (jj_nt.kind) {
-      case HEAD_SEPARATOR:{
-        jj_consume_token(HEAD_SEPARATOR);
-        disjunction();
-        break;
-        }
-      default:
-        jj_la1[11] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-         jjtree.clearNodeScope(jjtn000);
-         jjtc000 = false;
-       } else {
-         jjtree.popNode();
-       }
-       if (jjte000 instanceof RuntimeException) {
-         {if (true) throw (RuntimeException)jjte000;}
-       }
-       if (jjte000 instanceof ParseException) {
-         {if (true) throw (ParseException)jjte000;}
-       }
-       {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-         jjtree.closeNodeScope(jjtn000, true);
-       }
-    }
-  }
-
-  static final public void conjunction() throws ParseException {/*@bgen(jjtree) Conjunction */
-  ASPCore2Conjunction jjtn000 = new ASPCore2Conjunction(JJTCONJUNCTION);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_3(3)) {
-        naf_literal();
-      } else if (jj_2_4(300)) {
-        negative_aggregate_atom();
-      } else {
+      try {
         switch (jj_nt.kind) {
         case IDLOWER:
         case IDUPPER:
         case STRING:
-        case NUMBER:
-        case MINUS:
-        case PARAM_OPEN:
-        case AGGR_COUNT:
-        case AGGR_SUM:
-        case AGGR_MAX:
-        case AGGR_MIN:
-        case ANON_VAR:{
-          aggregate_atom();
+        case MINUS:{
+          disjunction();
+          break;
+          }
+        case CURLY_OPEN:
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          choice_atom();
           break;
           }
         default:
-          jj_la1[12] = jj_gen;
+          jj_la1[10] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
       }
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("head");
+    }
+  }
+
+  static final public void body() throws ParseException {
+    trace_call("body");
+    try {/*@bgen(jjtree) Body */
+  ASPCore2Body jjtn000 = new ASPCore2Body(JJTBODY);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
         conjunction();
-        break;
-        }
-      default:
-        jj_la1[13] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -569,89 +532,35 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
-    }
-  }
-
-  static final public void choice_atom() throws ParseException {/*@bgen(jjtree) Choice_atom */
-  ASPCore2Choice_atom jjtn000 = new ASPCore2Choice_atom(JJTCHOICE_ATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case EQUAL:
-      case UNEQUAL:
-      case LESS:
-      case GREATER:
-      case LESS_OR_EQ:
-      case GREATER_OR_EQ:{
-        binop();
-        term();
-        break;
-        }
-      default:
-        jj_la1[14] = jj_gen;
-        ;
       }
-      jj_consume_token(CURLY_OPEN);
-      choice_elements();
-      jj_consume_token(CURLY_CLOSE);
-      switch (jj_nt.kind) {
-      case EQUAL:
-      case UNEQUAL:
-      case LESS:
-      case GREATER:
-      case LESS_OR_EQ:
-      case GREATER_OR_EQ:{
-        binop();
-        term();
-        break;
-        }
-      default:
-        jj_la1[15] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
     } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
+      trace_return("body");
     }
   }
 
-  static final public void choice_elements() throws ParseException {/*@bgen(jjtree) Choice_elements */
-  ASPCore2Choice_elements jjtn000 = new ASPCore2Choice_elements(JJTCHOICE_ELEMENTS);
+  static final public void disjunction() throws ParseException {
+    trace_call("disjunction");
+    try {/*@bgen(jjtree) Disjunction */
+  ASPCore2Disjunction jjtn000 = new ASPCore2Disjunction(JJTDISJUNCTION);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      choice_element();
-      switch (jj_nt.kind) {
-      case SEMICOLON:{
-        jj_consume_token(SEMICOLON);
-        choice_elements();
-        break;
+      try {
+        classic_literal();
+        switch (jj_nt.kind) {
+        case HEAD_SEPARATOR:{
+          jj_consume_token(HEAD_SEPARATOR);
+          disjunction();
+          break;
+          }
+        default:
+          jj_la1[11] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[16] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
          jjtree.clearNodeScope(jjtn000);
          jjtc000 = false;
@@ -665,30 +574,208 @@ if (jjtc000) {
          {if (true) throw (ParseException)jjte000;}
        }
        {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
          jjtree.closeNodeScope(jjtn000, true);
        }
+      }
+    } finally {
+      trace_return("disjunction");
     }
   }
 
-  static final public void choice_element() throws ParseException {/*@bgen(jjtree) Choice_element */
+  static final public void conjunction() throws ParseException {
+    trace_call("conjunction");
+    try {/*@bgen(jjtree) Conjunction */
+  ASPCore2Conjunction jjtn000 = new ASPCore2Conjunction(JJTCONJUNCTION);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        if (jj_2_3(3)) {
+          naf_literal();
+        } else if (jj_2_4(300)) {
+          negative_aggregate_atom();
+        } else {
+          switch (jj_nt.kind) {
+          case IDLOWER:
+          case IDUPPER:
+          case STRING:
+          case NUMBER:
+          case MINUS:
+          case PARAM_OPEN:
+          case AGGR_COUNT:
+          case AGGR_SUM:
+          case AGGR_MAX:
+          case AGGR_MIN:
+          case ANON_VAR:{
+            aggregate_atom();
+            break;
+            }
+          default:
+            jj_la1[12] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
+          }
+        }
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          conjunction();
+          break;
+          }
+        default:
+          jj_la1[13] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("conjunction");
+    }
+  }
+
+  static final public void choice_atom() throws ParseException {
+    trace_call("choice_atom");
+    try {/*@bgen(jjtree) Choice_atom */
+  ASPCore2Choice_atom jjtn000 = new ASPCore2Choice_atom(JJTCHOICE_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch (jj_nt.kind) {
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          binop();
+          term();
+          break;
+          }
+        default:
+          jj_la1[14] = jj_gen;
+          ;
+        }
+        jj_consume_token(CURLY_OPEN);
+        choice_elements();
+        jj_consume_token(CURLY_CLOSE);
+        switch (jj_nt.kind) {
+        case EQUAL:
+        case UNEQUAL:
+        case LESS:
+        case GREATER:
+        case LESS_OR_EQ:
+        case GREATER_OR_EQ:{
+          binop();
+          term();
+          break;
+          }
+        default:
+          jj_la1[15] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("choice_atom");
+    }
+  }
+
+  static final public void choice_elements() throws ParseException {
+    trace_call("choice_elements");
+    try {/*@bgen(jjtree) Choice_elements */
+  ASPCore2Choice_elements jjtn000 = new ASPCore2Choice_elements(JJTCHOICE_ELEMENTS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        choice_element();
+        switch (jj_nt.kind) {
+        case SEMICOLON:{
+          jj_consume_token(SEMICOLON);
+          choice_elements();
+          break;
+          }
+        default:
+          jj_la1[16] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+         jjtree.clearNodeScope(jjtn000);
+         jjtc000 = false;
+       } else {
+         jjtree.popNode();
+       }
+       if (jjte000 instanceof RuntimeException) {
+         {if (true) throw (RuntimeException)jjte000;}
+       }
+       if (jjte000 instanceof ParseException) {
+         {if (true) throw (ParseException)jjte000;}
+       }
+       {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+         jjtree.closeNodeScope(jjtn000, true);
+       }
+      }
+    } finally {
+      trace_return("choice_elements");
+    }
+  }
+
+  static final public void choice_element() throws ParseException {
+    trace_call("choice_element");
+    try {/*@bgen(jjtree) Choice_element */
   ASPCore2Choice_element jjtn000 = new ASPCore2Choice_element(JJTCHOICE_ELEMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      atom();
-      switch (jj_nt.kind) {
-      case COLON:{
-        jj_consume_token(COLON);
-        naf_literals();
-        break;
+      try {
+        atom();
+        switch (jj_nt.kind) {
+        case COLON:{
+          jj_consume_token(COLON);
+          naf_literals();
+          break;
+          }
+        default:
+          jj_la1[17] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[17] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
        jjtree.clearNodeScope(jjtn000);
        jjtc000 = false;
@@ -702,617 +789,198 @@ if (jjtc000) {
        {if (true) throw (ParseException)jjte000;}
      }
      {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
        jjtree.closeNodeScope(jjtn000, true);
      }
+      }
+    } finally {
+      trace_return("choice_element");
     }
   }
 
-  static final public void binop() throws ParseException {/*@bgen(jjtree) Binop */
+  static final public void binop() throws ParseException {
+    trace_call("binop");
+    try {/*@bgen(jjtree) Binop */
   ASPCore2Binop jjtn000 = new ASPCore2Binop(JJTBINOP);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case EQUAL:{
-        jj_consume_token(EQUAL);
-        break;
-        }
-      case UNEQUAL:{
-        jj_consume_token(UNEQUAL);
-        break;
-        }
-      case LESS:{
-        jj_consume_token(LESS);
-        break;
-        }
-      case GREATER:{
-        jj_consume_token(GREATER);
-        break;
-        }
-      case LESS_OR_EQ:{
-        jj_consume_token(LESS_OR_EQ);
-        break;
-        }
-      case GREATER_OR_EQ:{
-        jj_consume_token(GREATER_OR_EQ);
-        break;
-        }
-      default:
-        jj_la1[18] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void negativeBinop() throws ParseException {/*@bgen(jjtree) NegativeBinop */
-  ASPCore2NegativeBinop jjtn000 = new ASPCore2NegativeBinop(JJTNEGATIVEBINOP);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case UNEQUAL:{
-        jj_consume_token(UNEQUAL);
-        break;
-        }
-      case LESS:{
-        jj_consume_token(LESS);
-        break;
-        }
-      case GREATER:{
-        jj_consume_token(GREATER);
-        break;
-        }
-      case LESS_OR_EQ:{
-        jj_consume_token(LESS_OR_EQ);
-        break;
-        }
-      case GREATER_OR_EQ:{
-        jj_consume_token(GREATER_OR_EQ);
-        break;
-        }
-      default:
-        jj_la1[19] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void arithop() throws ParseException {/*@bgen(jjtree) Arithop */
-  ASPCore2Arithop jjtn000 = new ASPCore2Arithop(JJTARITHOP);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case PLUS:{
-        jj_consume_token(PLUS);
-        break;
-        }
-      case MINUS:{
-        jj_consume_token(MINUS);
-        break;
-        }
-      case TIMES:{
-        jj_consume_token(TIMES);
-        break;
-        }
-      case DIV:{
-        jj_consume_token(DIV);
-        break;
-        }
-      default:
-        jj_la1[20] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void negative_aggregate_atom() throws ParseException {/*@bgen(jjtree) #NegativeAggregate_atom(true) */
-  ASPCore2NegativeAggregate_atom jjtn000 = new ASPCore2NegativeAggregate_atom(JJTNEGATIVEAGGREGATE_ATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_5(5)) {
+      try {
         switch (jj_nt.kind) {
-        case NAF:{
-          jj_consume_token(NAF);
+        case EQUAL:{
+          jj_consume_token(EQUAL);
+          break;
+          }
+        case UNEQUAL:{
+          jj_consume_token(UNEQUAL);
+          break;
+          }
+        case LESS:{
+          jj_consume_token(LESS);
+          break;
+          }
+        case GREATER:{
+          jj_consume_token(GREATER);
+          break;
+          }
+        case LESS_OR_EQ:{
+          jj_consume_token(LESS_OR_EQ);
+          break;
+          }
+        case GREATER_OR_EQ:{
+          jj_consume_token(GREATER_OR_EQ);
           break;
           }
         default:
-          jj_la1[21] = jj_gen;
-          ;
-        }
-        term();
-        negativeBinop();
-        aggregate_function();
-        jj_consume_token(CURLY_OPEN);
-        aggregate_elements();
-        jj_consume_token(CURLY_CLOSE);
-      } else if (jj_2_6(500)) {
-        switch (jj_nt.kind) {
-        case NAF:{
-          jj_consume_token(NAF);
-          break;
-          }
-        default:
-          jj_la1[22] = jj_gen;
-          ;
-        }
-        aggregate_function();
-        jj_consume_token(CURLY_OPEN);
-        aggregate_elements();
-        jj_consume_token(CURLY_CLOSE);
-        negativeBinop();
-        term();
-      } else {
-        switch (jj_nt.kind) {
-        case NAF:{
-          jj_consume_token(NAF);
-          aggregate_atom();
-          break;
-          }
-        default:
-          jj_la1[23] = jj_gen;
+          jj_la1[18] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("binop");
     }
   }
 
-  static final public void aggregate_atom() throws ParseException {/*@bgen(jjtree) Aggregate_atom */
-  ASPCore2Aggregate_atom jjtn000 = new ASPCore2Aggregate_atom(JJTAGGREGATE_ATOM);
+  static final public void negativeBinop() throws ParseException {
+    trace_call("negativeBinop");
+    try {/*@bgen(jjtree) NegativeBinop */
+  ASPCore2NegativeBinop jjtn000 = new ASPCore2NegativeBinop(JJTNEGATIVEBINOP);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_7(5)) {
-        term();
-        jj_consume_token(EQUAL);
-        aggregate_function();
-        jj_consume_token(CURLY_OPEN);
-        aggregate_elements();
-        jj_consume_token(CURLY_CLOSE);
-      } else {
+      try {
         switch (jj_nt.kind) {
-        case AGGR_COUNT:
-        case AGGR_SUM:
-        case AGGR_MAX:
-        case AGGR_MIN:{
+        case UNEQUAL:{
+          jj_consume_token(UNEQUAL);
+          break;
+          }
+        case LESS:{
+          jj_consume_token(LESS);
+          break;
+          }
+        case GREATER:{
+          jj_consume_token(GREATER);
+          break;
+          }
+        case LESS_OR_EQ:{
+          jj_consume_token(LESS_OR_EQ);
+          break;
+          }
+        case GREATER_OR_EQ:{
+          jj_consume_token(GREATER_OR_EQ);
+          break;
+          }
+        default:
+          jj_la1[19] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("negativeBinop");
+    }
+  }
+
+  static final public void arithop() throws ParseException {
+    trace_call("arithop");
+    try {/*@bgen(jjtree) Arithop */
+  ASPCore2Arithop jjtn000 = new ASPCore2Arithop(JJTARITHOP);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch (jj_nt.kind) {
+        case PLUS:{
+          jj_consume_token(PLUS);
+          break;
+          }
+        case MINUS:{
+          jj_consume_token(MINUS);
+          break;
+          }
+        case TIMES:{
+          jj_consume_token(TIMES);
+          break;
+          }
+        case DIV:{
+          jj_consume_token(DIV);
+          break;
+          }
+        default:
+          jj_la1[20] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("arithop");
+    }
+  }
+
+  static final public void negative_aggregate_atom() throws ParseException {
+    trace_call("negative_aggregate_atom");
+    try {/*@bgen(jjtree) #NegativeAggregate_atom(true) */
+  ASPCore2NegativeAggregate_atom jjtn000 = new ASPCore2NegativeAggregate_atom(JJTNEGATIVEAGGREGATE_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        if (jj_2_5(5)) {
+          switch (jj_nt.kind) {
+          case NAF:{
+            jj_consume_token(NAF);
+            break;
+            }
+          default:
+            jj_la1[21] = jj_gen;
+            ;
+          }
+          term();
+          negativeBinop();
           aggregate_function();
           jj_consume_token(CURLY_OPEN);
           aggregate_elements();
           jj_consume_token(CURLY_CLOSE);
-          jj_consume_token(EQUAL);
-          term();
-          break;
-          }
-        default:
-          jj_la1[24] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void aggregate_elements() throws ParseException {/*@bgen(jjtree) Aggregate_elements */
-  ASPCore2Aggregate_elements jjtn000 = new ASPCore2Aggregate_elements(JJTAGGREGATE_ELEMENTS);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      aggregate_element();
-      switch (jj_nt.kind) {
-      case SEMICOLON:{
-        jj_consume_token(SEMICOLON);
-        aggregate_elements();
-        break;
-        }
-      default:
-        jj_la1[25] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-         jjtree.clearNodeScope(jjtn000);
-         jjtc000 = false;
-       } else {
-         jjtree.popNode();
-       }
-       if (jjte000 instanceof RuntimeException) {
-         {if (true) throw (RuntimeException)jjte000;}
-       }
-       if (jjte000 instanceof ParseException) {
-         {if (true) throw (ParseException)jjte000;}
-       }
-       {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-         jjtree.closeNodeScope(jjtn000, true);
-       }
-    }
-  }
-
-  static final public void aggregate_element() throws ParseException {/*@bgen(jjtree) Aggregate_element */
-  ASPCore2Aggregate_element jjtn000 = new ASPCore2Aggregate_element(JJTAGGREGATE_ELEMENT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      basic_terms();
-      jj_consume_token(COLON);
-      naf_literals();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void aggregate_function() throws ParseException {/*@bgen(jjtree) Aggregate_function */
-  ASPCore2Aggregate_function jjtn000 = new ASPCore2Aggregate_function(JJTAGGREGATE_FUNCTION);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case AGGR_COUNT:{
-        jj_consume_token(AGGR_COUNT);
-        break;
-        }
-      case AGGR_MAX:{
-        jj_consume_token(AGGR_MAX);
-        break;
-        }
-      case AGGR_MIN:{
-        jj_consume_token(AGGR_MIN);
-        break;
-        }
-      case AGGR_SUM:{
-        jj_consume_token(AGGR_SUM);
-        break;
-        }
-      default:
-        jj_la1[26] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void atom() throws ParseException {/*@bgen(jjtree) Atom */
-  ASPCore2Atom jjtn000 = new ASPCore2Atom(JJTATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      predicate_name();
-      switch (jj_nt.kind) {
-      case PARAM_OPEN:{
-        jj_consume_token(PARAM_OPEN);
-        switch (jj_nt.kind) {
-        case IDLOWER:
-        case IDUPPER:
-        case STRING:
-        case NUMBER:
-        case MINUS:
-        case PARAM_OPEN:
-        case ANON_VAR:{
-          terms();
-          break;
-          }
-        default:
-          jj_la1[27] = jj_gen;
-          ;
-        }
-        jj_consume_token(PARAM_CLOSE);
-        break;
-        }
-      default:
-        jj_la1[28] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void negative_builtin_atom() throws ParseException {/*@bgen(jjtree) NegativeBuiltin_atom */
-  ASPCore2NegativeBuiltin_atom jjtn000 = new ASPCore2NegativeBuiltin_atom(JJTNEGATIVEBUILTIN_ATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      term();
-      negativeBinop();
-      term();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void builtin_atom() throws ParseException {/*@bgen(jjtree) Builtin_atom */
-  ASPCore2Builtin_atom jjtn000 = new ASPCore2Builtin_atom(JJTBUILTIN_ATOM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      term();
-      jj_consume_token(EQUAL);
-      term();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void naf_classic_literal() throws ParseException {/*@bgen(jjtree) Naf_Classic_literal */
-  ASPCore2Naf_Classic_literal jjtn000 = new ASPCore2Naf_Classic_literal(JJTNAF_CLASSIC_LITERAL);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      jj_consume_token(NAF);
-      classic_literal();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void classic_literal() throws ParseException {/*@bgen(jjtree) Classic_literal */
-  ASPCore2Classic_literal jjtn000 = new ASPCore2Classic_literal(JJTCLASSIC_LITERAL);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case MINUS:{
-        jj_consume_token(MINUS);
-        break;
-        }
-      default:
-        jj_la1[29] = jj_gen;
-        ;
-      }
-      atom();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void naf_literals() throws ParseException {/*@bgen(jjtree) Naf_literals */
-  ASPCore2Naf_literals jjtn000 = new ASPCore2Naf_literals(JJTNAF_LITERALS);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      naf_literal();
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
-        naf_literals();
-        break;
-        }
-      default:
-        jj_la1[30] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-         jjtree.clearNodeScope(jjtn000);
-         jjtc000 = false;
-       } else {
-         jjtree.popNode();
-       }
-       if (jjte000 instanceof RuntimeException) {
-         {if (true) throw (RuntimeException)jjte000;}
-       }
-       if (jjte000 instanceof ParseException) {
-         {if (true) throw (ParseException)jjte000;}
-       }
-       {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-         jjtree.closeNodeScope(jjtn000, true);
-       }
-    }
-  }
-
-  static final public void naf_literal() throws ParseException {/*@bgen(jjtree) Naf_literal */
-  ASPCore2Naf_literal jjtn000 = new ASPCore2Naf_literal(JJTNAF_LITERAL);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_10(400)) {
-        if (jj_2_8(400)) {
-          negative_builtin_atom();
-        } else {
+        } else if (jj_2_6(500)) {
           switch (jj_nt.kind) {
           case NAF:{
-            naf_classic_literal();
+            jj_consume_token(NAF);
             break;
             }
           default:
-            jj_la1[31] = jj_gen;
+            jj_la1[22] = jj_gen;
+            ;
+          }
+          aggregate_function();
+          jj_consume_token(CURLY_OPEN);
+          aggregate_elements();
+          jj_consume_token(CURLY_CLOSE);
+          negativeBinop();
+          term();
+        } else {
+          switch (jj_nt.kind) {
+          case NAF:{
+            jj_consume_token(NAF);
+            aggregate_atom();
+            break;
+            }
+          default:
+            jj_la1[23] = jj_gen;
             jj_consume_token(-1);
             throw new ParseException();
           }
         }
-      } else {
-        switch (jj_nt.kind) {
-        case IDLOWER:
-        case IDUPPER:
-        case STRING:
-        case NUMBER:
-        case MINUS:
-        case PARAM_OPEN:
-        case ANON_VAR:{
-          if (jj_2_9(400)) {
-            builtin_atom();
-          } else {
-            switch (jj_nt.kind) {
-            case IDLOWER:
-            case IDUPPER:
-            case STRING:
-            case MINUS:{
-              classic_literal();
-              break;
-              }
-            default:
-              jj_la1[32] = jj_gen;
-              jj_consume_token(-1);
-              throw new ParseException();
-            }
-          }
-          break;
-          }
-        default:
-          jj_la1[33] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -1326,30 +994,93 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("negative_aggregate_atom");
     }
   }
 
-  static final public void terms() throws ParseException {/*@bgen(jjtree) Terms */
-  ASPCore2Terms jjtn000 = new ASPCore2Terms(JJTTERMS);
+  static final public void aggregate_atom() throws ParseException {
+    trace_call("aggregate_atom");
+    try {/*@bgen(jjtree) Aggregate_atom */
+  ASPCore2Aggregate_atom jjtn000 = new ASPCore2Aggregate_atom(JJTAGGREGATE_ATOM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      term();
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
-        terms();
-        break;
+      try {
+        if (jj_2_7(5)) {
+          term();
+          jj_consume_token(EQUAL);
+          aggregate_function();
+          jj_consume_token(CURLY_OPEN);
+          aggregate_elements();
+          jj_consume_token(CURLY_CLOSE);
+        } else {
+          switch (jj_nt.kind) {
+          case AGGR_COUNT:
+          case AGGR_SUM:
+          case AGGR_MAX:
+          case AGGR_MIN:{
+            aggregate_function();
+            jj_consume_token(CURLY_OPEN);
+            aggregate_elements();
+            jj_consume_token(CURLY_CLOSE);
+            jj_consume_token(EQUAL);
+            term();
+            break;
+            }
+          default:
+            jj_la1[24] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
+          }
         }
-      default:
-        jj_la1[34] = jj_gen;
-        ;
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
       }
-    } catch (Throwable jjte000) {
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("aggregate_atom");
+    }
+  }
+
+  static final public void aggregate_elements() throws ParseException {
+    trace_call("aggregate_elements");
+    try {/*@bgen(jjtree) Aggregate_elements */
+  ASPCore2Aggregate_elements jjtn000 = new ASPCore2Aggregate_elements(JJTAGGREGATE_ELEMENTS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        aggregate_element();
+        switch (jj_nt.kind) {
+        case SEMICOLON:{
+          jj_consume_token(SEMICOLON);
+          aggregate_elements();
+          break;
+          }
+        default:
+          jj_la1[25] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
 if (jjtc000) {
          jjtree.clearNodeScope(jjtn000);
          jjtc000 = false;
@@ -1363,30 +1094,471 @@ if (jjtc000) {
          {if (true) throw (ParseException)jjte000;}
        }
        {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
          jjtree.closeNodeScope(jjtn000, true);
        }
+      }
+    } finally {
+      trace_return("aggregate_elements");
     }
   }
 
-  static final public void basic_terms() throws ParseException {/*@bgen(jjtree) Basic_terms */
+  static final public void aggregate_element() throws ParseException {
+    trace_call("aggregate_element");
+    try {/*@bgen(jjtree) Aggregate_element */
+  ASPCore2Aggregate_element jjtn000 = new ASPCore2Aggregate_element(JJTAGGREGATE_ELEMENT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        basic_terms();
+        jj_consume_token(COLON);
+        naf_literals();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("aggregate_element");
+    }
+  }
+
+  static final public void aggregate_function() throws ParseException {
+    trace_call("aggregate_function");
+    try {/*@bgen(jjtree) Aggregate_function */
+  ASPCore2Aggregate_function jjtn000 = new ASPCore2Aggregate_function(JJTAGGREGATE_FUNCTION);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch (jj_nt.kind) {
+        case AGGR_COUNT:{
+          jj_consume_token(AGGR_COUNT);
+          break;
+          }
+        case AGGR_MAX:{
+          jj_consume_token(AGGR_MAX);
+          break;
+          }
+        case AGGR_MIN:{
+          jj_consume_token(AGGR_MIN);
+          break;
+          }
+        case AGGR_SUM:{
+          jj_consume_token(AGGR_SUM);
+          break;
+          }
+        default:
+          jj_la1[26] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("aggregate_function");
+    }
+  }
+
+  static final public void atom() throws ParseException {
+    trace_call("atom");
+    try {/*@bgen(jjtree) Atom */
+  ASPCore2Atom jjtn000 = new ASPCore2Atom(JJTATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        predicate_name();
+        switch (jj_nt.kind) {
+        case PARAM_OPEN:{
+          jj_consume_token(PARAM_OPEN);
+          switch (jj_nt.kind) {
+          case IDLOWER:
+          case IDUPPER:
+          case STRING:
+          case NUMBER:
+          case MINUS:
+          case PARAM_OPEN:
+          case ANON_VAR:{
+            terms();
+            break;
+            }
+          default:
+            jj_la1[27] = jj_gen;
+            ;
+          }
+          jj_consume_token(PARAM_CLOSE);
+          break;
+          }
+        default:
+          jj_la1[28] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("atom");
+    }
+  }
+
+  static final public void negative_builtin_atom() throws ParseException {
+    trace_call("negative_builtin_atom");
+    try {/*@bgen(jjtree) NegativeBuiltin_atom */
+  ASPCore2NegativeBuiltin_atom jjtn000 = new ASPCore2NegativeBuiltin_atom(JJTNEGATIVEBUILTIN_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        term();
+        negativeBinop();
+        term();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("negative_builtin_atom");
+    }
+  }
+
+  static final public void builtin_atom() throws ParseException {
+    trace_call("builtin_atom");
+    try {/*@bgen(jjtree) Builtin_atom */
+  ASPCore2Builtin_atom jjtn000 = new ASPCore2Builtin_atom(JJTBUILTIN_ATOM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        term();
+        jj_consume_token(EQUAL);
+        term();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("builtin_atom");
+    }
+  }
+
+  static final public void naf_classic_literal() throws ParseException {
+    trace_call("naf_classic_literal");
+    try {/*@bgen(jjtree) Naf_Classic_literal */
+  ASPCore2Naf_Classic_literal jjtn000 = new ASPCore2Naf_Classic_literal(JJTNAF_CLASSIC_LITERAL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(NAF);
+        classic_literal();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("naf_classic_literal");
+    }
+  }
+
+  static final public void classic_literal() throws ParseException {
+    trace_call("classic_literal");
+    try {/*@bgen(jjtree) Classic_literal */
+  ASPCore2Classic_literal jjtn000 = new ASPCore2Classic_literal(JJTCLASSIC_LITERAL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch (jj_nt.kind) {
+        case MINUS:{
+          jj_consume_token(MINUS);
+          break;
+          }
+        default:
+          jj_la1[29] = jj_gen;
+          ;
+        }
+        atom();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("classic_literal");
+    }
+  }
+
+  static final public void naf_literals() throws ParseException {
+    trace_call("naf_literals");
+    try {/*@bgen(jjtree) Naf_literals */
+  ASPCore2Naf_literals jjtn000 = new ASPCore2Naf_literals(JJTNAF_LITERALS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        naf_literal();
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          naf_literals();
+          break;
+          }
+        default:
+          jj_la1[30] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+         jjtree.clearNodeScope(jjtn000);
+         jjtc000 = false;
+       } else {
+         jjtree.popNode();
+       }
+       if (jjte000 instanceof RuntimeException) {
+         {if (true) throw (RuntimeException)jjte000;}
+       }
+       if (jjte000 instanceof ParseException) {
+         {if (true) throw (ParseException)jjte000;}
+       }
+       {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+         jjtree.closeNodeScope(jjtn000, true);
+       }
+      }
+    } finally {
+      trace_return("naf_literals");
+    }
+  }
+
+  static final public void naf_literal() throws ParseException {
+    trace_call("naf_literal");
+    try {/*@bgen(jjtree) Naf_literal */
+  ASPCore2Naf_literal jjtn000 = new ASPCore2Naf_literal(JJTNAF_LITERAL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        if (jj_2_10(400)) {
+          if (jj_2_8(400)) {
+            negative_builtin_atom();
+          } else {
+            switch (jj_nt.kind) {
+            case NAF:{
+              naf_classic_literal();
+              break;
+              }
+            default:
+              jj_la1[31] = jj_gen;
+              jj_consume_token(-1);
+              throw new ParseException();
+            }
+          }
+        } else {
+          switch (jj_nt.kind) {
+          case IDLOWER:
+          case IDUPPER:
+          case STRING:
+          case NUMBER:
+          case MINUS:
+          case PARAM_OPEN:
+          case ANON_VAR:{
+            if (jj_2_9(400)) {
+              builtin_atom();
+            } else {
+              switch (jj_nt.kind) {
+              case IDLOWER:
+              case IDUPPER:
+              case STRING:
+              case MINUS:{
+                classic_literal();
+                break;
+                }
+              default:
+                jj_la1[32] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
+              }
+            }
+            break;
+            }
+          default:
+            jj_la1[33] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
+          }
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("naf_literal");
+    }
+  }
+
+  static final public void terms() throws ParseException {
+    trace_call("terms");
+    try {/*@bgen(jjtree) Terms */
+  ASPCore2Terms jjtn000 = new ASPCore2Terms(JJTTERMS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        term();
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          terms();
+          break;
+          }
+        default:
+          jj_la1[34] = jj_gen;
+          ;
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+         jjtree.clearNodeScope(jjtn000);
+         jjtc000 = false;
+       } else {
+         jjtree.popNode();
+       }
+       if (jjte000 instanceof RuntimeException) {
+         {if (true) throw (RuntimeException)jjte000;}
+       }
+       if (jjte000 instanceof ParseException) {
+         {if (true) throw (ParseException)jjte000;}
+       }
+       {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+         jjtree.closeNodeScope(jjtn000, true);
+       }
+      }
+    } finally {
+      trace_return("terms");
+    }
+  }
+
+  static final public void basic_terms() throws ParseException {
+    trace_call("basic_terms");
+    try {/*@bgen(jjtree) Basic_terms */
   ASPCore2Basic_terms jjtn000 = new ASPCore2Basic_terms(JJTBASIC_TERMS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      basic_term();
-      switch (jj_nt.kind) {
-      case BODY_TERM_SEPARATOR:{
-        jj_consume_token(BODY_TERM_SEPARATOR);
-        basic_terms();
-        break;
+      try {
+        basic_term();
+        switch (jj_nt.kind) {
+        case BODY_TERM_SEPARATOR:{
+          jj_consume_token(BODY_TERM_SEPARATOR);
+          basic_terms();
+          break;
+          }
+        default:
+          jj_la1[35] = jj_gen;
+          ;
         }
-      default:
-        jj_la1[35] = jj_gen;
-        ;
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
           jjtree.clearNodeScope(jjtn000);
           jjtc000 = false;
@@ -1400,40 +1572,45 @@ if (jjtc000) {
           {if (true) throw (ParseException)jjte000;}
         }
         {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
           jjtree.closeNodeScope(jjtn000, true);
         }
+      }
+    } finally {
+      trace_return("basic_terms");
     }
   }
 
-  static final public void term() throws ParseException {/*@bgen(jjtree) Term */
+  static final public void term() throws ParseException {
+    trace_call("term");
+    try {/*@bgen(jjtree) Term */
   ASPCore2Term jjtn000 = new ASPCore2Term(JJTTERM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_11(20)) {
-        function_term();
-      } else if (jj_2_12(3)) {
-        expressions_term();
-      } else {
-        switch (jj_nt.kind) {
-        case IDLOWER:
-        case IDUPPER:
-        case STRING:
-        case NUMBER:
-        case MINUS:
-        case ANON_VAR:{
-          basic_term();
-          break;
+      try {
+        if (jj_2_11(20)) {
+          function_term();
+        } else if (jj_2_12(3)) {
+          expressions_term();
+        } else {
+          switch (jj_nt.kind) {
+          case IDLOWER:
+          case IDUPPER:
+          case STRING:
+          case NUMBER:
+          case MINUS:
+          case ANON_VAR:{
+            basic_term();
+            break;
+            }
+          default:
+            jj_la1[36] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
           }
-        default:
-          jj_la1[36] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
         }
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -1447,34 +1624,39 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("term");
     }
   }
 
-  static final public void basic_term() throws ParseException {/*@bgen(jjtree) Basic_term */
+  static final public void basic_term() throws ParseException {
+    trace_call("basic_term");
+    try {/*@bgen(jjtree) Basic_term */
   ASPCore2Basic_term jjtn000 = new ASPCore2Basic_term(JJTBASIC_TERM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-    try {
-      if (jj_2_13(2)) {
-        ground_term();
-      } else {
-        switch (jj_nt.kind) {
-        case IDUPPER:
-        case ANON_VAR:{
-          variable_term();
-          break;
+      try {
+        if (jj_2_13(2)) {
+          ground_term();
+        } else {
+          switch (jj_nt.kind) {
+          case IDUPPER:
+          case ANON_VAR:{
+            variable_term();
+            break;
+            }
+          default:
+            jj_la1[37] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
           }
-        default:
-          jj_la1[37] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
         }
-      }
-    } catch (Throwable jjte000) {
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -1488,195 +1670,119 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("basic_term");
     }
   }
 
-  static final public void ground_term() throws ParseException {/*@bgen(jjtree) Ground_term */
+  static final public void ground_term() throws ParseException {
+    trace_call("ground_term");
+    try {/*@bgen(jjtree) Ground_term */
                                  ASPCore2Ground_term jjtn000 = new ASPCore2Ground_term(JJTGROUND_TERM);
                                  boolean jjtc000 = true;
                                  jjtree.openNodeScope(jjtn000);Token t;
-    try {
-      switch (jj_nt.kind) {
-      case IDLOWER:{
-        t = jj_consume_token(IDLOWER);
+      try {
+        switch (jj_nt.kind) {
+        case IDLOWER:{
+          t = jj_consume_token(IDLOWER);
 jjtree.closeNodeScope(jjtn000, true);
                     jjtc000 = false;
 jjtn000.value = String.valueOf(t.image);
-        break;
-        }
-      case STRING:{
-        t = jj_consume_token(STRING);
-jjtree.closeNodeScope(jjtn000, true);
-                       jjtc000 = false;
-jjtn000.value = String.valueOf(t.image);
-        break;
-        }
-      case NUMBER:
-      case MINUS:{
-        switch (jj_nt.kind) {
-        case MINUS:{
-          jj_consume_token(MINUS);
           break;
           }
-        default:
-          jj_la1[38] = jj_gen;
-          ;
-        }
-        t = jj_consume_token(NUMBER);
-jjtree.closeNodeScope(jjtn000, true);
-                                  jjtc000 = false;
-jjtn000.value = String.valueOf(t.image);
-        break;
-        }
-      default:
-        jj_la1[39] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void variable_term() throws ParseException {/*@bgen(jjtree) Variable_term */
-                                     ASPCore2Variable_term jjtn000 = new ASPCore2Variable_term(JJTVARIABLE_TERM);
-                                     boolean jjtc000 = true;
-                                     jjtree.openNodeScope(jjtn000);Token t;
-    try {
-      switch (jj_nt.kind) {
-      case IDUPPER:{
-        t = jj_consume_token(IDUPPER);
-jjtree.closeNodeScope(jjtn000, true);
-                    jjtc000 = false;
-jjtn000.value = t;
-        break;
-        }
-      case ANON_VAR:{
-        t = jj_consume_token(ANON_VAR);
+        case STRING:{
+          t = jj_consume_token(STRING);
 jjtree.closeNodeScope(jjtn000, true);
                        jjtc000 = false;
-jjtn000.value = t;
-        break;
-        }
-      default:
-        jj_la1[40] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void function_term() throws ParseException {/*@bgen(jjtree) Function_term */
-  ASPCore2Function_term jjtn000 = new ASPCore2Function_term(JJTFUNCTION_TERM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      predicate_name();
-      jj_consume_token(PARAM_OPEN);
-      terms();
-      jj_consume_token(PARAM_CLOSE);
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void expressions_term() throws ParseException {/*@bgen(jjtree) Expressions_term */
-  ASPCore2Expressions_term jjtn000 = new ASPCore2Expressions_term(JJTEXPRESSIONS_TERM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      expression_term();
-      arithop();
-      expression_term();
-    } catch (Throwable jjte000) {
-if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
-    } finally {
-if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-  }
-
-  static final public void expression_term() throws ParseException {/*@bgen(jjtree) Expression_term */
-  ASPCore2Expression_term jjtn000 = new ASPCore2Expression_term(JJTEXPRESSION_TERM);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch (jj_nt.kind) {
-      case PARAM_OPEN:{
-        jj_consume_token(PARAM_OPEN);
-        expression_term();
-        jj_consume_token(PARAM_CLOSE);
-        break;
-        }
-      default:
-        jj_la1[42] = jj_gen;
-        if (jj_2_14(20)) {
+jjtn000.value = String.valueOf(t.image);
+          break;
+          }
+        case NUMBER:
+        case MINUS:{
           switch (jj_nt.kind) {
           case MINUS:{
             jj_consume_token(MINUS);
             break;
             }
           default:
-            jj_la1[41] = jj_gen;
+            jj_la1[38] = jj_gen;
             ;
           }
-          jj_consume_token(IDUPPER);
-        } else {
-          switch (jj_nt.kind) {
-          case IDLOWER:
-          case STRING:
-          case NUMBER:
-          case MINUS:{
-            ground_term();
-            break;
-            }
-          default:
-            jj_la1[43] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+          t = jj_consume_token(NUMBER);
+jjtree.closeNodeScope(jjtn000, true);
+                                  jjtc000 = false;
+jjtn000.value = String.valueOf(t.image);
+          break;
           }
+        default:
+          jj_la1[39] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
         }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
       }
-    } catch (Throwable jjte000) {
+      }
+    } finally {
+      trace_return("ground_term");
+    }
+  }
+
+  static final public void variable_term() throws ParseException {
+    trace_call("variable_term");
+    try {/*@bgen(jjtree) Variable_term */
+                                     ASPCore2Variable_term jjtn000 = new ASPCore2Variable_term(JJTVARIABLE_TERM);
+                                     boolean jjtc000 = true;
+                                     jjtree.openNodeScope(jjtn000);Token t;
+      try {
+        switch (jj_nt.kind) {
+        case IDUPPER:{
+          t = jj_consume_token(IDUPPER);
+jjtree.closeNodeScope(jjtn000, true);
+                    jjtc000 = false;
+jjtn000.value = t;
+          break;
+          }
+        case ANON_VAR:{
+          t = jj_consume_token(ANON_VAR);
+jjtree.closeNodeScope(jjtn000, true);
+                       jjtc000 = false;
+jjtn000.value = t;
+          break;
+          }
+        default:
+          jj_la1[40] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("variable_term");
+    }
+  }
+
+  static final public void function_term() throws ParseException {
+    trace_call("function_term");
+    try {/*@bgen(jjtree) Function_term */
+  ASPCore2Function_term jjtn000 = new ASPCore2Function_term(JJTFUNCTION_TERM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        predicate_name();
+        jj_consume_token(PARAM_OPEN);
+        terms();
+        jj_consume_token(PARAM_CLOSE);
+      } catch (Throwable jjte000) {
 if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
@@ -1690,51 +1796,160 @@ if (jjtc000) {
         {if (true) throw (ParseException)jjte000;}
       }
       {if (true) throw (Error)jjte000;}
-    } finally {
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("function_term");
     }
   }
 
-  static final public ASPCore2Predicate_name predicate_name() throws ParseException {/*@bgen(jjtree) Predicate_name */
-                                                         ASPCore2Predicate_name jjtn000 = new ASPCore2Predicate_name(JJTPREDICATE_NAME);
-                                                         boolean jjtc000 = true;
-                                                         jjtree.openNodeScope(jjtn000);Token t;
-    try {
-      switch (jj_nt.kind) {
-      case IDLOWER:{
-        t = jj_consume_token(IDLOWER);
-jjtree.closeNodeScope(jjtn000, true);
-                         jjtc000 = false;
-jjtn000.value = t;{if ("" != null) return jjtn000;}
-        break;
-        }
-      case IDUPPER:{
-        t = jj_consume_token(IDUPPER);
-jjtree.closeNodeScope(jjtn000, true);
-                          jjtc000 = false;
-jjtn000.value = t;{if ("" != null) return jjtn000;}
-        break;
-        }
-      case STRING:{
-        t = jj_consume_token(STRING);
-jjtree.closeNodeScope(jjtn000, true);
-                      jjtc000 = false;
-jjtn000.value = t;{if ("" != null) return jjtn000;}
-        break;
-        }
-      default:
-        jj_la1[44] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
+  static final public void expressions_term() throws ParseException {
+    trace_call("expressions_term");
+    try {/*@bgen(jjtree) Expressions_term */
+  ASPCore2Expressions_term jjtn000 = new ASPCore2Expressions_term(JJTEXPRESSIONS_TERM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        expression_term();
+        arithop();
+        expression_term();
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
       }
-    } finally {
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
       }
+      }
+    } finally {
+      trace_return("expressions_term");
     }
+  }
+
+  static final public void expression_term() throws ParseException {
+    trace_call("expression_term");
+    try {/*@bgen(jjtree) Expression_term */
+  ASPCore2Expression_term jjtn000 = new ASPCore2Expression_term(JJTEXPRESSION_TERM);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch (jj_nt.kind) {
+        case PARAM_OPEN:{
+          jj_consume_token(PARAM_OPEN);
+          expression_term();
+          jj_consume_token(PARAM_CLOSE);
+          break;
+          }
+        default:
+          jj_la1[42] = jj_gen;
+          if (jj_2_14(20)) {
+            switch (jj_nt.kind) {
+            case MINUS:{
+              jj_consume_token(MINUS);
+              break;
+              }
+            default:
+              jj_la1[41] = jj_gen;
+              ;
+            }
+            jj_consume_token(IDUPPER);
+          } else {
+            switch (jj_nt.kind) {
+            case IDLOWER:
+            case STRING:
+            case NUMBER:
+            case MINUS:{
+              ground_term();
+              break;
+              }
+            default:
+              jj_la1[43] = jj_gen;
+              jj_consume_token(-1);
+              throw new ParseException();
+            }
+          }
+        }
+      } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
+    } finally {
+      trace_return("expression_term");
+    }
+  }
+
+  static final public ASPCore2Predicate_name predicate_name() throws ParseException {
+    trace_call("predicate_name");
+    try {/*@bgen(jjtree) Predicate_name */
+                                                         ASPCore2Predicate_name jjtn000 = new ASPCore2Predicate_name(JJTPREDICATE_NAME);
+                                                         boolean jjtc000 = true;
+                                                         jjtree.openNodeScope(jjtn000);Token t;
+      try {
+        switch (jj_nt.kind) {
+        case IDLOWER:{
+          t = jj_consume_token(IDLOWER);
+jjtree.closeNodeScope(jjtn000, true);
+                         jjtc000 = false;
+jjtn000.value = t;{if ("" != null) return jjtn000;}
+          break;
+          }
+        case IDUPPER:{
+          t = jj_consume_token(IDUPPER);
+jjtree.closeNodeScope(jjtn000, true);
+                          jjtc000 = false;
+jjtn000.value = t;{if ("" != null) return jjtn000;}
+          break;
+          }
+        case STRING:{
+          t = jj_consume_token(STRING);
+jjtree.closeNodeScope(jjtn000, true);
+                      jjtc000 = false;
+jjtn000.value = t;{if ("" != null) return jjtn000;}
+          break;
+          }
+        default:
+          jj_la1[44] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+      }
     throw new Error("Missing return statement in function");
+    } finally {
+      trace_return("predicate_name");
+    }
   }
 
   static private boolean jj_2_1(int xla)
@@ -1849,91 +2064,39 @@ if (jjtc000) {
     finally { jj_save(13, xla); }
   }
 
-  static private boolean jj_3R_64()
- {
-    if (jj_3R_66()) return true;
-    if (jj_3R_5()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_62()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_64()) jj_scanpos = xsp;
-    if (jj_scan_token(CURLY_OPEN)) return true;
-    if (jj_3R_65()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_3()
- {
-    if (jj_3R_3()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_54()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_3()) {
-    jj_scanpos = xsp;
-    if (jj_3_4()) {
-    jj_scanpos = xsp;
-    if (jj_3R_60()) return true;
-    }
-    }
-    return false;
-  }
-
   static private boolean jj_3R_39()
- {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_61()
- {
-    if (jj_3R_36()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_63()) jj_scanpos = xsp;
-    return false;
-  }
-
-  static private boolean jj_3R_38()
  {
     if (jj_scan_token(IDUPPER)) return true;
     return false;
   }
 
-  static private boolean jj_3R_23()
+  static private boolean jj_3R_24()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_37()) {
-    jj_scanpos = xsp;
     if (jj_3R_38()) {
     jj_scanpos = xsp;
-    if (jj_3R_39()) return true;
+    if (jj_3R_39()) {
+    jj_scanpos = xsp;
+    if (jj_3R_40()) return true;
     }
     }
     return false;
   }
 
-  static private boolean jj_3R_37()
+  static private boolean jj_3R_38()
  {
     if (jj_scan_token(IDLOWER)) return true;
     return false;
   }
 
-  static private boolean jj_3R_49()
+  static private boolean jj_3R_53()
  {
-    if (jj_3R_54()) return true;
+    if (jj_3R_59()) return true;
     return false;
   }
 
-  static private boolean jj_3R_30()
+  static private boolean jj_3R_31()
  {
     if (jj_3R_13()) return true;
     return false;
@@ -1943,57 +2106,57 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(18)) jj_scanpos = xsp;
+    if (jj_scan_token(22)) jj_scanpos = xsp;
     if (jj_scan_token(IDUPPER)) return true;
     return false;
   }
 
   static private boolean jj_3R_11()
  {
-    if (jj_3R_22()) return true;
+    if (jj_3R_23()) return true;
     return false;
   }
 
-  static private boolean jj_3R_56()
+  static private boolean jj_3R_61()
  {
-    if (jj_3R_62()) return true;
+    if (jj_3R_64()) return true;
     return false;
   }
 
-  static private boolean jj_3R_29()
+  static private boolean jj_3R_30()
  {
     if (jj_scan_token(PARAM_OPEN)) return true;
-    if (jj_3R_15()) return true;
+    if (jj_3R_16()) return true;
     if (jj_scan_token(PARAM_CLOSE)) return true;
     return false;
   }
 
-  static private boolean jj_3R_55()
+  static private boolean jj_3R_60()
  {
-    if (jj_3R_61()) return true;
+    if (jj_3R_63()) return true;
     return false;
   }
 
-  static private boolean jj_3R_50()
+  static private boolean jj_3R_54()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_55()) {
+    if (jj_3R_60()) {
     jj_scanpos = xsp;
-    if (jj_3R_56()) return true;
+    if (jj_3R_61()) return true;
     }
     return false;
   }
 
-  static private boolean jj_3R_15()
+  static private boolean jj_3R_16()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_29()) {
+    if (jj_3R_30()) {
     jj_scanpos = xsp;
     if (jj_3_14()) {
     jj_scanpos = xsp;
-    if (jj_3R_30()) return true;
+    if (jj_3R_31()) return true;
     }
     }
     return false;
@@ -2001,9 +2164,9 @@ if (jjtc000) {
 
   static private boolean jj_3R_2()
  {
-    if (jj_3R_15()) return true;
     if (jj_3R_16()) return true;
-    if (jj_3R_15()) return true;
+    if (jj_3R_17()) return true;
+    if (jj_3R_16()) return true;
     return false;
   }
 
@@ -2015,77 +2178,39 @@ if (jjtc000) {
 
   static private boolean jj_3R_12()
  {
-    if (jj_3R_23()) return true;
-    if (jj_scan_token(PARAM_OPEN)) return true;
     if (jj_3R_24()) return true;
+    if (jj_scan_token(PARAM_OPEN)) return true;
+    if (jj_3R_25()) return true;
     if (jj_scan_token(PARAM_CLOSE)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_58()
- {
-    if (jj_scan_token(ANON_VAR)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_51()
- {
-    if (jj_scan_token(CONS)) return true;
     return false;
   }
 
   static private boolean jj_3R_57()
  {
+    if (jj_scan_token(ANON_VAR)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_55()
+ {
+    if (jj_scan_token(CONS)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_56()
+ {
     if (jj_scan_token(IDUPPER)) return true;
     return false;
   }
 
-  static private boolean jj_3R_52()
+  static private boolean jj_3R_51()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_57()) {
+    if (jj_3R_56()) {
     jj_scanpos = xsp;
-    if (jj_3R_58()) return true;
+    if (jj_3R_57()) return true;
     }
-    return false;
-  }
-
-  static private boolean jj_3R_27()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(18)) jj_scanpos = xsp;
-    if (jj_scan_token(NUMBER)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_31()
- {
-    if (jj_3R_36()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_26()
- {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_42()
- {
-    if (jj_3R_50()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_51()) jj_scanpos = xsp;
-    if (jj_scan_token(DOT)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_43()
- {
-    if (jj_scan_token(WCONS)) return true;
-    if (jj_3R_49()) return true;
     return false;
   }
 
@@ -2093,20 +2218,58 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_41()) {
-    jj_scanpos = xsp;
-    if (jj_3R_42()) {
-    jj_scanpos = xsp;
-    if (jj_3R_43()) return true;
-    }
-    }
+    if (jj_scan_token(22)) jj_scanpos = xsp;
+    if (jj_scan_token(NUMBER)) return true;
     return false;
   }
 
-  static private boolean jj_3R_41()
+  static private boolean jj_3R_32()
+ {
+    if (jj_3R_37()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_27()
+ {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_50()
+ {
+    if (jj_scan_token(WCONS)) return true;
+    if (jj_3R_53()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_49()
+ {
+    if (jj_3R_54()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_55()) jj_scanpos = xsp;
+    if (jj_scan_token(DOT)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_48()
  {
     if (jj_scan_token(CONS)) return true;
-    if (jj_3R_49()) return true;
+    if (jj_3R_53()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_42()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_48()) {
+    jj_scanpos = xsp;
+    if (jj_3R_49()) {
+    jj_scanpos = xsp;
+    if (jj_3R_50()) return true;
+    }
+    }
     return false;
   }
 
@@ -2114,38 +2277,44 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_25()) {
-    jj_scanpos = xsp;
     if (jj_3R_26()) {
     jj_scanpos = xsp;
-    if (jj_3R_27()) return true;
+    if (jj_3R_27()) {
+    jj_scanpos = xsp;
+    if (jj_3R_28()) return true;
     }
     }
     return false;
   }
 
-  static private boolean jj_3R_25()
+  static private boolean jj_3R_26()
  {
     if (jj_scan_token(IDLOWER)) return true;
     return false;
   }
 
+  static private boolean jj_3R_44()
+ {
+    if (jj_3R_51()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_29()
+ {
+    if (jj_3R_42()) return true;
+    return false;
+  }
+
   static private boolean jj_3R_45()
  {
-    if (jj_3R_52()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_14()
- {
-    if (jj_3R_28()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_46()
- {
     if (jj_scan_token(BODY_TERM_SEPARATOR)) return true;
-    if (jj_3R_34()) return true;
+    if (jj_3R_35()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15()
+ {
+    if (jj_scan_token(0)) return true;
     return false;
   }
 
@@ -2155,26 +2324,37 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_33()
+  static private boolean jj_3R_34()
  {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_13()) {
     jj_scanpos = xsp;
-    if (jj_3R_45()) return true;
+    if (jj_3R_44()) return true;
     }
+    return false;
+  }
+
+  static private boolean jj_3R_20()
+ {
+    if (jj_3R_34()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_14()
+ {
+    if (jj_3R_29()) return true;
     return false;
   }
 
   static private boolean jj_3R_1()
  {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_19()
- {
-    if (jj_3R_33()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_14()) {
+    jj_scanpos = xsp;
+    if (jj_3R_15()) return true;
+    }
     return false;
   }
 
@@ -2204,47 +2384,50 @@ if (jjtc000) {
     jj_scanpos = xsp;
     if (jj_3_12()) {
     jj_scanpos = xsp;
-    if (jj_3R_19()) return true;
+    if (jj_3R_20()) return true;
     }
     }
+    return false;
+  }
+
+  static private boolean jj_3R_41()
+ {
+    if (jj_scan_token(BODY_TERM_SEPARATOR)) return true;
+    if (jj_3R_25()) return true;
     return false;
   }
 
   static private boolean jj_3_1()
  {
     if (jj_3R_1()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_40()
- {
-    if (jj_scan_token(BODY_TERM_SEPARATOR)) return true;
-    if (jj_3R_24()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_34()
- {
-    if (jj_3R_33()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_46()) jj_scanpos = xsp;
+    if (jj_scan_token(44)) jj_scanpos = xsp;
     return false;
   }
 
-  static private boolean jj_3R_47()
+  static private boolean jj_3R_35()
+ {
+    if (jj_3R_34()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_45()) jj_scanpos = xsp;
+    return false;
+  }
+
+  static private boolean jj_3R_46()
  {
     if (jj_scan_token(BODY_TERM_SEPARATOR)) return true;
-    if (jj_3R_35()) return true;
+    if (jj_3R_36()) return true;
     return false;
   }
 
-  static private boolean jj_3R_24()
+  static private boolean jj_3R_25()
  {
     if (jj_3R_5()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_40()) jj_scanpos = xsp;
+    if (jj_3R_41()) jj_scanpos = xsp;
     return false;
   }
 
@@ -2254,20 +2437,20 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_17()
+  static private boolean jj_3R_18()
  {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_9()) {
     jj_scanpos = xsp;
-    if (jj_3R_31()) return true;
+    if (jj_3R_32()) return true;
     }
     return false;
   }
 
-  static private boolean jj_3R_59()
+  static private boolean jj_3R_58()
  {
-    if (jj_3R_24()) return true;
+    if (jj_3R_25()) return true;
     return false;
   }
 
@@ -2288,43 +2471,43 @@ if (jjtc000) {
     xsp = jj_scanpos;
     if (jj_3_10()) {
     jj_scanpos = xsp;
-    if (jj_3R_17()) return true;
+    if (jj_3R_18()) return true;
     }
-    return false;
-  }
-
-  static private boolean jj_3R_35()
- {
-    if (jj_3R_3()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_47()) jj_scanpos = xsp;
     return false;
   }
 
   static private boolean jj_3R_36()
  {
+    if (jj_3R_3()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(18)) jj_scanpos = xsp;
-    if (jj_3R_48()) return true;
+    if (jj_3R_46()) jj_scanpos = xsp;
     return false;
   }
 
-  static private boolean jj_3R_53()
+  static private boolean jj_3R_37()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(22)) jj_scanpos = xsp;
+    if (jj_3R_47()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_52()
  {
     if (jj_scan_token(PARAM_OPEN)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_59()) jj_scanpos = xsp;
+    if (jj_3R_58()) jj_scanpos = xsp;
     if (jj_scan_token(PARAM_CLOSE)) return true;
     return false;
   }
 
-  static private boolean jj_3R_22()
+  static private boolean jj_3R_23()
  {
     if (jj_scan_token(NAF)) return true;
-    if (jj_3R_36()) return true;
+    if (jj_3R_37()) return true;
     return false;
   }
 
@@ -2344,19 +2527,19 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_21()
+  static private boolean jj_3R_22()
  {
     if (jj_scan_token(SEMICOLON)) return true;
     if (jj_3R_8()) return true;
     return false;
   }
 
-  static private boolean jj_3R_48()
+  static private boolean jj_3R_47()
  {
-    if (jj_3R_23()) return true;
+    if (jj_3R_24()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_53()) jj_scanpos = xsp;
+    if (jj_3R_52()) jj_scanpos = xsp;
     return false;
   }
 
@@ -2364,43 +2547,43 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(33)) {
+    if (jj_scan_token(37)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(35)) {
+    if (jj_scan_token(39)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(36)) {
+    if (jj_scan_token(40)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(34)) return true;
+    if (jj_scan_token(38)) return true;
     }
     }
     }
     return false;
   }
 
-  static private boolean jj_3R_20()
+  static private boolean jj_3R_21()
  {
-    if (jj_3R_34()) return true;
-    if (jj_scan_token(COLON)) return true;
     if (jj_3R_35()) return true;
+    if (jj_scan_token(COLON)) return true;
+    if (jj_3R_36()) return true;
     return false;
   }
 
   static private boolean jj_3R_8()
  {
-    if (jj_3R_20()) return true;
+    if (jj_3R_21()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_21()) jj_scanpos = xsp;
+    if (jj_3R_22()) jj_scanpos = xsp;
     return false;
   }
 
-  static private boolean jj_3R_60()
+  static private boolean jj_3R_62()
  {
-    if (jj_3R_32()) return true;
+    if (jj_3R_33()) return true;
     return false;
   }
 
-  static private boolean jj_3R_44()
+  static private boolean jj_3R_43()
  {
     if (jj_3R_7()) return true;
     if (jj_scan_token(CURLY_OPEN)) return true;
@@ -2422,21 +2605,21 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_32()
+  static private boolean jj_3R_33()
  {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3_7()) {
     jj_scanpos = xsp;
-    if (jj_3R_44()) return true;
+    if (jj_3R_43()) return true;
     }
     return false;
   }
 
-  static private boolean jj_3R_18()
+  static private boolean jj_3R_19()
  {
     if (jj_scan_token(NAF)) return true;
-    if (jj_3R_32()) return true;
+    if (jj_3R_33()) return true;
     return false;
   }
 
@@ -2444,7 +2627,7 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(4)) jj_scanpos = xsp;
+    if (jj_scan_token(8)) jj_scanpos = xsp;
     if (jj_3R_7()) return true;
     if (jj_scan_token(CURLY_OPEN)) return true;
     if (jj_3R_8()) return true;
@@ -2462,7 +2645,7 @@ if (jjtc000) {
     jj_scanpos = xsp;
     if (jj_3_6()) {
     jj_scanpos = xsp;
-    if (jj_3R_18()) return true;
+    if (jj_3R_19()) return true;
     }
     }
     return false;
@@ -2472,7 +2655,7 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(4)) jj_scanpos = xsp;
+    if (jj_scan_token(8)) jj_scanpos = xsp;
     if (jj_3R_5()) return true;
     if (jj_3R_6()) return true;
     if (jj_3R_7()) return true;
@@ -2482,17 +2665,17 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_16()
+  static private boolean jj_3R_17()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(17)) {
+    if (jj_scan_token(21)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(18)) {
+    if (jj_scan_token(22)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(19)) {
+    if (jj_scan_token(23)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(20)) return true;
+    if (jj_scan_token(24)) return true;
     }
     }
     }
@@ -2503,15 +2686,15 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(28)) {
+    if (jj_scan_token(32)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(29)) {
+    if (jj_scan_token(33)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(30)) {
+    if (jj_scan_token(34)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(31)) {
+    if (jj_scan_token(35)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(32)) return true;
+    if (jj_scan_token(36)) return true;
     }
     }
     }
@@ -2525,21 +2708,21 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_66()
+  static private boolean jj_3R_68()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(27)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(28)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(29)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(30)) {
-    jj_scanpos = xsp;
     if (jj_scan_token(31)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(32)) return true;
+    if (jj_scan_token(32)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(33)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(34)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(35)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(36)) return true;
     }
     }
     }
@@ -2548,21 +2731,73 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_67()
+  static private boolean jj_3R_69()
  {
-    if (jj_3R_48()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_63()
- {
-    if (jj_scan_token(HEAD_SEPARATOR)) return true;
+    if (jj_3R_47()) return true;
     return false;
   }
 
   static private boolean jj_3R_65()
  {
+    if (jj_scan_token(HEAD_SEPARATOR)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_67()
+ {
+    if (jj_3R_69()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_66()
+ {
+    if (jj_3R_68()) return true;
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_64()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_66()) jj_scanpos = xsp;
+    if (jj_scan_token(CURLY_OPEN)) return true;
     if (jj_3R_67()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_3()
+ {
+    if (jj_3R_3()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_59()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_3()) {
+    jj_scanpos = xsp;
+    if (jj_3_4()) {
+    jj_scanpos = xsp;
+    if (jj_3R_62()) return true;
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_40()
+ {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_63()
+ {
+    if (jj_3R_37()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_65()) jj_scanpos = xsp;
     return false;
   }
 
@@ -2585,10 +2820,10 @@ if (jjtc000) {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x0,0x1,0xfa0580e0,0x8000,0x800000,0xfa0580e0,0x0,0x400,0x400,0x401e0,0xfa0400e0,0x4000,0x2401e0,0x400,0xf8000000,0xf8000000,0x2000,0x1000,0xf8000000,0xf0000000,0x1e0000,0x10,0x10,0x10,0x0,0x2000,0x0,0x2401e0,0x200000,0x40000,0x400,0x10,0x400e0,0x2401e0,0x400,0x400,0x401e0,0x40,0x40000,0x401a0,0x40,0x40000,0x200000,0x401a0,0xe0,};
+      jj_la1_0 = new int[] {0x0,0x1,0xa0580e01,0xa0580e00,0x80000,0xa0580e00,0x0,0x4000,0x4000,0x401e00,0xa0400e00,0x40000,0x2401e00,0x4000,0x80000000,0x80000000,0x20000,0x10000,0x80000000,0x0,0x1e00000,0x100,0x100,0x100,0x0,0x20000,0x0,0x2401e00,0x2000000,0x400000,0x4000,0x100,0x400e00,0x2401e00,0x4000,0x4000,0x401e00,0x400,0x400000,0x401a00,0x400,0x400000,0x2000000,0x401a00,0xe00,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x400,0x400,0x1,0x0,0x0,0x1,0x200,0x0,0x0,0x800,0x1,0x0,0x81e,0x0,0x1,0x1,0x0,0x0,0x1,0x1,0x0,0x0,0x0,0x0,0x1e,0x0,0x1e,0x800,0x0,0x0,0x0,0x0,0x0,0x800,0x0,0x0,0x800,0x800,0x0,0x0,0x800,0x0,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x1000,0x1000,0x1f,0x1f,0x0,0x1f,0x800,0x0,0x0,0x2000,0x1f,0x0,0x21e0,0x0,0x1f,0x1f,0x0,0x0,0x1f,0x1f,0x0,0x0,0x0,0x0,0x1e0,0x0,0x1e0,0x2000,0x0,0x0,0x0,0x0,0x0,0x2000,0x0,0x0,0x2000,0x2000,0x0,0x0,0x2000,0x0,0x0,0x0,0x0,};
    }
   static final private JJCalls[] jj_2_rtns = new JJCalls[14];
   static private boolean jj_rescan = false;
@@ -2706,6 +2941,7 @@ if (jjtc000) {
           }
         }
       }
+      trace_token(token, "");
       return token;
     }
     jj_nt = token;
@@ -2744,6 +2980,7 @@ if (jjtc000) {
     if ((token = jj_nt).next != null) jj_nt = jj_nt.next;
     else jj_nt = jj_nt.next = token_source.getNextToken();
     jj_gen++;
+      trace_token(token, " (in getNextToken)");
     return token;
   }
 
@@ -2791,7 +3028,7 @@ if (jjtc000) {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[45];
+    boolean[] la1tokens = new boolean[47];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -2808,7 +3045,7 @@ if (jjtc000) {
         }
       }
     }
-    for (int i = 0; i < 45; i++) {
+    for (int i = 0; i < 47; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -2825,12 +3062,55 @@ if (jjtc000) {
     return new ParseException(token, exptokseq, tokenImage);
   }
 
-  /** Enable tracing. */
+  static private int trace_indent = 0;
+  static private boolean trace_enabled = true;
+
+/** Enable tracing. */
   static final public void enable_tracing() {
+    trace_enabled = true;
   }
 
-  /** Disable tracing. */
+/** Disable tracing. */
   static final public void disable_tracing() {
+    trace_enabled = false;
+  }
+
+  static private void trace_call(String s) {
+    if (trace_enabled) {
+      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
+      System.out.println("Call:   " + s);
+    }
+    trace_indent = trace_indent + 2;
+  }
+
+  static private void trace_return(String s) {
+    trace_indent = trace_indent - 2;
+    if (trace_enabled) {
+      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
+      System.out.println("Return: " + s);
+    }
+  }
+
+  static private void trace_token(Token t, String where) {
+    if (trace_enabled) {
+      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
+      System.out.print("Consumed token: <" + tokenImage[t.kind]);
+      if (t.kind != 0 && !tokenImage[t.kind].equals("\"" + t.image + "\"")) {
+        System.out.print(": \"" + t.image + "\"");
+      }
+      System.out.println(" at line " + t.beginLine + " column " + t.beginColumn + ">" + where);
+    }
+  }
+
+  static private void trace_scan(Token t1, int t2) {
+    if (trace_enabled) {
+      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
+      System.out.print("Visited token: <" + tokenImage[t1.kind]);
+      if (t1.kind != 0 && !tokenImage[t1.kind].equals("\"" + t1.image + "\"")) {
+        System.out.print(": \"" + t1.image + "\"");
+      }
+      System.out.println(" at line " + t1.beginLine + " column " + t1.beginColumn + ">; Expected token: <" + tokenImage[t2] + ">");
+    }
   }
 
   static private void jj_rescan_token() {

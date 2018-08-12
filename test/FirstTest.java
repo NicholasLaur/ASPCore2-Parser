@@ -97,7 +97,7 @@ public class FirstTest {
 
     @Test
     public void eleventhTest() throws ParseException {
-        test = ":-f(1), not a(\"ciao\").";
+        test = " A|B:-C(X),c(\"ciao\"\"). ciao.";
         System.out.println(test);
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         //Assert.assertTrue(parser.rule());
@@ -107,7 +107,7 @@ public class FirstTest {
 
     @Test(expected = ParseException.class)
     public void twelfthTest() throws ParseException {
-        test = ":~f(1), a(X,A). [X@1,1]";
+        test = ":~f(1), a(X,A). [X,@1,1]";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         ASPCore2Program program = parser.program();
         program.dump("");

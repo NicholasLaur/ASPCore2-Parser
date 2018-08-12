@@ -1,0 +1,2 @@
+java -cp ../lib/javacc.jar jjtree parser/Parser.jjt
+java -cp ../lib/javacc.jar javacc parser/Parser.jj
