@@ -8,7 +8,7 @@ import parser.ASPCore2Program;
 
 import java.io.ByteArrayInputStream;
 
-public class FirstTest {
+public class ParserTest {
     private static Parser parser;
     private static String test;
     @BeforeClass
@@ -20,6 +20,7 @@ public class FirstTest {
     public void before(){
         test = "";
     }*/
+
     @Test
     public void firstTest() throws ParseException {
         test = "";
@@ -29,9 +30,10 @@ public class FirstTest {
 
     @Test
     public void secondTest() throws ParseException {
-        test = "ciAo";
+        test = "ciao(X):-#sum{Y:ok}!=A, \n no";
+        System.out.println(test);
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
-        parser.head();
+        parser.program();
     }
 
     @Test
@@ -46,11 +48,13 @@ public class FirstTest {
         test = "f(X,Y):-f(X), .";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         parser.program();
+        test = "noooo(\"\\\"11112\").";
+
     }
 
     @Test
     public void fifthTest() throws ParseException {
-        test = "F(g(X)):-ok(1,2).";
+        test = "F(g(X)):-ok(\"1\",2).";
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         parser.program();
     }
@@ -97,7 +101,7 @@ public class FirstTest {
 
     @Test
     public void eleventhTest() throws ParseException {
-        test = " A|B:-C(X),c(\"ciao\"\"). ciao.";
+        test = " A|B:-C(X),c(\"ciao\"). ciao.";
         System.out.println(test);
         parser.ReInit(new ByteArrayInputStream(test.getBytes()));
         //Assert.assertTrue(parser.rule());

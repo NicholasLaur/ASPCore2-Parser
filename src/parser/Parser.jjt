@@ -67,6 +67,7 @@ SKIP :
 {
     " "
 |   "\r"
+|   "\n"
 |   "\t"
 |   < "%" (~["\r", "\n"])* >
 |   < "/%" > : ML_COMMENT_STATE
@@ -86,8 +87,7 @@ TOKEN:
 {
     < IDLOWER: <LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
-//|   < STRING: "\"" (["^\""]|"\"")* "\"">
-|   < STRING: "\""  (~["\n","\r"])*  "\"">
+|   < STRING: "\""  (~["\n","\r","\""])*  "\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
 |   < BODY_TERM_SEPARATOR: ",">
@@ -117,12 +117,9 @@ TOKEN:
 |   < AGGR_SUM: "#sum">
 |   < AGGR_MAX: "#max">
 |   < AGGR_MIN: "#min">
-//|   < COMMENT: "%.*$">
-//|   < MULTI_LINE_COMMENT: "/%.*%/">
 |   < UPPERLETTER : ["A"-"Z"]>
 |   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
-|   < EOL: "\n" >
 |   < ANON_VAR:"_">
 }
 
@@ -131,8 +128,8 @@ ASPCore2Program parseOneLine() #Parse_one_line:
     ASPCore2Program aspProgram;
 }
 {
-   LOOKAHEAD(2) aspProgram = program() [<EOL>] {return aspProgram;}
-  | <EOL>               { return null; }
+
+   LOOKAHEAD(2) aspProgram = program()  {return aspProgram;}
   | <EOF>               { return null; }
 }
 
@@ -169,6 +166,7 @@ void weak_term() #Weak_Term:{}
     LOOKAHEAD(3) expressions_term()
         |   basic_term()
 }
+
 void head() #Head:{}
 {
     disjunction() |
@@ -360,6 +358,7 @@ void expressions_term() #Expressions_term:{}
 {
     expression_term() arithop() expression_term()
 }
+
 void expression_term() #Expression_term:{}
 {
 

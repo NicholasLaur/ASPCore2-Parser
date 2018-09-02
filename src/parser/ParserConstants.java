@@ -11,79 +11,77 @@ public interface ParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int NAF = 8;
+  int NAF = 9;
   /** RegularExpression Id. */
-  int IDLOWER = 9;
+  int IDLOWER = 10;
   /** RegularExpression Id. */
-  int IDUPPER = 10;
+  int IDUPPER = 11;
   /** RegularExpression Id. */
-  int STRING = 11;
+  int STRING = 12;
   /** RegularExpression Id. */
-  int NUMBER = 12;
+  int NUMBER = 13;
   /** RegularExpression Id. */
-  int DOT = 13;
+  int DOT = 14;
   /** RegularExpression Id. */
-  int BODY_TERM_SEPARATOR = 14;
+  int BODY_TERM_SEPARATOR = 15;
   /** RegularExpression Id. */
-  int QUERY_MARK = 15;
+  int QUERY_MARK = 16;
   /** RegularExpression Id. */
-  int COLON = 16;
+  int COLON = 17;
   /** RegularExpression Id. */
-  int SEMICOLON = 17;
+  int SEMICOLON = 18;
   /** RegularExpression Id. */
-  int HEAD_SEPARATOR = 18;
+  int HEAD_SEPARATOR = 19;
   /** RegularExpression Id. */
-  int CONS = 19;
+  int CONS = 20;
   /** RegularExpression Id. */
-  int WCONS = 20;
+  int WCONS = 21;
   /** RegularExpression Id. */
-  int PLUS = 21;
+  int PLUS = 22;
   /** RegularExpression Id. */
-  int MINUS = 22;
+  int MINUS = 23;
   /** RegularExpression Id. */
-  int TIMES = 23;
+  int TIMES = 24;
   /** RegularExpression Id. */
-  int DIV = 24;
+  int DIV = 25;
   /** RegularExpression Id. */
-  int PARAM_OPEN = 25;
+  int PARAM_OPEN = 26;
   /** RegularExpression Id. */
-  int PARAM_CLOSE = 26;
+  int PARAM_CLOSE = 27;
   /** RegularExpression Id. */
-  int SQUARE_OPEN = 27;
+  int SQUARE_OPEN = 28;
   /** RegularExpression Id. */
-  int SQUARE_CLOSE = 28;
+  int SQUARE_CLOSE = 29;
   /** RegularExpression Id. */
-  int CURLY_OPEN = 29;
+  int CURLY_OPEN = 30;
   /** RegularExpression Id. */
-  int CURLY_CLOSE = 30;
+  int CURLY_CLOSE = 31;
   /** RegularExpression Id. */
-  int EQUAL = 31;
+  int EQUAL = 32;
   /** RegularExpression Id. */
-  int UNEQUAL = 32;
+  int UNEQUAL = 33;
   /** RegularExpression Id. */
-  int LESS = 33;
+  int LESS = 34;
   /** RegularExpression Id. */
-  int GREATER = 34;
+  int GREATER = 35;
   /** RegularExpression Id. */
-  int LESS_OR_EQ = 35;
+  int LESS_OR_EQ = 36;
   /** RegularExpression Id. */
-  int GREATER_OR_EQ = 36;
+  int GREATER_OR_EQ = 37;
   /** RegularExpression Id. */
-  int AGGR_COUNT = 37;
+  int AGGR_COUNT = 38;
   /** RegularExpression Id. */
-  int AGGR_SUM = 38;
+  int AGGR_SUM = 39;
   /** RegularExpression Id. */
-  int AGGR_MAX = 39;
+  int AGGR_MAX = 40;
   /** RegularExpression Id. */
-  int AGGR_MIN = 40;
+  int AGGR_MIN = 41;
   /** RegularExpression Id. */
-  int UPPERLETTER = 41;
+  int UPPERLETTER = 42;
   /** RegularExpression Id. */
-  int LOWERLETTER = 42;
+  int LOWERLETTER = 43;
   /** RegularExpression Id. */
-  int AT = 43;
-  /** RegularExpression Id. */
-  int EOL = 44;
+  int AT = 44;
   /** RegularExpression Id. */
   int ANON_VAR = 45;
   /** RegularExpression Id. */
@@ -99,11 +97,12 @@ public interface ParserConstants {
     "<EOF>",
     "\" \"",
     "\"\\r\"",
+    "\"\\n\"",
     "\"\\t\"",
-    "<token of kind 4>",
+    "<token of kind 5>",
     "\"/%\"",
     "\"%/\"",
-    "<token of kind 7>",
+    "<token of kind 8>",
     "\"not\"",
     "<IDLOWER>",
     "<IDUPPER>",
@@ -140,7 +139,6 @@ public interface ParserConstants {
     "<UPPERLETTER>",
     "<LOWERLETTER>",
     "\"@\"",
-    "\"\\n\"",
     "\"_\"",
     "<ERROR_LEXICAL>",
   };

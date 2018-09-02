@@ -71,6 +71,7 @@ SKIP :
 {
     " "
 |   "\r"
+|   "\n"
 |   "\t"
 |   < "%" (~["\r", "\n"])* >
 |   < "/%" > : ML_COMMENT_STATE
@@ -91,7 +92,7 @@ TOKEN:
     < IDLOWER: <LOWERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 |   < IDUPPER: <UPPERLETTER> (<UPPERLETTER> | <LOWERLETTER> | <NUMBER> | "_")*>
 //|   < STRING: "\"" (["^\""]|"\"")* "\"">
-|   < STRING: "\""  (~["\n","\r"])*  "\"">
+|   < STRING: "\""  (~["\n","\r","\""])*  "\"">
 |   < NUMBER: (["0"-"9"])+ >
 |   < DOT: ".">
 |   < BODY_TERM_SEPARATOR: ",">
@@ -121,12 +122,10 @@ TOKEN:
 |   < AGGR_SUM: "#sum">
 |   < AGGR_MAX: "#max">
 |   < AGGR_MIN: "#min">
-//|   < COMMENT: "%.*$">
-//|   < MULTI_LINE_COMMENT: "/%.*%/">
 |   < UPPERLETTER : ["A"-"Z"]>
 |   < LOWERLETTER: ["a"-"z"]>
 |   < AT: "@">
-|   < EOL: "\n" >
+//|   < EOL: "\n" >
 |   < ANON_VAR:"_">
 }
 
@@ -141,18 +140,14 @@ ASPCore2Program parseOneLine()                :
 {/*@bgen(jjtree) Parse_one_line */
    try {
 /*@egen*/
-   LOOKAHEAD(2) aspProgram = program() [<EOL>]/*@bgen(jjtree)*/
-                                               {
-                                                 jjtree.closeNodeScope(jjtn000, true);
-                                                 jjtc000 = false;
-                                               }
-/*@egen*/ {return aspProgram;}
-  | <EOL>/*@bgen(jjtree)*/
-                        {
-                          jjtree.closeNodeScope(jjtn000, true);
-                          jjtc000 = false;
-                        }
-/*@egen*/               { return null; }
+
+   LOOKAHEAD(2) aspProgram = program()/*@bgen(jjtree)*/
+                                        {
+                                          jjtree.closeNodeScope(jjtn000, true);
+                                          jjtc000 = false;
+                                        }
+/*@egen*/  {return aspProgram;}
+  //| <EOL>               { return null; }
   | <EOF>/*@bgen(jjtree)*/
                         {
                           jjtree.closeNodeScope(jjtn000, true);
@@ -380,6 +375,7 @@ void weak_term()           :{/*@bgen(jjtree) Weak_Term */
     }
 /*@egen*/
 }
+
 void head()      :{/*@bgen(jjtree) Head */
   ASPCore2Head jjtn000 = new ASPCore2Head(JJTHEAD);
   boolean jjtc000 = true;
@@ -1292,6 +1288,7 @@ void expressions_term()                  :{/*@bgen(jjtree) Expressions_term */
     }
 /*@egen*/
 }
+
 void expression_term()                 :{/*@bgen(jjtree) Expression_term */
   ASPCore2Expression_term jjtn000 = new ASPCore2Expression_term(JJTEXPRESSION_TERM);
   boolean jjtc000 = true;
